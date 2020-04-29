@@ -1,22 +1,36 @@
-const getResource = async (url) => {
-	const res = await fetch(url);
+class SwapiService {
+	_apiBase = 'https://timra.ru/timra/wp-json/wp/v2';
 
-	if (!res.ok) {
-		// throw new Error(`Could not fetch ${url}` . `, received ${res.status}`);
-		throw new Error(`${res.status}`);
+	async getResource(url) {
+		const res = await fetch(`${this._apiBase}${url}`);
+		// if (!res.ok) {
+		// 	throw new Error(`${res.status}`);
+		// }
+		return await res.json();
 	}
 
-	const body = await res.json();
-	return body;
-};
+	getAllPosts() {
+		return this.getResource(`/posts/`);
+	}
 
-getResource(
-	'https://timra.ru/timra/wp-json/wp/v2/posts?_embed&per_page=6&page=1'
-)
-	.then((body) => {
-		console.log(body);
-	})
-	.catch((err) => {
-		console.error('Could not fetch', err);
+	getPost(id) {
+		return this.getResource(`/posts/${id}`);
+	}
+
+	getAllCategories() {
+		return this.getResource(`/categories/`);
+	}
+
+	getCategory(id) {
+		return this.getResource(`/categories/${id}`);
+	}
+}
+
+const swapi = new SwapiService();
+
+swapi.getAllPosts().then((posts) => {
+	// console.log(body);
+	posts.forEach((post) => {
+		console.log(post.title['rendered']);
 	});
-//{name: "Luke Skywalker", height: "172", mass: "77", hair_color: "blond", skin_color: "fair", …}
+});
