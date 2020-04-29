@@ -2,14 +2,17 @@ const getResource = async (url) => {
 	const res = await fetch(url);
 
 	if (!res.ok) {
-		throw new Error(`Could not fetch ${url}` + `, received ${res.status}`);
+		// throw new Error(`Could not fetch ${url}` . `, received ${res.status}`);
+		throw new Error(`${res.status}`);
 	}
 
 	const body = await res.json();
 	return body;
 };
 
-getResource('https://swapi.dev/api/people/1asdfasdfdas/')
+getResource(
+	'https://timra.ru/timra/wp-json/wp/v2/posts?_embed&per_page=6&page=1'
+)
 	.then((body) => {
 		console.log(body);
 	})
