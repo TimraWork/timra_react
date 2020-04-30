@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 const Header = () => {
 	return (
 		<header>
-			<Container maxWidth="sm">
+			<Container maxWidth="xl">
 				<div className="logo">Timra.ru</div>
 			</Container>
 		</header>
