@@ -1,36 +1,9 @@
-class SwapiService {
-	_apiBase = 'https://timra.ru/timra/wp-json/wp/v2';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-	async getResource(url) {
-		const res = await fetch(`${this._apiBase}${url}`);
-		// if (!res.ok) {
-		// 	throw new Error(`${res.status}`);
-		// }
-		return await res.json();
-	}
+import './assets/style/main.scss';
+import './assets/style/responsive.css';
 
-	getAllPosts() {
-		return this.getResource(`/posts/`);
-	}
+import App from './components/app';
 
-	getPost(id) {
-		return this.getResource(`/posts/${id}`);
-	}
-
-	getAllCategories() {
-		return this.getResource(`/categories/`);
-	}
-
-	getCategory(id) {
-		return this.getResource(`/categories/${id}`);
-	}
-}
-
-const swapi = new SwapiService();
-
-swapi.getAllPosts().then((posts) => {
-	// console.log(body);
-	posts.forEach((post) => {
-		console.log(post.title['rendered']);
-	});
-});
+ReactDOM.render(<App />, document.getElementById('root'));
