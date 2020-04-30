@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Header from '../components/header';
@@ -13,7 +12,6 @@ export default class App extends Component {
 			<div className="main">
 				<CssBaseline />
 				<Header />
-
 				<Footer />
 			</div>
 		);
