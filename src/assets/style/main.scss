@@ -58,6 +58,41 @@ footer {
 	}
 }
 
+.nav {
+	display: inline-flex;
+}
+
+.MuiSvgIcon-root,
+.MuiIconButton-label,
 .MuiButton-label {
 	color: $accent;
 }
+
+.MuiIconButton-root {
+	display: none !important;
+}
+
+.searchBox {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: rgba($accent, 0.2);
+	border-radius: 15px;
+	padding: 0 15px;
+	.searchIcon {
+		margin-right: 10px;
+	}
+	.MuiInputBase-input {
+		width: 70px;
+		transition: all 0.3s ease-in-out;
+		&:focus {
+			width: 140px;
+		}
+	}
+}
+
+.content {
+	padding: 40px 0;
+}
+
+@import './media';
