@@ -5,9 +5,14 @@
 	display: flex !important;
 	flex-direction: column;
 	min-height: 100vh;
-	font-family: 'Jura', sans-serif;
 	font-weight: normal;
 	background: #fff;
+	font-family: 'Jura', sans-serif;
+}
+
+.MuiButton-root,
+.copyright {
+	font-family: 'Jura', sans-serif;
 }
 
 header {
@@ -24,6 +29,7 @@ footer {
 
 .copyright {
 	text-align: center;
+	font-weight: bold;
 }
 // footer bottom BEGIN
 
@@ -68,6 +74,10 @@ footer {
 	color: $accent;
 }
 
+.Mui-selected {
+	background: $accent !important;
+}
+
 .MuiIconButton-root {
 	display: none !important;
 }
@@ -89,10 +99,21 @@ footer {
 			width: 140px;
 		}
 	}
+	.MuiSvgIcon-root {
+		vertical-align: bottom;
+	}
 }
 
 .content {
 	padding: 40px 0;
+}
+
+.MuiPagination-root {
+	text-align: center;
+	margin: 30px auto 30px;
+	.MuiPagination-ul {
+		justify-content: center;
+	}
 }
 
 @import './media';

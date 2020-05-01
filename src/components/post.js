@@ -22,13 +22,19 @@ export default function Post() {
 				<CardMedia
 					component="img"
 					height="140"
-					image="/static/logo.png"
+					image="https://timra.ru/timra/wp-content/uploads/2020/04/react_component.png"
 				/>
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="h2">
 						Lizard
 					</Typography>
-					<div className="date mb-4">September 14, 2016</div>
+					<Typography
+						variant="body2"
+						color="textSecondary"
+						component="p"
+					>
+						September 14, 2016
+					</Typography>
 					<Typography
 						variant="body2"
 						color="textSecondary"
