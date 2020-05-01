@@ -26,11 +26,11 @@ export default class SwapiService {
 	}
 }
 
-const swapi = new SwapiService();
+// const swapi = new SwapiService();
 
-swapi.getAllPosts().then((posts) => {
-	// console.log(body);
-	posts.forEach((post) => {
-		console.log(post.title['rendered']);
-	});
-});
+// swapi.getAllPosts().then((posts) => {
+// 	// console.log(body);
+// 	posts.forEach((post) => {
+// 		console.log(post.title['rendered']);
+// 	});
+// });
