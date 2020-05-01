@@ -7,6 +7,7 @@
 	min-height: 100vh;
 	font-family: 'Jura', sans-serif;
 	font-weight: normal;
+	background: #fff;
 }
 
 header {
@@ -55,4 +56,8 @@ footer {
 		line-height: 1;
 		display: block;
 	}
+}
+
+.MuiButton-label {
+	color: $accent;
 }
