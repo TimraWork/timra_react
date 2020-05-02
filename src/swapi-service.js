@@ -9,7 +9,7 @@ export default class SwapiService {
 		return await res.json();
 	}
 
-	getAllPosts() {
+	getPosts() {
 		return this.getResource(`/posts/`);
 	}
 
@@ -25,12 +25,3 @@ export default class SwapiService {
 		return this.getResource(`/categories/${id}`);
 	}
 }
-
-// const swapi = new SwapiService();
-
-// swapi.getAllPosts().then((posts) => {
-// 	// console.log(body);
-// 	posts.forEach((post) => {
-// 		console.log(post.title['rendered']);
-// 	});
-// });

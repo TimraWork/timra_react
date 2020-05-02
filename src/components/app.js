@@ -27,21 +27,6 @@ export default class App extends Component {
 									<Grid item xl={6} md={4}>
 										<Post />
 									</Grid>
-									<Grid item xl={6} md={4}>
-										<Post />
-									</Grid>
-									<Grid item xl={6} md={4}>
-										<Post />
-									</Grid>
-									<Grid item xl={6} md={4}>
-										<Post />
-									</Grid>
-									<Grid item xl={6} md={4}>
-										<Post />
-									</Grid>
-									<Grid item xl={6} md={4}>
-										<Post />
-									</Grid>
 								</Grid>
 							</Grid>
 							<Grid item xl={4} md={3}>
