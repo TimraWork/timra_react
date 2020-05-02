@@ -24,16 +24,15 @@ export default class Post extends Component {
 	}
 
 	updatePosts() {
-		this.SwapiService.getPost(1).then((post) => {
-			console.log(post);
+		this.SwapiService.getPost(9805).then((post) => {
 			this.setState({
 				title: post.title['rendered'],
-				date: post.date.slice(0, -9),
+				date: post.date.slice(0, -9).split('-'),
+				excerpt: post.excerpt['rendered'],
 			});
 		});
 	}
 
-	// state = {};
 	render() {
 		const { title, date, excerpt, img } = this.state;
 		return (
@@ -46,19 +45,24 @@ export default class Post extends Component {
 					/>
 					{img}
 					<CardContent>
-						<Typography gutterBottom variant="h5" component="h2">
-							{title}
-						</Typography>
+						<Typography
+							gutterBottom
+							variant="h5"
+							component="h2"
+							dangerouslySetInnerHTML={{ __html: title }}
+						></Typography>
 						<Typography variant="body2" color="textPrimary">
 							{date}
 						</Typography>
+						<div
+							className="af"
+							dangerouslySetInnerHTML={{ __html: excerpt }}
+						></div>
 						<Typography
 							variant="body2"
 							color="textSecondary"
-							component="p"
-						>
-							{excerpt}
-						</Typography>
+							component="div"
+						></Typography>
 					</CardContent>
 				</CardActionArea>
 			</Card>
