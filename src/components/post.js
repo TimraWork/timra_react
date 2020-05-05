@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 import Preloader from '../components/preloader';
+import Error from '../components/error';
 
 import SwapiService from '../swapi-service';
 
@@ -16,18 +17,29 @@ export default class Post extends Component {
 	state = {
 		post: {},
 		loading: true,
+		error: false,
 	};
 
 	onPostLoaded = (post) => {
 		this.setState({
 			post,
 			loading: false,
+			error: false,
+		});
+	};
+
+	onError = (err) => {
+		this.setState({
+			error: true,
+			loading: false,
 		});
 	};
 
 	updatePosts() {
-		const post_id = 9805;
-		this.SwapiService.getPost(post_id).then(this.onPostLoaded);
+		const post_id = 980005;
+		this.SwapiService.getPost(post_id)
+			.then(this.onPostLoaded)
+			.catch(this.onError);
 	}
 
 	constructor() {
@@ -36,14 +48,16 @@ export default class Post extends Component {
 	}
 
 	render() {
-		const { post, loading } = this.state;
+		const { post, loading, error } = this.state;
 
+		const error_bl = error ? <Error /> : null;
 		const preloader = loading ? <Preloader /> : null;
-		const content = !loading ? <PostView post={post} /> : null;
+		const content = !(loading || error) ? <PostView post={post} /> : null;
 
 		return (
 			<Card>
 				<CardActionArea>
+					{error_bl}
 					{preloader}
 					{content}
 				</CardActionArea>
