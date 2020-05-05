@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import Preloader from '../components/preloader';
+
 import SwapiService from '../swapi-service';
 
 export default class Post extends Component {
@@ -13,6 +15,7 @@ export default class Post extends Component {
 
 	state = {
 		post: {},
+		loading: true,
 	};
 
 	onBlaBla = (post) => {
@@ -21,7 +24,10 @@ export default class Post extends Component {
 
 	onPostLoaded = (post) => {
 		console.log(post);
-		this.setState({ post });
+		this.setState({
+			post,
+			loading: false,
+		});
 	};
 
 	updatePosts() {
@@ -37,7 +43,13 @@ export default class Post extends Component {
 	render() {
 		const {
 			post: { title, date, excerpt, img },
+			loading,
 		} = this.state;
+
+		if (loading) {
+			return <Preloader></Preloader>;
+		}
+
 		return (
 			<Card>
 				<CardActionArea>

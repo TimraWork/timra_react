@@ -8,7 +8,6 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import Post from '../components/post';
 import Pager from '../components/pagination';
-import Preloader from '../components/preloader';
 import Cat from '../components/cat.js';
 
 export default class App extends Component {
@@ -25,7 +24,6 @@ export default class App extends Component {
 							<Grid item xl={8} md={9}>
 								<Grid container spacing={3}>
 									<Grid item xl={6} md={4}>
-										<Preloader></Preloader>
 										<Post />
 									</Grid>
 								</Grid>
