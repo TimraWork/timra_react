@@ -12,29 +12,26 @@ export default class Post extends Component {
 	SwapiService = new SwapiService();
 
 	state = {
-		title: null,
-		date: null,
-		excerpt: null,
-		img: null,
+		post: {},
 	};
+
+	onPostLoaded = (post) => {
+		this.setState({ post });
+	};
+
+	updatePosts() {
+		this.SwapiService.getPost(9805).then(this.onPostLoaded);
+	}
 
 	constructor() {
 		super();
 		this.updatePosts();
 	}
 
-	updatePosts() {
-		this.SwapiService.getPost(9805).then((post) => {
-			this.setState({
-				title: post.title['rendered'],
-				date: post.date.slice(0, -9).split('-'),
-				excerpt: post.excerpt['rendered'],
-			});
-		});
-	}
-
 	render() {
-		const { title, date, excerpt, img } = this.state;
+		const {
+			post: { title, date, excerpt, img },
+		} = this.state;
 		return (
 			<Card>
 				<CardActionArea>
@@ -54,14 +51,11 @@ export default class Post extends Component {
 						<Typography variant="body2" color="textPrimary">
 							{date}
 						</Typography>
-						<div
-							className="af"
-							dangerouslySetInnerHTML={{ __html: excerpt }}
-						></div>
 						<Typography
 							variant="body2"
 							color="textSecondary"
-							component="div"
+							component="p"
+							dangerouslySetInnerHTML={{ __html: excerpt }}
 						></Typography>
 					</CardContent>
 				</CardActionArea>

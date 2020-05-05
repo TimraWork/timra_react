@@ -3,25 +3,40 @@ export default class SwapiService {
 
 	async getResource(url) {
 		const res = await fetch(`${this._apiBase}${url}`);
-		// if (!res.ok) {
-		// 	throw new Error(`${res.status}`);
-		// }
 		return await res.json();
 	}
 
-	getPosts() {
-		return this.getResource(`/posts/`);
+	// getCategories() {
+	// 	return this.getResource(`/categories/`);
+	// }
+
+	// getCategory(id) {
+	// 	return this.getResource(`/categories/${id}`);
+	// }
+
+	async getPosts() {
+		const posts = await this.getResource(`/posts/`);
+		return posts.results.map(this._transformPost);
 	}
 
-	getPost(id) {
-		return this.getResource(`/posts/${id}`);
+	async getPost(id) {
+		const post = await this.getResource(`/posts/${id}`);
+		return this._transformPost(post);
 	}
 
-	getAllCategories() {
-		return this.getResource(`/categories/`);
-	}
-
-	getCategory(id) {
-		return this.getResource(`/categories/${id}`);
+	_transformPost(post) {
+		const date_format = post.date
+			.slice(0, -9)
+			.split('-')
+			.reverse()
+			.join('/');
+		return {
+			title: post.title['rendered'],
+			date: date_format,
+			excerpt: post.excerpt['rendered'],
+		};
 	}
 }
+
+const swapi = new SwapiService();
+console.log(swapi);
