@@ -25,6 +25,7 @@ export default class App extends Component {
 							<Grid item xl={8} md={9}>
 								<Grid container spacing={3}>
 									<Grid item xl={6} md={4}>
+										<Preloader></Preloader>
 										<Post />
 									</Grid>
 								</Grid>
@@ -35,7 +36,6 @@ export default class App extends Component {
 								<Cat />
 							</Grid>
 						</Grid>
-						<Preloader></Preloader>
 
 						<Pager />
 					</div>

@@ -15,12 +15,18 @@ export default class Post extends Component {
 		post: {},
 	};
 
+	onBlaBla = (post) => {
+		console.log(post);
+	};
+
 	onPostLoaded = (post) => {
+		console.log(post);
 		this.setState({ post });
 	};
 
 	updatePosts() {
-		this.SwapiService.getPost(9805).then(this.onPostLoaded);
+		const post_id = 9805;
+		this.SwapiService.getPost(post_id).then(this.onPostLoaded);
 	}
 
 	constructor() {

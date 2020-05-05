@@ -37,6 +37,3 @@ export default class SwapiService {
 		};
 	}
 }
-
-const swapi = new SwapiService();
-console.log(swapi);
