@@ -2,8 +2,8 @@ import React from 'react';
 
 const Error = () => {
 	return (
-		<div class="error">
-			Произошла ошибка. Попробуйте обновить страницу.{' '}
+		<div className="error">
+			Произошла ошибка. <br /> Попробуйте обновить страницу.
 		</div>
 	);
 };

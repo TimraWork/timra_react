@@ -10,8 +10,12 @@ import Post from '../components/post';
 import Pager from '../components/pagination';
 import Cat from '../components/cat.js';
 
+import ToggleBtn from '../components/toggle_btn';
+
 export default class App extends Component {
-	state = {};
+	state = {
+		showPost: true,
+	};
 
 	render() {
 		return (
@@ -25,6 +29,7 @@ export default class App extends Component {
 								<Grid container spacing={3}>
 									<Grid item xl={6} md={4}>
 										<Post />
+										<ToggleBtn />
 									</Grid>
 								</Grid>
 							</Grid>

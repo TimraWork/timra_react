@@ -35,19 +35,26 @@ export default class Post extends Component {
 		});
 	};
 
-	updatePosts() {
+	updatePost() {
 		const post_id = 980005;
 		this.SwapiService.getPost(post_id)
 			.then(this.onPostLoaded)
 			.catch(this.onError);
+		console.log('updatePost()');
 	}
 
 	constructor() {
 		super();
-		this.updatePosts();
+		this.updatePost();
+		console.log('constructor()');
+	}
+
+	componentDidMount() {
+		console.log('componentDidMount()');
 	}
 
 	render() {
+		console.log('render()');
 		const { post, loading, error } = this.state;
 
 		const error_bl = error ? <Error /> : null;
