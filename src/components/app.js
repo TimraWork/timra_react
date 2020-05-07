@@ -9,12 +9,21 @@ import Footer from '../components/footer';
 import Post from '../components/post';
 import Pager from '../components/pagination';
 import Cat from '../components/cat.js';
+import Cats from '../components/cats.js';
 
 import ToggleBtn from '../components/toggle_btn';
 
 export default class App extends Component {
 	state = {
 		showPost: true,
+	};
+
+	onTogglePost = () => {
+		this.setState(({ showPost }) => {
+			return {
+				showPost: !showPost,
+			};
+		});
 	};
 
 	render() {
@@ -28,14 +37,15 @@ export default class App extends Component {
 							<Grid item xl={8} md={9}>
 								<Grid container spacing={3}>
 									<Grid item xl={6} md={4}>
-										<Post />
-										<ToggleBtn />
+										{this.state.showPost && <Post />}
+										<ToggleBtn
+											onTogglePost={this.onTogglePost}
+										/>
+										<Cats />
 									</Grid>
 								</Grid>
 							</Grid>
 							<Grid item xl={4} md={3}>
-								<Cat />
-								<Cat />
 								<Cat />
 							</Grid>
 						</Grid>

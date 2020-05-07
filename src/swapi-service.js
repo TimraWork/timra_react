@@ -16,15 +16,17 @@ export default class SwapiService {
 
 	async getPosts() {
 		const posts = await this.getResource(`/posts/`);
-		return posts.results.map(this._transformPost);
+		return posts.map(this._transformPost);
 	}
 
 	async getPost(id) {
 		const post = await this.getResource(`/posts/${id}`);
+		// console.log('post = ', post);
 		return this._transformPost(post);
 	}
 
-	_transformPost(post) {
+	_transformPost = (post) => {
+		// console.log(this);
 		const date_format = post.date
 			.slice(0, -9)
 			.split('-')
@@ -35,5 +37,5 @@ export default class SwapiService {
 			date: date_format,
 			excerpt: post.excerpt['rendered'],
 		};
-	}
+	};
 }
