@@ -5,101 +5,82 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
-import Preloader from '../components/preloader';
-import Error from '../components/error';
+import Grid from '@material-ui/core/Grid';
 
 import SwapiService from '../swapi-service';
+import Preloader from '../components/preloader';
 
-export default class Post extends Component {
+import withStyles from '@material-ui/core/styles/withStyles';
+
+const styles = {
+	fullHeightCard: {
+		height: '100%',
+	},
+};
+
+export default class Cats extends Component {
 	SwapiService = new SwapiService();
 
 	state = {
-		post: {},
-		loading: true,
-		error: false,
+		posts: null,
 	};
-
-	onPostLoaded = (post) => {
-		this.setState({
-			post,
-			loading: false,
-			error: false,
-		});
-	};
-
-	onError = (err) => {
-		this.setState({
-			error: true,
-			loading: false,
-		});
-	};
-
-	updatePost() {
-		const post_id = 9805;
-		this.SwapiService.getPost(post_id)
-			.then(this.onPostLoaded)
-			.catch(this.onError);
-		console.log('updatePost()');
-	}
 
 	componentDidMount() {
-		this.updatePost();
+		this.SwapiService.getPosts().then((posts) => {
+			this.setState({
+				posts,
+			});
+		});
 	}
 
-	componentWillUnmount() {
-		console.log('componentWillUnmount()');
+	renderCats(cats) {
+		const { classes } = this.props;
+		console.log(classes);
+
+		return cats.map(({ id, title, date, excerpt, img }) => {
+			return (
+				<Grid item xl={6} md={6} key={id}>
+					<Card
+						height="100%"
+						onClick={() => this.props.OnItemSelected(id)}
+					>
+						<CardActionArea>
+							<CardMedia
+								component="img"
+								height="130"
+								image={img}
+							/>
+							<CardContent>
+								{/* <Typography variant="body2" color="textPrimary">
+									{date}
+								</Typography> */}
+								<Typography
+									variant="body2"
+									color="textPrimary"
+									// gutterBottom
+									// variant="h6"
+									// component="h6"
+									dangerouslySetInnerHTML={{ __html: title }}
+								></Typography>
+							</CardContent>
+						</CardActionArea>
+					</Card>
+				</Grid>
+			);
+		});
 	}
 
 	render() {
-		console.log('render()');
-		const { post, loading, error } = this.state;
+		const { posts } = this.state;
 
-		const error_bl = error ? <Error /> : null;
-		const preloader = loading ? <Preloader /> : null;
-		const content = !(loading || error) ? <PostView post={post} /> : null;
-
+		if (!posts) {
+			return <Preloader></Preloader>;
+		}
+		const itemb = this.renderCats(posts);
 		return (
-			<Card>
-				<CardActionArea>
-					{error_bl}
-					{preloader}
-					{content}
-				</CardActionArea>
-			</Card>
+			<Grid container spacing={3}>
+				{itemb}
+			</Grid>
 		);
 	}
 }
-
-const PostView = (post) => {
-	const {
-		post: { title, date, excerpt },
-	} = post;
-
-	return (
-		<React.Fragment>
-			<CardMedia
-				component="img"
-				height="140"
-				image="https://timra.ru/timra/wp-content/uploads/2020/04/react_component.png"
-			/>
-			<CardContent>
-				<Typography
-					gutterBottom
-					variant="h5"
-					component="h2"
-					dangerouslySetInnerHTML={{ __html: title }}
-				></Typography>
-				<Typography variant="body2" color="textPrimary">
-					{date}
-				</Typography>
-				<Typography
-					variant="body2"
-					color="textSecondary"
-					component="p"
-					dangerouslySetInnerHTML={{ __html: excerpt }}
-				></Typography>
-			</CardContent>
-		</React.Fragment>
-	);
-};

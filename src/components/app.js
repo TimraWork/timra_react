@@ -6,16 +6,19 @@ import Grid from '@material-ui/core/Grid';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
-import Post from '../components/post';
 import Pager from '../components/pagination';
-import Cat from '../components/cat.js';
-import Cats from '../components/cats.js';
+// import ToggleBtn from '../components/toggle_btn';
 
-import ToggleBtn from '../components/toggle_btn';
+import Posts from '../components/posts';
+import Post from '../components/post';
+
+// import Cats from '../components/cats';
+import Cat from '../components/cat';
 
 export default class App extends Component {
 	state = {
 		showPost: true,
+		postId: null,
 	};
 
 	onTogglePost = () => {
@@ -26,6 +29,12 @@ export default class App extends Component {
 		});
 	};
 
+	onShowPost = () => {};
+
+	onItemSelected = (id) => {
+		console.log('del', id);
+	};
+
 	render() {
 		return (
 			<div className="main">
@@ -33,24 +42,20 @@ export default class App extends Component {
 				<Header />
 				<Container maxWidth="xl">
 					<div className="content">
+						<h2>Посты</h2>
 						<Grid container spacing={3}>
 							<Grid item xl={8} md={9}>
-								<Grid container spacing={3}>
-									<Grid item xl={6} md={4}>
-										{this.state.showPost && <Post />}
-										<ToggleBtn
-											onTogglePost={this.onTogglePost}
-										/>
-										<Cats />
-									</Grid>
-								</Grid>
+								{this.state.showPost && (
+									<Posts
+										OnItemSelected={this.onItemSelected}
+									/>
+								)}
+								<Pager />
 							</Grid>
 							<Grid item xl={4} md={3}>
-								<Cat />
+								<Post postId={this.state} />
 							</Grid>
 						</Grid>
-
-						<Pager />
 					</div>
 				</Container>
 				<Footer />

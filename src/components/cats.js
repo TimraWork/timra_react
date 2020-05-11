@@ -23,15 +23,14 @@ export default class Cats extends Component {
 	}
 
 	renderCats(cats) {
-		return cats.map((item) => {
+		return cats.map(({ id, title }) => {
 			return (
-				<li
+				<div
 					className="ITEMS"
-					key={item.id}
-					onClick={() => this.propsOnItemSelected(item.id)}
-				>
-					{item.title}
-				</li>
+					key={id}
+					onClick={() => this.propsOnItemSelected(id)}
+					dangerouslySetInnerHTML={{ __html: title }}
+				></div>
 			);
 		});
 	}
@@ -44,9 +43,9 @@ export default class Cats extends Component {
 		}
 		const itemb = this.renderCats(posts);
 		return (
-			<div className="cats_list">
-				<div className="cat_item">{itemb}</div>
-			</div>
+			<Grid container spacing={3}>
+				{itemb}
+			</Grid>
 		);
 		// const elements = item.map((el) => {
 		// 	return <button key={el.title}>{el.title}</button>;
