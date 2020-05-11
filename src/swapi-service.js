@@ -21,7 +21,6 @@ export default class SwapiService {
 
 	async getPost(id) {
 		const post = await this.getResource(`/posts/${id}`);
-		// console.log('post = ', post);
 		return this._transformPost(post);
 	}
 
@@ -33,6 +32,7 @@ export default class SwapiService {
 			.reverse()
 			.join('/');
 		return {
+			id: post.id,
 			title: post.title['rendered'],
 			date: date_format,
 			excerpt: post.excerpt['rendered'],
