@@ -6,14 +6,14 @@ export default class Cats extends Component {
 	SwapiService = new SwapiService();
 
 	state = {
-		cats: {},
-		loading: true,
-		error: false,
+		cats: null,
 	};
 
 	getCats = () => {
 		this.SwapiService.getPosts().then((post) => {
-			console.log(post);
+			this.setState({
+				cats: post,
+			});
 		});
 	};
 
@@ -21,12 +21,17 @@ export default class Cats extends Component {
 		this.getCats();
 	}
 
+	renderCats() {
+		return <li className="ITEMS">Категория1</li>;
+	}
+
 	render() {
+		console.log('Cats = ', this.state.cats);
+
+		const item = this.renderCats();
 		return (
 			<div className="cats_list">
-				<div className="cat_item">Категория1</div>
-				<div className="cat_item">Категория2</div>
-				<div className="cat_item">Категория3</div>
+				<div className="cat_item">{item}</div>
 			</div>
 		);
 	}
