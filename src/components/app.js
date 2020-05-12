@@ -32,7 +32,10 @@ export default class App extends Component {
 	onShowPost = () => {};
 
 	onItemSelected = (id) => {
-		console.log('del', id);
+		//console.log('del', id);
+		this.setState({
+			postId: id,
+		});
 	};
 
 	render() {
@@ -53,7 +56,7 @@ export default class App extends Component {
 								<Pager />
 							</Grid>
 							<Grid item xl={4} md={3}>
-								<Post postId={this.state} />
+								<Post postId={this.state.postId} />
 							</Grid>
 						</Grid>
 					</div>
