@@ -13,12 +13,12 @@ import Posts from '../components/posts';
 import Post from '../components/post';
 
 // import Cats from '../components/cats';
-import Cat from '../components/cat';
+// import Cat from '../components/cat';
 
 export default class App extends Component {
 	state = {
 		showPost: true,
-		postId: null,
+		postId: 1,
 	};
 
 	onTogglePost = () => {
