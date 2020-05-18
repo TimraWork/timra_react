@@ -36,9 +36,10 @@ export default class Post extends Component {
 	};
 
 	updatePost() {
-		// var swapi = this.SwapiService.getPost(post_id);
+		this.setState({
+			loading: true,
+		});
 		const { postId } = this.props;
-		//console.log('{this.props.postId} ==', postId);
 		if (!postId) {
 			return;
 		}
@@ -59,8 +60,6 @@ export default class Post extends Component {
 
 	render() {
 		const { post, loading, error } = this.state;
-
-		console.log('{this.props.postId} ==', this.props.postId);
 
 		const error_bl = error ? <Error /> : null;
 		const preloader = loading ? <Preloader /> : null;
