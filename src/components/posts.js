@@ -10,14 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import SwapiService from '../swapi-service';
 import Preloader from '../components/preloader';
 
-import withStyles from '@material-ui/core/styles/withStyles';
-
-const styles = {
-	fullHeightCard: {
-		height: '100%',
-	},
-};
-
 export default class Cats extends Component {
 	SwapiService = new SwapiService();
 
@@ -34,9 +26,6 @@ export default class Cats extends Component {
 	}
 
 	renderCats(cats) {
-		const { classes } = this.props;
-		console.log(classes);
-
 		return cats.map(({ id, title, date, excerpt, img }) => {
 			return (
 				<Grid item xl={6} md={6} key={id}>
