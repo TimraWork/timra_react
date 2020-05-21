@@ -29,7 +29,11 @@ export default class Items extends Component {
 	}
 
 	renderItems(items) {
-		return items.map(({ id, title, date, excerpt, img }) => {
+		return items.map((item) => {
+			const { id } = item;
+
+			const label = this.props.renderItem(item);
+
 			return (
 				<Grid item xl={6} md={6} key={id}>
 					<Card
@@ -37,22 +41,16 @@ export default class Items extends Component {
 						onClick={() => this.props.OnItemSelected(id)}
 					>
 						<CardActionArea>
-							<CardMedia
+							{/* <CardMedia
 								component="img"
 								height="130"
 								image={img}
-							/>
+							/> */}
 							<CardContent>
-								{/* <Typography variant="body2" color="textPrimary">
-									{date}
-								</Typography> */}
 								<Typography
 									variant="body2"
 									color="textPrimary"
-									// gutterBottom
-									// variant="h6"
-									// component="h6"
-									dangerouslySetInnerHTML={{ __html: title }}
+									dangerouslySetInnerHTML={{ __html: label }}
 								></Typography>
 							</CardContent>
 						</CardActionArea>

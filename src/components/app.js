@@ -56,6 +56,9 @@ export default class App extends Component {
 									<Posts
 										OnItemSelected={this.onItemSelected}
 										getData={this.swapiService.getPosts}
+										renderItem={({ title, date }) =>
+											`${title} <span class="date">(${date})</span>`
+										}
 									/>
 								)}
 								<Pager />
@@ -63,6 +66,7 @@ export default class App extends Component {
 									<Posts
 										OnItemSelected={this.onItemSelected}
 										getData={this.swapiService.getGists}
+										renderItem={(item) => item.title}
 									/>
 								)}
 								<Pager />
