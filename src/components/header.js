@@ -24,13 +24,14 @@ const Header = () => {
 					</a>
 
 					<nav className="nav">
-						{['Гисты', 'Работы', 'Блог', 'Обо мне', 'Контакты'].map(
-							(anchor) => (
-								<React.Fragment key={anchor}>
-									<Button>{anchor}</Button>
-								</React.Fragment>
-							)
-						)}
+						{[
+							'Гисты',
+							'Блог' /* 'Работы', 'Обо мне', 'Контакты' */,
+						].map((anchor) => (
+							<React.Fragment key={anchor}>
+								<Button>{anchor}</Button>
+							</React.Fragment>
+						))}
 					</nav>
 					<div className="searchBox">
 						<div className="searchIcon">

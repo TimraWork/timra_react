@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import SwapiService from '../swapi-service';
 import Preloader from '../components/preloader';
 
-export default class Cats extends Component {
+export default class Items extends Component {
 	SwapiService = new SwapiService();
 
 	state = {
@@ -18,15 +18,18 @@ export default class Cats extends Component {
 	};
 
 	componentDidMount() {
-		this.SwapiService.getPosts().then((posts) => {
-			this.setState({
-				posts,
+		const { getData } = this.props;
+
+		getData() // Функция Меняется
+			.then((posts) => {
+				this.setState({
+					posts,
+				});
 			});
-		});
 	}
 
-	renderCats(cats) {
-		return cats.map(({ id, title, date, excerpt, img }) => {
+	renderItems(items) {
+		return items.map(({ id, title, date, excerpt, img }) => {
 			return (
 				<Grid item xl={6} md={6} key={id}>
 					<Card
@@ -65,7 +68,7 @@ export default class Cats extends Component {
 		if (!posts) {
 			return <Preloader></Preloader>;
 		}
-		const itemb = this.renderCats(posts);
+		const itemb = this.renderItems(posts);
 		return (
 			<Grid container spacing={3}>
 				{itemb}

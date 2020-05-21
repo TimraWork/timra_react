@@ -12,10 +12,14 @@ import Pager from '../components/pagination';
 import Posts from '../components/posts';
 import Post from '../components/post';
 
+import SwapiService from '../swapi-service';
+
 // import Cats from '../components/cats';
 // import Cat from '../components/cat';
 
 export default class App extends Component {
+	swapiService = new SwapiService();
+
 	state = {
 		showPost: true,
 		postId: 1,
@@ -51,6 +55,14 @@ export default class App extends Component {
 								{this.state.showPost && (
 									<Posts
 										OnItemSelected={this.onItemSelected}
+										getData={this.swapiService.getPosts}
+									/>
+								)}
+								<Pager />
+								{this.state.showPost && (
+									<Posts
+										OnItemSelected={this.onItemSelected}
+										getData={this.swapiService.getGists}
 									/>
 								)}
 								<Pager />
