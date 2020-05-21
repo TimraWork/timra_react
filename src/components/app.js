@@ -17,6 +17,19 @@ import SwapiService from '../swapi-service';
 // import Cats from '../components/cats';
 // import Cat from '../components/cat';
 
+const Row = ({ left, right }) => {
+	return (
+		<Grid container spacing={3}>
+			<Grid item xl={8} md={9}>
+				{left}
+			</Grid>
+			<Grid item xl={4} md={3}>
+				{right}
+			</Grid>
+		</Grid>
+	);
+};
+
 export default class App extends Component {
 	swapiService = new SwapiService();
 
@@ -43,6 +56,25 @@ export default class App extends Component {
 	};
 
 	render() {
+		const postsList = (
+			<Posts
+				OnItemSelected={this.onItemSelected}
+				getData={this.swapiService.getPosts}
+				renderItem={({ title, date }) =>
+					`${title} <span class="date">(${date})</span>`
+				}
+			/>
+		);
+
+		const gistsList = (
+			<Posts
+				OnItemSelected={this.onItemSelected}
+				getData={this.swapiService.getGists}
+				renderItem={(item) => item.title}
+			/>
+		);
+
+		const postItem = <Post postId={this.state.postId} />;
 		return (
 			<div className="main">
 				<CssBaseline />
@@ -50,31 +82,14 @@ export default class App extends Component {
 				<Container maxWidth="xl">
 					<div className="content">
 						<h2>Посты</h2>
-						<Grid container spacing={3}>
-							<Grid item xl={8} md={9}>
-								{this.state.showPost && (
-									<Posts
-										OnItemSelected={this.onItemSelected}
-										getData={this.swapiService.getPosts}
-										renderItem={({ title, date }) =>
-											`${title} <span class="date">(${date})</span>`
-										}
-									/>
-								)}
-								<Pager />
-								{this.state.showPost && (
-									<Posts
-										OnItemSelected={this.onItemSelected}
-										getData={this.swapiService.getGists}
-										renderItem={(item) => item.title}
-									/>
-								)}
-								<Pager />
-							</Grid>
-							<Grid item xl={4} md={3}>
-								<Post postId={this.state.postId} />
-							</Grid>
-						</Grid>
+						<Row left={postsList} right={postItem}></Row>
+						<h2>Gists</h2>
+						<Row left={gistsList} right={postItem}></Row>
+						<Row
+							left={<p>Hello</p>}
+							right={<strong>WORLD</strong>}
+						></Row>
+						<Row left="Foo" right="Bar"></Row>
 					</div>
 				</Container>
 				<Footer />
