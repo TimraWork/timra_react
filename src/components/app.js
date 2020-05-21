@@ -57,13 +57,17 @@ export default class App extends Component {
 
 	render() {
 		const postsList = (
-			<Posts
-				OnItemSelected={this.onItemSelected}
-				getData={this.swapiService.getPosts}
-				renderItem={({ title, date }) =>
-					`${title} <span class="date">(${date})</span>`
-				}
-			/>
+			<div>
+				<Posts
+					OnItemSelected={this.onItemSelected}
+					getData={this.swapiService.getPosts}
+					renderItem={({ title, date }) =>
+						`${title} <span class="date">(${date})</span>`
+					}
+				/>
+
+				<Pager></Pager>
+			</div>
 		);
 
 		const gistsList = (

@@ -1,7 +1,7 @@
 export default class SwapiService {
 	_apiBase = 'https://timra.ru/timra/wp-json/wp/v2';
-	_apiGists =
-		'https://api.github.com/users/TimraWork/gists?page=1&per_page=100';
+	_apiGists = 'https://api.github.com/users/TimraWork/gists';
+	_apiGist = 'https://api.github.com/gists';
 
 	getResource = async (url, api) => {
 		api = api || this._apiBase;
@@ -20,10 +20,30 @@ export default class SwapiService {
 	};
 
 	getGists = async () => {
-		const gists = await this.getResource(``, `${this._apiGists}`);
+		const gists = await this.getResource(
+			`?page=1&per_page=10`,
+			`${this._apiGists}`
+		);
 		// var gist_ = gists.map(this._transformGist);
-		// console.log(gist_);
+		// console.log(gists);
 		return gists.map(this._transformGist);
+	};
+
+	getGist = async (id) => {
+		// const gist = await this.getResource(`/${id}`);
+		const gist = await this.getResource(
+			`/ec1847e392742252284241d3bbbda32f`,
+			`${this._apiGist}`
+		);
+		const files = Object.keys(gist.files);
+		for (let i = 0; i < files.length; i++) {
+			var fileName = files[i];
+			var date_files = gist.files[fileName].content;
+			console.log('gist =', date_files);
+			return date_files;
+		}
+
+		// return gist;
 	};
 
 	getPosts = async () => {
@@ -87,4 +107,4 @@ export default class SwapiService {
 
 const swapi = new SwapiService();
 
-swapi.getWorks();
+swapi.getGist();
