@@ -32,7 +32,7 @@ export default class Items extends Component {
 		return items.map((item) => {
 			const { id } = item;
 
-			const label = this.props.renderItem(item);
+			const label = this.props.children(item);
 
 			return (
 				<Grid item xl={6} md={6} key={id}>

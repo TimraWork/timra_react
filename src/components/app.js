@@ -12,10 +12,31 @@ import Pager from '../components/pagination';
 import Posts from '../components/posts';
 import Post from '../components/post';
 
+import ErrorIndicator from '../components/error-indicator/error-indicator';
+
 import SwapiService from '../swapi-service';
 
 // import Cats from '../components/cats';
 // import Cat from '../components/cat';
+
+class ErrorBoundry extends Component {
+	state = {
+		hasError: false,
+	};
+
+	componentDidCatch() {
+		this.setState({
+			hasError: true,
+		});
+	}
+
+	render() {
+		if (this.state.hasError) {
+			return <ErrorIndicator />;
+		}
+		return this.props.children;
+	}
+}
 
 const Row = ({ left, right }) => {
 	return (
@@ -61,10 +82,11 @@ export default class App extends Component {
 				<Posts
 					OnItemSelected={this.onItemSelected}
 					getData={this.swapiService.getPosts}
-					renderItem={({ title, date }) =>
-						`${title} <span class="date">(${date})</span>`
+				>
+					{(item) =>
+						`${item.title} <span class="date">(${item.date})</span>`
 					}
-				/>
+				</Posts>
 
 				<Pager></Pager>
 			</div>
@@ -74,8 +96,11 @@ export default class App extends Component {
 			<Posts
 				OnItemSelected={this.onItemSelected}
 				getData={this.swapiService.getGists}
-				renderItem={(item) => item.title}
-			/>
+			>
+				{(item) =>
+					`${item.title} <span class="date">(${item.date})</span>`
+				}
+			</Posts>
 		);
 
 		const postItem = <Post postId={this.state.postId} />;
@@ -86,9 +111,13 @@ export default class App extends Component {
 				<Container maxWidth="xl">
 					<div className="content">
 						<h2>Посты</h2>
-						<Row left={postsList} right={postItem}></Row>
+						<ErrorBoundry>
+							<Row left={postsList} right={postItem}></Row>
+						</ErrorBoundry>
 						<h2>Gists</h2>
-						<Row left={gistsList} right={postItem}></Row>
+						<ErrorBoundry>
+							<Row left={gistsList} right={postItem}></Row>
+						</ErrorBoundry>
 						<Row
 							left={<p>Hello</p>}
 							right={<strong>WORLD</strong>}
