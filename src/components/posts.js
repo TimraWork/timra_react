@@ -3,16 +3,13 @@ import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-import SwapiService from '../swapi-service';
 import Preloader from '../components/preloader';
 
 export default class Items extends Component {
-	SwapiService = new SwapiService();
-
 	state = {
 		posts: null,
 	};

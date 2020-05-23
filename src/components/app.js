@@ -13,11 +13,7 @@ import Posts from '../components/posts';
 import Post from '../components/post';
 
 import ErrorIndicator from '../components/error-indicator/error-indicator';
-
 import SwapiService from '../swapi-service';
-
-// import Cats from '../components/cats';
-// import Cat from '../components/cat';
 
 class ErrorBoundry extends Component {
 	state = {
@@ -57,6 +53,7 @@ export default class App extends Component {
 	state = {
 		showPost: true,
 		postId: 1,
+		gistId: 'e65d78cf4a641bfa6b5638d3fe71ef52',
 	};
 
 	onTogglePost = () => {
@@ -77,12 +74,11 @@ export default class App extends Component {
 	};
 
 	render() {
+		const { getPosts, getGists, getPost, getGist } = this.swapiService;
+
 		const postsList = (
 			<div>
-				<Posts
-					OnItemSelected={this.onItemSelected}
-					getData={this.swapiService.getPosts}
-				>
+				<Posts OnItemSelected={this.onItemSelected} getData={getPosts}>
 					{(item) =>
 						`${item.title} <span class="date">(${item.date})</span>`
 					}
@@ -93,17 +89,15 @@ export default class App extends Component {
 		);
 
 		const gistsList = (
-			<Posts
-				OnItemSelected={this.onItemSelected}
-				getData={this.swapiService.getGists}
-			>
-				{(item) =>
-					`${item.title} <span class="date">(${item.date})</span>`
-				}
+			<Posts OnItemSelected={this.onItemSelected} getData={getGists}>
+				{(item) => `${item.title}`}
 			</Posts>
 		);
 
-		const postItem = <Post postId={this.state.postId} />;
+		const postItem = <Post postId={this.state.postId} getData={getPost} />;
+
+		const gistItem = <Post postId={this.state.gistId} getData={getGist} />;
+
 		return (
 			<div className="main">
 				<CssBaseline />
@@ -116,7 +110,7 @@ export default class App extends Component {
 						</ErrorBoundry>
 						<h2>Gists</h2>
 						<ErrorBoundry>
-							<Row left={gistsList} right={postItem}></Row>
+							<Row left={gistsList} right={gistItem}></Row>
 						</ErrorBoundry>
 						<Row
 							left={<p>Hello</p>}

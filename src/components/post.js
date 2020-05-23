@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 import Preloader from '../components/preloader';
@@ -39,11 +39,11 @@ export default class Post extends Component {
 		this.setState({
 			loading: true,
 		});
-		const { postId } = this.props;
+		const { postId, getData } = this.props;
 		if (!postId) {
 			return;
 		}
-		this.SwapiService.getPost(postId)
+		getData(postId) // Функция Меняется
 			.then(this.onPostLoaded)
 			.catch(this.onError);
 	}
@@ -84,11 +84,11 @@ const PostView = (post) => {
 
 	return (
 		<React.Fragment>
-			<CardMedia
+			{/* <CardMedia
 				component="img"
 				height="140"
 				image="https://timra.ru/timra/wp-content/uploads/2020/04/react_component.png"
-			/>
+			/> */}
 			<CardContent>
 				<Typography
 					gutterBottom
@@ -102,9 +102,11 @@ const PostView = (post) => {
 				<Typography
 					variant="body2"
 					color="textSecondary"
-					component="p"
-					dangerouslySetInnerHTML={{ __html: excerpt }}
-				></Typography>
+					component="pre"
+					// dangerouslySetInnerHTML={{ __html: excerpt }}
+				>
+					{excerpt}
+				</Typography>
 			</CardContent>
 		</React.Fragment>
 	);

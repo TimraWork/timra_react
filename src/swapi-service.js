@@ -19,33 +19,6 @@ export default class SwapiService {
 		return await cats.map(this._transformCategory);
 	};
 
-	getGists = async () => {
-		const gists = await this.getResource(
-			`?page=1&per_page=10`,
-			`${this._apiGists}`
-		);
-		// var gist_ = gists.map(this._transformGist);
-		// console.log(gists);
-		return gists.map(this._transformGist);
-	};
-
-	getGist = async (id) => {
-		// const gist = await this.getResource(`/${id}`);
-		const gist = await this.getResource(
-			`/ec1847e392742252284241d3bbbda32f`,
-			`${this._apiGist}`
-		);
-		const files = Object.keys(gist.files);
-		for (let i = 0; i < files.length; i++) {
-			var fileName = files[i];
-			var date_files = gist.files[fileName].content;
-			console.log('gist =', date_files);
-			return date_files;
-		}
-
-		// return gist;
-	};
-
 	getPosts = async () => {
 		const posts = await this.getResource(`/posts?_embed&per_page=4&page=1`);
 		return posts.map(this._transformPost);
@@ -53,7 +26,6 @@ export default class SwapiService {
 
 	getPost = async (id) => {
 		const post = await this.getResource(`/posts/${id}`);
-		// console.log(post.title);
 		return this._transformPost(post);
 	};
 
@@ -65,9 +37,6 @@ export default class SwapiService {
 			date: work.works_date,
 			url: work.works_link,
 			img: work.works_img,
-			// title: work.name,
-			// slug: work.slug,
-			// img: work.acf.cat_img.url,
 		};
 	};
 
@@ -97,14 +66,47 @@ export default class SwapiService {
 		};
 	};
 
-	_transformGist = (gist) => {
+	getGist = async (id) => {
+		const gist = await this.getResource(`/${id}`, `${this._apiGist}`);
+		return this._transformGist(gist);
+	};
+
+	getGists = async () => {
+		const gists = await this.getResource(
+			`?page=1&per_page=3`,
+			`${this._apiGists}`
+		);
+		// var gist_ = gists.map(this._transformGist);
+		// console.log(gists);
+		return gists.map(this._transformGists);
+	};
+
+	_transformGists = (gist) => {
 		return {
 			id: gist.id,
 			title: gist.description,
 		};
 	};
+
+	_transformGist = (gist) => {
+		const files = Object.keys(gist.files);
+
+		for (let i = 0; i < files.length; i++) {
+			var fileName = files[i];
+			var date_files = gist.files[fileName].content;
+			var date_url = gist.url;
+			const regExp = /\/([0-9a-z]*)$/; // 1.сохраним в переменную регулярку
+			const id = date_url.match(regExp)[1];
+			console.log('date_files = ', i, date_files);
+			return {
+				id: id,
+				title: gist.description,
+				excerpt: date_files,
+			};
+		}
+	};
 }
 
-const swapi = new SwapiService();
+// const swapi = new SwapiService();
 
-swapi.getGist();
+// swapi.getGist('ec1847e392742252284241d3bbbda32f');
