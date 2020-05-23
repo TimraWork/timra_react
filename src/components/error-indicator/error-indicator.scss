@@ -1,0 +1,11 @@
+// Error BEGIN
+.error {
+	color: #999;
+	text-align: center;
+	margin: 50px 0;
+	font-size: 14px;
+	&__img {
+		max-height: 100px;
+	}
+}
+// Error END
