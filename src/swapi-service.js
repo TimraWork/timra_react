@@ -9,26 +9,11 @@ export default class SwapiService {
 		return await res.json();
 	};
 
+	// +++++++++++++++++++++ WORKS begin +++++++++++++++++++++
 	getWorks = async (id) => {
 		const works = await this.getResource(`/pages/9662`);
 		return works.acf.works.map(this._transformWork);
 	};
-
-	getCategories = async () => {
-		const cats = await this.getResource(`/categories?per_page=4&page=1`);
-		return await cats.map(this._transformCategory);
-	};
-
-	getPosts = async () => {
-		const posts = await this.getResource(`/posts?_embed&per_page=4&page=1`);
-		return posts.map(this._transformPost);
-	};
-
-	getPost = async (id) => {
-		const post = await this.getResource(`/posts/${id}`);
-		return this._transformPost(post);
-	};
-
 	_transformWork = (work) => {
 		const uuid = new Date().getTime().toString();
 		return {
@@ -39,7 +24,13 @@ export default class SwapiService {
 			img: work.works_img,
 		};
 	};
+	// +++++++++++++++++++++ WORKS end +++++++++++++++++++++
 
+	// +++++++++++++++++++++ CATEGORIES begin +++++++++++++++++++++
+	getCategories = async () => {
+		const cats = await this.getResource(`/categories?per_page=4&page=1`);
+		return await cats.map(this._transformCategory);
+	};
 	_transformCategory = (cat) => {
 		return {
 			id: cat.id,
@@ -49,26 +40,65 @@ export default class SwapiService {
 			img: 'http://timra.ru/timra/wp-content/uploads/2020/05/727.png',
 		};
 	};
+	// +++++++++++++++++++++ CATEGORIES end +++++++++++++++++++++
 
-	_transformPost = (post) => {
+	//  +++++++++++++++++++++ POST begin +++++++++++++++++++++
+	getPosts = async () => {
+		const posts = await this.getResource(`/posts?_embed&per_page=4&page=1`);
+		return posts.map(this._transformPosts);
+	};
+	_transformPosts = (post) => {
 		const date_format = post.date
 			.slice(0, -9)
 			.split('-')
 			.reverse()
-			.join('/');
-		// const img_url = post._embedded['wp:featuredmedia'][0]['source_url'];
+			.join('.');
+		const img_url = post._embedded['wp:featuredmedia'][0]['source_url'];
+		console.log(post._embedded['wp:featuredmedia'][0]['source_url']);
 		return {
 			id: post.id,
-			img: 'http://timra.ru/timra/wp-content/uploads/2020/05/727.png',
+			img:
+				img_url ||
+				'http://timra.ru/timra/wp-content/uploads/2020/05/727.png',
 			title: post.title['rendered'],
 			date: date_format,
 			excerpt: post.excerpt['rendered'],
 		};
 	};
+	getPost = async (id) => {
+		const post = await this.getResource(`/posts/${id}`);
+		return this._transformPost(post);
+	};
+	_transformPost = (post) => {
+		return {
+			id: post.id,
+			title: post.title['rendered'],
+			excerpt: post.excerpt['rendered'],
+		};
+	};
+	//  +++++++++++++++++++++ POST end +++++++++++++++++++++
 
+	// +++++++++++++++++++++ GISTS begin +++++++++++++++++++++
 	getGist = async (id) => {
 		const gist = await this.getResource(`/${id}`, `${this._apiGist}`);
 		return this._transformGist(gist);
+	};
+	_transformGist = (gist) => {
+		const files = Object.keys(gist.files);
+
+		for (let i = 0; i < files.length; i++) {
+			var fileName = files[i];
+			var date_files = gist.files[fileName].content;
+			var date_url = gist.url;
+			const regExp = /\/([0-9a-z]*)$/;
+			const id = date_url.match(regExp)[1];
+			console.log('date_files = ', i, date_files);
+			return {
+				id: id,
+				title: gist.description,
+				excerpt: date_files,
+			};
+		}
 	};
 
 	getGists = async () => {
@@ -80,33 +110,14 @@ export default class SwapiService {
 		// console.log(gists);
 		return gists.map(this._transformGists);
 	};
-
 	_transformGists = (gist) => {
 		return {
 			id: gist.id,
 			title: gist.description,
 		};
 	};
-
-	_transformGist = (gist) => {
-		const files = Object.keys(gist.files);
-
-		for (let i = 0; i < files.length; i++) {
-			var fileName = files[i];
-			var date_files = gist.files[fileName].content;
-			var date_url = gist.url;
-			const regExp = /\/([0-9a-z]*)$/; // 1.сохраним в переменную регулярку
-			const id = date_url.match(regExp)[1];
-			console.log('date_files = ', i, date_files);
-			return {
-				id: id,
-				title: gist.description,
-				excerpt: date_files,
-			};
-		}
-	};
+	// +++++++++++++++++++++ GISTS end +++++++++++++++++++++
 }
 
 // const swapi = new SwapiService();
-
 // swapi.getGist('ec1847e392742252284241d3bbbda32f');

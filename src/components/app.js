@@ -37,10 +37,10 @@ class ErrorBoundry extends Component {
 const Row = ({ left, right }) => {
 	return (
 		<Grid container spacing={3}>
-			<Grid item xl={8} md={9}>
+			<Grid item xl={6} md={6}>
 				{left}
 			</Grid>
-			<Grid item xl={4} md={3}>
+			<Grid item xl={6} md={6}>
 				{right}
 			</Grid>
 		</Grid>
@@ -84,7 +84,7 @@ export default class App extends Component {
 					}
 				</Posts>
 
-				<Pager></Pager>
+				{/* <Pager></Pager> */}
 			</div>
 		);
 
@@ -108,15 +108,14 @@ export default class App extends Component {
 						<ErrorBoundry>
 							<Row left={postsList} right={postItem}></Row>
 						</ErrorBoundry>
-						<h2>Gists</h2>
+						{/* <h2>Gists</h2>
 						<ErrorBoundry>
 							<Row left={gistsList} right={gistItem}></Row>
 						</ErrorBoundry>
-						<Row
-							left={<p>Hello</p>}
-							right={<strong>WORLD</strong>}
-						></Row>
-						<Row left="Foo" right="Bar"></Row>
+						<h2>Работы</h2>
+						<ErrorBoundry>
+							<Row left={worksList} right={gistItem}></Row>
+						</ErrorBoundry> */}
 					</div>
 				</Container>
 				<Footer />
