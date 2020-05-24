@@ -8,6 +8,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import Pager from '../components/pagination';
 // import ToggleBtn from '../components/toggle_btn';
+import CardMedia from '@material-ui/core/CardMedia';
 
 import Posts from '../components/posts';
 import Post from '../components/post';
@@ -70,17 +71,25 @@ export default class App extends Component {
 		//console.log('del', id);
 		this.setState({
 			postId: id,
+			gistId: id,
 		});
 	};
 
 	render() {
-		const { getPosts, getGists, getPost, getGist } = this.swapiService;
+		const {
+			getPosts,
+			getGists,
+			getPost,
+			getGist,
+			getCats,
+			getWorks,
+		} = this.swapiService;
 
 		const postsList = (
 			<div>
 				<Posts OnItemSelected={this.onItemSelected} getData={getPosts}>
 					{(item) =>
-						`${item.title} <span class="date">(${item.date})</span>`
+						`<img src="${item.img}" style="max-height: 100px;" alt=""/> <div>${item.title}</div> <span class="date">(${item.date})</span>`
 					}
 				</Posts>
 
@@ -91,6 +100,22 @@ export default class App extends Component {
 		const gistsList = (
 			<Posts OnItemSelected={this.onItemSelected} getData={getGists}>
 				{(item) => `${item.title}`}
+			</Posts>
+		);
+
+		const worksList = (
+			<Posts getData={getWorks}>
+				{(item) =>
+					`<img src="${item.img}" style="max-height: 100px;" alt=""/> <div>${item.title}</div>`
+				}
+			</Posts>
+		);
+
+		const catsList = (
+			<Posts getData={getCats}>
+				{(item) =>
+					`<img src="${item.img}" style="max-height: 100px;" alt=""/> <div>${item.title}</div>`
+				}
 			</Posts>
 		);
 
@@ -108,14 +133,17 @@ export default class App extends Component {
 						<ErrorBoundry>
 							<Row left={postsList} right={postItem}></Row>
 						</ErrorBoundry>
-						{/* <h2>Gists</h2>
+						<br />
+						<h2>Gists</h2>
 						<ErrorBoundry>
 							<Row left={gistsList} right={gistItem}></Row>
 						</ErrorBoundry>
+						<br />
+						<br />
 						<h2>Работы</h2>
 						<ErrorBoundry>
-							<Row left={worksList} right={gistItem}></Row>
-						</ErrorBoundry> */}
+							<Row left={worksList} right={catsList}></Row>
+						</ErrorBoundry>
 					</div>
 				</Container>
 				<Footer />

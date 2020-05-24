@@ -9,39 +9,6 @@ export default class SwapiService {
 		return await res.json();
 	};
 
-	// +++++++++++++++++++++ WORKS begin +++++++++++++++++++++
-	getWorks = async (id) => {
-		const works = await this.getResource(`/pages/9662`);
-		return works.acf.works.map(this._transformWork);
-	};
-	_transformWork = (work) => {
-		const uuid = new Date().getTime().toString();
-		return {
-			id: uuid,
-			title: work.works_name,
-			date: work.works_date,
-			url: work.works_link,
-			img: work.works_img,
-		};
-	};
-	// +++++++++++++++++++++ WORKS end +++++++++++++++++++++
-
-	// +++++++++++++++++++++ CATEGORIES begin +++++++++++++++++++++
-	getCategories = async () => {
-		const cats = await this.getResource(`/categories?per_page=4&page=1`);
-		return await cats.map(this._transformCategory);
-	};
-	_transformCategory = (cat) => {
-		return {
-			id: cat.id,
-			title: cat.name,
-			slug: cat.slug,
-			// img: cat.acf.cat_img.url,
-			img: 'http://timra.ru/timra/wp-content/uploads/2020/05/727.png',
-		};
-	};
-	// +++++++++++++++++++++ CATEGORIES end +++++++++++++++++++++
-
 	//  +++++++++++++++++++++ POST begin +++++++++++++++++++++
 	getPosts = async () => {
 		const posts = await this.getResource(`/posts?_embed&per_page=4&page=1`);
@@ -54,7 +21,7 @@ export default class SwapiService {
 			.reverse()
 			.join('.');
 		const img_url = post._embedded['wp:featuredmedia'][0]['source_url'];
-		console.log(post._embedded['wp:featuredmedia'][0]['source_url']);
+		// console.log(post._embedded['wp:featuredmedia'][0]['source_url']);
 		return {
 			id: post.id,
 			img:
@@ -67,16 +34,51 @@ export default class SwapiService {
 	};
 	getPost = async (id) => {
 		const post = await this.getResource(`/posts/${id}`);
+		console.log(post);
 		return this._transformPost(post);
 	};
 	_transformPost = (post) => {
 		return {
 			id: post.id,
 			title: post.title['rendered'],
-			excerpt: post.excerpt['rendered'],
+			excerpt: post.content['rendered'],
 		};
 	};
 	//  +++++++++++++++++++++ POST end +++++++++++++++++++++
+
+	// +++++++++++++++++++++ WORKS begin +++++++++++++++++++++
+	getWorks = async (id) => {
+		const works = await this.getResource(`/pages/9662`);
+		return works.acf.works.map(this._transformWork);
+	};
+	_transformWork = (work) => {
+		const uuid = new Date().getTime().toString();
+		console.log(work.works_img);
+		return {
+			id: work.works_name + uuid,
+			title: work.works_name,
+			date: work.works_date,
+			url: work.works_link,
+			img: work.works_img.url,
+		};
+	};
+	// +++++++++++++++++++++ WORKS end +++++++++++++++++++++
+
+	// +++++++++++++++++++++ CATEGORIES begin +++++++++++++++++++++
+	getCats = async () => {
+		const cats = await this.getResource(`/categories?per_page=12&page=1`);
+		return await cats.map(this._transformCategory);
+	};
+	_transformCategory = (cat) => {
+		return {
+			id: cat.id,
+			title: cat.name,
+			slug: cat.slug,
+			// img: cat.acf.cat_img.url,
+			img: 'http://timra.ru/timra/wp-content/uploads/2020/05/727.png',
+		};
+	};
+	// +++++++++++++++++++++ CATEGORIES end +++++++++++++++++++++
 
 	// +++++++++++++++++++++ GISTS begin +++++++++++++++++++++
 	getGist = async (id) => {
@@ -92,7 +94,7 @@ export default class SwapiService {
 			var date_url = gist.url;
 			const regExp = /\/([0-9a-z]*)$/;
 			const id = date_url.match(regExp)[1];
-			console.log('date_files = ', i, date_files);
+			// console.log('date_files = ', i, date_files);
 			return {
 				id: id,
 				title: gist.description,
@@ -103,7 +105,7 @@ export default class SwapiService {
 
 	getGists = async () => {
 		const gists = await this.getResource(
-			`?page=1&per_page=3`,
+			`?page=1&per_page=4`,
 			`${this._apiGists}`
 		);
 		// var gist_ = gists.map(this._transformGist);
