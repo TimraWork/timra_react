@@ -35,7 +35,7 @@ export default class Items extends Component {
 				<Grid item xl={6} md={6} key={id}>
 					<Card
 						height="100%"
-						onClick={() => this.props.OnItemSelected(id)}
+						// onClick={() => this.props.OnItemSelected(id)}
 					>
 						<CardActionArea>
 							{/* <CardMedia
