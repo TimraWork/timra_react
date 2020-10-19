@@ -39,7 +39,9 @@ export default class Post extends Component {
 		this.setState({
 			loading: true,
 		});
+		
 		const { postId, getData } = this.props;
+
 		if (!postId) {
 			return;
 		}
@@ -90,6 +92,7 @@ const PostView = (post) => {
 				image="https://timra.ru/timra/wp-content/uploads/2020/04/react_component.png"
 			/> */}
 			<CardContent>
+				<h1>Post</h1>
 				<Typography
 					gutterBottom
 					variant="h5"

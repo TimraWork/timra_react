@@ -77,11 +77,11 @@ footer {
 	display: inline-flex;
 }
 
-.MuiSvgIcon-root,
-.MuiIconButton-label,
-.MuiButton-label {
-	color: $accent;
-}
+// .MuiSvgIcon-root,
+// .MuiIconButton-label,
+// .MuiButton-label {
+// 	color: $accent;
+// }
 
 .MuiCardActionArea-root {
 	transition: all 0.3s ease-in-out;
@@ -122,7 +122,7 @@ footer {
 }
 
 .error {
-	color: #999;
+	color: #f48fb1;
 }
 
 .content {

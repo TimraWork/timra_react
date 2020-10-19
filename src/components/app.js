@@ -6,9 +6,9 @@ import Grid from '@material-ui/core/Grid';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
-import Pager from '../components/pagination';
+// import Pager from '../components/pagination';
 // import ToggleBtn from '../components/toggle_btn';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 
 import Posts from '../components/posts';
 import Post from '../components/post';
@@ -77,12 +77,15 @@ export default class App extends Component {
 
 	render() {
 		const {
-			getPosts,
-			getGists,
-			getPost,
 			getGist,
+			getGists,
+
+			getPost,
+			getPosts,
+
 			getCats,
-			getWorks,
+			getWorks
+			
 		} = this.swapiService;
 
 		const postsList = (

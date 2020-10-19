@@ -1,10 +1,15 @@
 import React from 'react';
 
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
+
+
 const Error = () => {
 	return (
-		<div className="error">
-			Произошла ошибка. <br /> Попробуйте обновить страницу.
-		</div>
+		<Alert severity="error">
+			<AlertTitle><strong>Произошла ошибка</strong></AlertTitle>
+			Перезагрузитесь или попробуйте зайти позже
+		</Alert>
 	);
 };
 

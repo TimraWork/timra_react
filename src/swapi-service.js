@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export default class SwapiService {
 	_apiBase = 'https://timra.ru/timra/wp-json/wp/v2';
 	_apiGists = 'https://api.github.com/users/TimraWork/gists';
@@ -14,6 +16,7 @@ export default class SwapiService {
 		const posts = await this.getResource(`/posts?_embed&per_page=4&page=1`);
 		return posts.map(this._transformPosts);
 	};
+
 	_transformPosts = (post) => {
 		const date_format = post.date
 			.slice(0, -9)
@@ -32,11 +35,12 @@ export default class SwapiService {
 			excerpt: post.excerpt['rendered'],
 		};
 	};
+
 	getPost = async (id) => {
 		const post = await this.getResource(`/posts/${id}`);
-		console.log(post);
 		return this._transformPost(post);
 	};
+
 	_transformPost = (post) => {
 		return {
 			id: post.id,
@@ -52,10 +56,9 @@ export default class SwapiService {
 		return works.acf.works.map(this._transformWork);
 	};
 	_transformWork = (work) => {
-		const uuid = new Date().getTime().toString();
-		console.log(work.works_img);
+		// console.log(work.works_img);
 		return {
-			id: work.works_name + uuid,
+			id: uuidv4(),
 			title: work.works_name,
 			date: work.works_date,
 			url: work.works_link,
@@ -94,7 +97,6 @@ export default class SwapiService {
 			var date_url = gist.url;
 			const regExp = /\/([0-9a-z]*)$/;
 			const id = date_url.match(regExp)[1];
-			// console.log('date_files = ', i, date_files);
 			return {
 				id: id,
 				title: gist.description,
@@ -108,18 +110,15 @@ export default class SwapiService {
 			`?page=1&per_page=4`,
 			`${this._apiGists}`
 		);
-		// var gist_ = gists.map(this._transformGist);
-		// console.log(gists);
+
 		return gists.map(this._transformGists);
 	};
+
 	_transformGists = (gist) => {
 		return {
 			id: gist.id,
 			title: gist.description,
 		};
 	};
-	// +++++++++++++++++++++ GISTS end +++++++++++++++++++++
 }
 
-// const swapi = new SwapiService();
-// swapi.getGist('ec1847e392742252284241d3bbbda32f');

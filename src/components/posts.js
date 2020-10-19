@@ -8,10 +8,20 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import Preloader from '../components/preloader';
+import Error from '../components/error';
 
 export default class Items extends Component {
 	state = {
 		posts: null,
+		loading: true,
+		error: false
+	};
+
+	onError = (err) => {
+		this.setState({
+			error: true,
+			loading: false,
+		});
 	};
 
 	componentDidMount() {
@@ -19,15 +29,23 @@ export default class Items extends Component {
 
 		getData() // Функция Меняется
 			.then((posts) => {
+
 				this.setState({
 					posts,
+					loading: false,
+					error: false
 				});
-			});
+			})
+			.catch(this.onError);
 	}
 
 	renderItems(items) {
 		return items.map((item) => {
+			// key={post.id}
+
 			const { id } = item;
+
+			console.log(id);
 
 			const label = this.props.children(item);
 
@@ -58,16 +76,20 @@ export default class Items extends Component {
 	}
 
 	render() {
-		const { posts } = this.state;
+		const { posts, loading, error } = this.state;
 
-		if (!posts) {
-			return <Preloader></Preloader>;
-		}
-		const itemb = this.renderItems(posts);
+		const error_bl = error ? <Error /> : null;
+		const preloader = loading ? <Preloader /> : null;
+		const content = !(loading || error) ? this.renderItems(posts) : [];
+
 		return (
-			<Grid container spacing={3}>
-				{itemb}
-			</Grid>
+			<React.Fragment>
+				{error_bl}
+				{preloader}
+				<Grid container spacing={3}>
+					{content}
+				</Grid>
+			</React.Fragment>
 		);
 	}
 }
