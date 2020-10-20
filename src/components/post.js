@@ -10,6 +10,7 @@ import Preloader from '../components/preloader';
 import Error from '../components/error';
 
 import SwapiService from '../swapi-service';
+import Info from './info';
 
 export default class Post extends Component {
 	SwapiService = new SwapiService();
@@ -28,7 +29,7 @@ export default class Post extends Component {
 		});
 	};
 
-	onError = (err) => {
+	onError = () => {
 		this.setState({
 			error: true,
 			loading: false,
@@ -64,12 +65,14 @@ export default class Post extends Component {
 		const { post, loading, error } = this.state;
 
 		const error_bl = error ? <Error /> : null;
-		const preloader = loading ? <Preloader /> : null;
+		const alert_bl = !post ? <Info /> : null;
+		const preloader =  (post && loading) ? <Preloader /> : null;
 		const content = !(loading || error) ? <PostView post={post} /> : null;
 
 		return (
 			<Card>
 				<CardActionArea>
+					{alert_bl}
 					{error_bl}
 					{preloader}
 					{content}
@@ -81,23 +84,22 @@ export default class Post extends Component {
 
 const PostView = (post) => {
 	const {
-		post: { title, date, excerpt },
+		post: { id, title, date, excerpt },
 	} = post;
 
 	return (
-		<React.Fragment>
+		<React.Fragment >
 			{/* <CardMedia
 				component="img"
 				height="140"
 				image="https://timra.ru/timra/wp-content/uploads/2020/04/react_component.png"
 			/> */}
 			<CardContent>
-				<h1>Post</h1>
 				<Typography
 					gutterBottom
 					variant="h5"
 					component="h2"
-					dangerouslySetInnerHTML={{ __html: title }}
+					dangerouslySetInnerHTML={{ __html: title + id }}
 				></Typography>
 				<Typography variant="body2" color="textPrimary">
 					{date}

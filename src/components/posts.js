@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import Preloader from '../components/preloader';
 import Error from '../components/error';
+import PostsItem from '../components/posts-item';
 
 export default class Items extends Component {
 	state = {
@@ -27,7 +23,7 @@ export default class Items extends Component {
 	componentDidMount() {
 		const { getData } = this.props;
 
-		getData() // Функция Меняется
+		getData()
 			.then((posts) => {
 
 				this.setState({
@@ -41,35 +37,15 @@ export default class Items extends Component {
 
 	renderItems(items) {
 		return items.map((item) => {
-			// key={post.id}
-
 			const { id } = item;
-
-			console.log(id);
-
+			const { onPostClicked } = this.props;
 			const label = this.props.children(item);
 
 			return (
 				<Grid item xl={6} md={6} key={id}>
-					<Card
-						height="100%"
-						// onClick={() => this.props.OnItemSelected(id)}
-					>
-						<CardActionArea>
-							{/* <CardMedia
-								component="img"
-								height="130"
-								image={img}
-							/> */}
-							<CardContent>
-								<Typography
-									variant="body2"
-									color="textPrimary"
-									dangerouslySetInnerHTML={{ __html: label }}
-								></Typography>
-							</CardContent>
-						</CardActionArea>
-					</Card>
+					<PostsItem label = {label} id = {id} 
+						onPostClicked = {() => onPostClicked(id)}
+					/>
 				</Grid>
 			);
 		});
@@ -80,7 +56,7 @@ export default class Items extends Component {
 
 		const error_bl = error ? <Error /> : null;
 		const preloader = loading ? <Preloader /> : null;
-		const content = !(loading || error) ? this.renderItems(posts) : [];
+		const content = !(loading || error) ? this.renderItems(posts) : null;
 
 		return (
 			<React.Fragment>

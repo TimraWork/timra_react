@@ -53,25 +53,14 @@ export default class App extends Component {
 
 	state = {
 		showPost: true,
-		postId: 1,
+		selectedPostId: 1,
 		gistId: 'e65d78cf4a641bfa6b5638d3fe71ef52',
 	};
 
-	onTogglePost = () => {
-		this.setState(({ showPost }) => {
-			return {
-				showPost: !showPost,
-			};
-		});
-	};
-
-	onShowPost = () => {};
-
-	onItemSelected = (id) => {
-		//console.log('del', id);
+	onPostClicked = (id) => {
+		console.log('selected', id);
 		this.setState({
-			postId: id,
-			gistId: id,
+			selectedPostId: id
 		});
 	};
 
@@ -90,9 +79,12 @@ export default class App extends Component {
 
 		const postsList = (
 			<div>
-				<Posts OnItemSelected={this.onItemSelected} getData={getPosts}>
+				{/* <Posts getData={getPosts}  onTogglePost={this.onTogglePost} > */}
+				<Posts getData={getPosts}  onPostClicked={this.onPostClicked} >
 					{(item) =>
-						`<img src="${item.img}" style="max-height: 100px;" alt=""/> <div>${item.title}</div> <span class="date">(${item.date})</span>`
+						`<img src="${item.img}" style="max-height: 100px;" alt=""/> 
+						<div>${item.title}</div> 
+						<span class="date">(${item.date})</span>`
 					}
 				</Posts>
 
@@ -122,7 +114,7 @@ export default class App extends Component {
 			</Posts>
 		);
 
-		const postItem = <Post postId={this.state.postId} getData={getPost} />;
+		const postItem = <Post postId={this.state.selectedPostId} getData={getPost} />;
 
 		const gistItem = <Post postId={this.state.gistId} getData={getGist} />;
 
