@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Container, CssBaseline, ThemeProvider, Chip } from '@material-ui/core';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
-// import Pager from '../components/pagination';
-// import ToggleBtn from '../components/toggle_btn';
-// import CardMedia from '@material-ui/core/CardMedia';
+import Pager from '../components/pagination';
 
 import Posts from '../components/posts';
 import Post from '../components/post';
 
 import ErrorIndicator from '../components/error-indicator/error-indicator';
 import SwapiService from '../swapi-service';
+import { theme } from '../theme';
 
 class ErrorBoundry extends Component {
 	state = {
@@ -35,11 +32,39 @@ class ErrorBoundry extends Component {
 	}
 }
 
-const Row = ({ left, right }) => {
+const Row = ({ left, right, full, filter }) => {
+	if(full){
+		return(
+			<Grid container>
+				{full}
+			</Grid>
+		);
+	}
+	if(filter){
+		return(
+			<React.Fragment >
+				<Grid container spacing={3}>
+					<Grid item xl={6} md={12}>
+						<Grid
+							container
+							justify="center"
+							style={{ minHeight: '6vh' }}
+						>
+							<Chip color="primary" label="Все работы"/>
+							<Chip label="Wordpress" />
+							<Chip label="Frontend" onClick={()=>alert(`click`)}/>
+						</Grid>
+						{left}
+					</Grid>
+				</Grid>
+			</React.Fragment>
+		);
+	}
 	return (
 		<Grid container spacing={3}>
 			<Grid item xl={6} md={6}>
 				{left}
+				<Pager></Pager>
 			</Grid>
 			<Grid item xl={6} md={6}>
 				{right}
@@ -55,10 +80,10 @@ export default class App extends Component {
 		showPost: true,
 		selectedPostId: 1,
 		gistId: 'e65d78cf4a641bfa6b5638d3fe71ef52',
+		aboutId: '10618',
 	};
 
 	onPostClicked = (id) => {
-		console.log('selected', id);
 		this.setState({
 			selectedPostId: id
 		});
@@ -72,6 +97,8 @@ export default class App extends Component {
 			getPost,
 			getPosts,
 
+			getPage,
+
 			getCats,
 			getWorks
 			
@@ -79,7 +106,6 @@ export default class App extends Component {
 
 		const postsList = (
 			<div>
-				{/* <Posts getData={getPosts}  onTogglePost={this.onTogglePost} > */}
 				<Posts getData={getPosts}  onPostClicked={this.onPostClicked} >
 					{(item) =>
 						`<img src="${item.img}" style="max-height: 100px;" alt=""/> 
@@ -88,12 +114,12 @@ export default class App extends Component {
 					}
 				</Posts>
 
-				{/* <Pager></Pager> */}
+				
 			</div>
 		);
 
 		const gistsList = (
-			<Posts OnItemSelected={this.onItemSelected} getData={getGists}>
+			<Posts onPostClicked={this.onPostClicked} getData={getGists}>
 				{(item) => `${item.title}`}
 			</Posts>
 		);
@@ -101,7 +127,9 @@ export default class App extends Component {
 		const worksList = (
 			<Posts getData={getWorks}>
 				{(item) =>
-					`<img src="${item.img}" style="max-height: 100px;" alt=""/> <div>${item.title}</div>`
+					`<img src="${item.img}" style="max-height: 100px;" alt=""/> 
+					<div><a href="${item.url}" target="_blank">${item.title}</a></div>
+					`
 				}
 			</Posts>
 		);
@@ -109,7 +137,9 @@ export default class App extends Component {
 		const catsList = (
 			<Posts getData={getCats}>
 				{(item) =>
-					`<img src="${item.img}" style="max-height: 100px;" alt=""/> <div>${item.title}</div>`
+					`
+					<img src="${item.img}" style="max-height: 100px;" alt=""/>
+					<div>${item.title}</div>`
 				}
 			</Posts>
 		);
@@ -118,30 +148,49 @@ export default class App extends Component {
 
 		const gistItem = <Post postId={this.state.gistId} getData={getGist} />;
 
+		const aboutItem = <Post postId={this.state.aboutId} getData={getPage} />;
+
 		return (
-			<div className="main">
-				<CssBaseline />
-				<Header />
-				<Container maxWidth="xl">
-					<div className="content">
-						<h2>Посты</h2>
-						<ErrorBoundry>
-							<Row left={postsList} right={postItem}></Row>
-						</ErrorBoundry>
-						<br />
-						<h2>Gists</h2>
-						<ErrorBoundry>
-							<Row left={gistsList} right={gistItem}></Row>
-						</ErrorBoundry>
-						<br />
-						<br />
-						<h2>Работы</h2>
-						<ErrorBoundry>
-							<Row left={worksList} right={catsList}></Row>
-						</ErrorBoundry>
-					</div>
-				</Container>
-				<Footer />
+			<div className="main" >
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<Header />
+					<Container maxWidth="xl">
+						<div className="content">
+							<h2>Гисты</h2>
+							<ErrorBoundry>
+								<Row left={gistsList} right={gistItem}></Row>
+							</ErrorBoundry>
+							<br />
+							<br />
+							<br />
+							<h2>Работы</h2>
+							<ErrorBoundry>
+								<Row left={worksList} filter="true"></Row>
+							</ErrorBoundry>
+
+							<br />
+							<br />
+							<br />
+							<h2>Блог</h2>
+							<ErrorBoundry>
+								<Row left={postsList} right={catsList}></Row>
+								<Row full={postItem}></Row>
+							</ErrorBoundry>
+							<br />
+
+							<br />
+							<br />
+							<br />
+							<h2>Обо мне</h2>
+							<ErrorBoundry>
+								<Row full={aboutItem}></Row>
+							</ErrorBoundry>
+							<br />
+						</div>
+					</Container>
+					<Footer />
+				</ThemeProvider>
 			</div>
 		);
 	}

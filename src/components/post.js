@@ -10,7 +10,6 @@ import Preloader from '../components/preloader';
 import Error from '../components/error';
 
 import SwapiService from '../swapi-service';
-import Info from './info';
 
 export default class Post extends Component {
 	SwapiService = new SwapiService();
@@ -65,15 +64,13 @@ export default class Post extends Component {
 		const { post, loading, error } = this.state;
 
 		const error_bl = error ? <Error /> : null;
-		const alert_bl = !post ? <Info /> : null;
 		const preloader =  (post && loading) ? <Preloader /> : null;
 		const content = !(loading || error) ? <PostView post={post} /> : null;
 
 		return (
 			<Card>
 				<CardActionArea>
-					{alert_bl}
-					{error_bl}
+ 					{error_bl}
 					{preloader}
 					{content}
 				</CardActionArea>
@@ -99,7 +96,7 @@ const PostView = (post) => {
 					gutterBottom
 					variant="h5"
 					component="h2"
-					dangerouslySetInnerHTML={{ __html: title + id }}
+					dangerouslySetInnerHTML={{ __html: title }}
 				></Typography>
 				<Typography variant="body2" color="textPrimary">
 					{date}

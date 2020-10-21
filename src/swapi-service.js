@@ -50,6 +50,21 @@ export default class SwapiService {
 	};
 	//  +++++++++++++++++++++ POST end +++++++++++++++++++++
 
+	//  +++++++++++++++++++++ PAGE begin +++++++++++++++++++++
+	getPage = async (id) => {
+		const post = await this.getResource(`/pages/${id}`);
+		return this._transformPage(post);
+	};
+
+	_transformPage = (page) => {
+		return {
+			id: page.id,
+			title: page.title['rendered'],
+			excerpt: page.content['rendered'],
+		};
+	};
+	//  +++++++++++++++++++++ PAGE end +++++++++++++++++++++
+
 	// +++++++++++++++++++++ WORKS begin +++++++++++++++++++++
 	getWorks = async (id) => {
 		const works = await this.getResource(`/pages/9662`);
@@ -69,16 +84,16 @@ export default class SwapiService {
 
 	// +++++++++++++++++++++ CATEGORIES begin +++++++++++++++++++++
 	getCats = async () => {
-		const cats = await this.getResource(`/categories?per_page=12&page=1`);
+		const cats = await this.getResource(`/categories?per_page=8&page=1&order=desc&orderby=count&exclude=1`);
 		return await cats.map(this._transformCategory);
 	};
 	_transformCategory = (cat) => {
+		console.log(cat.name, `acf = `, cat.acf.cat_img.url)
 		return {
 			id: cat.id,
 			title: cat.name,
 			slug: cat.slug,
-			// img: cat.acf.cat_img.url,
-			img: 'http://timra.ru/timra/wp-content/uploads/2020/05/727.png',
+			img: cat.acf.cat_img.url,
 		};
 	};
 	// +++++++++++++++++++++ CATEGORIES end +++++++++++++++++++++

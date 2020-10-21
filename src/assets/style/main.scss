@@ -7,7 +7,7 @@
 	min-height: 100vh;
 	font-weight: normal;
 	background: #fff;
-	font-family: 'Jura', sans-serif;
+	// font-family: 'Jura', sans-serif;
 }
 
 img {
@@ -16,12 +16,12 @@ img {
 }
 
 button {
-	font-family: 'Jura', sans-serif;
+	// font-family: 'Jura', sans-serif;
 }
 
 .MuiButton-root,
 .copyright {
-	font-family: 'Jura', sans-serif;
+	// font-family: 'Jura', sans-serif;
 }
 
 header {
@@ -89,14 +89,14 @@ footer {
 	}
 }
 
-.Mui-selected {
-	background: $accent !important;
-	color: #fff !important;
-}
+// .Mui-selected {
+// 	background: $accent !important;
+// 	color: #fff !important;
+// }
 
-.MuiIconButton-root {
-	display: none !important;
-}
+// .MuiIconButton-root {
+// 	display: none !important;
+// }
 
 .searchBox {
 	display: flex;
