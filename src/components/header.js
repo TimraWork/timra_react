@@ -5,7 +5,6 @@ import Logo from '../assets/img/logo.png';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
-
 import { 
 	Container,
 	InputBase,

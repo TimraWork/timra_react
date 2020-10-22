@@ -39,7 +39,7 @@ export default class Post extends Component {
 		this.setState({
 			loading: true,
 		});
-		
+
 		const { postId, getData } = this.props;
 
 		if (!postId) {

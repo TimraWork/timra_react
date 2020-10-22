@@ -2,3 +2,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 ### `yarn start`
 ### `yarn build`
+
+
+```
+npm i <package>@<version> -E
+npm i react@16.12 -E
+```
+

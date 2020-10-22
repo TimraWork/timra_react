@@ -3,7 +3,6 @@ import React from 'react';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 
-
 const Error = () => {
 	return (
 		<Alert severity="error">
