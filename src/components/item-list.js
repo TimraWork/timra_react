@@ -2,32 +2,32 @@ import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
-import Preloader from '../components/preloader';
-import Error from '../components/error';
-import PostsItem from '../components/posts-item';
+import Preloader from './preloader';
+import Error from './error';
+import Item from './item';
 
-export default class Items extends Component {
+export default class ItemList extends Component {
 	state = {
-		posts: null,
+		items: null,
 		loading: true,
 		error: false
 	};
 
 	onError = (err) => {
+		console.log(`err = `, err);
 		this.setState({
-			error: true,
+			error: err,
 			loading: false,
 		});
 	};
 
 	componentDidMount() {
-		const { getData } = this.props;
+		const { getData, pageId } = this.props;
 
-		getData()
-			.then((posts) => {
-
+		getData(pageId)
+			.then((items) => {
 				this.setState({
-					posts,
+					items,
 					loading: false,
 					error: false
 				});
@@ -38,13 +38,13 @@ export default class Items extends Component {
 	renderItems(items) {
 		return items.map((item) => {
 			const { id } = item;
-			const { onPostClicked } = this.props;
+			const { onItemListClicked } = this.props;
 			const label = this.props.children(item);
 
 			return (
 				<Grid item xl={6} md={6} key={id}>
-					<PostsItem label = {label} id = {id} 
-						onPostClicked = {() => onPostClicked(id)}
+					<Item label = {label} id = {id}
+						onItemListClicked = {() => onItemListClicked(id)}
 					/>
 				</Grid>
 			);
@@ -52,11 +52,11 @@ export default class Items extends Component {
 	}
 
 	render() {
-		const { posts, loading, error } = this.state;
+		const { items, loading, error } = this.state;
 
 		const error_bl = error ? <Error /> : null;
 		const preloader = loading ? <Preloader /> : null;
-		const content = !(loading || error) ? this.renderItems(posts) : null;
+		const content = !(loading || error) ? this.renderItems(items) : null;
 
 		return (
 			<React.Fragment>

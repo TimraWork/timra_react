@@ -1,139 +1,121 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export default class SwapiService {
-	_apiBase = 'https://timra.ru/timra/wp-json/wp/v2';
-	_apiGists = 'https://api.github.com/users/TimraWork/gists';
-	_apiGist = 'https://api.github.com/gists';
+	_apiPosts = `https://timra.ru/timra/wp-json/wp/v2`;
+	_apiGists = `https://api.github.com/users/TimraWork/gists`;
+	_apiGist = `https://api.github.com/gists`;
 
-	getResource = async (url, api) => {
-		api = api || this._apiBase;
+	_pushImageUrl = `http://timra.ru/timra/wp-content/uploads/2020/05/727.png`;
+
+	_postsParameters = `_embed&per_page=4&page=1`;
+	_catsParameters = `orderby=count&order=desc&exclude=1&per_page=8&page=1`;
+	_gistsParameters = `page=1&per_page=4`;
+
+	_getResource = async (url, api) => {
+		api = api || this._apiPosts;
 		const res = await fetch(`${api}${url}`);
 		return await res.json();
 	};
 
-	//  +++++++++++++++++++++ POST begin +++++++++++++++++++++
 	getPosts = async () => {
-		const posts = await this.getResource(`/posts?_embed&per_page=4&page=1`);
+		const posts = await this._getResource(`/posts?${this._postsParameters}`);
 		return posts.map(this._transformPosts);
 	};
 
-	_transformPosts = (post) => {
-		const date_format = post.date
-			.slice(0, -9)
-			.split('-')
-			.reverse()
-			.join('.');
-		const img_url = post._embedded['wp:featuredmedia'][0]['source_url'];
-		// console.log(post._embedded['wp:featuredmedia'][0]['source_url']);
+	_formatDate = (date) => {
+		return date.slice(0, -9).split('-').reverse().join('.');
+	}
+
+	_transformPosts = ({id, title, _embedded, date, excerpt}) => {
 		return {
-			id: post.id,
-			img:
-				img_url ||
-				'http://timra.ru/timra/wp-content/uploads/2020/05/727.png',
-			title: post.title['rendered'],
-			date: date_format,
-			excerpt: post.excerpt['rendered'],
+			id: id,
+			img: _embedded['wp:featuredmedia'][0]['source_url'] || this._pushImageUrl,
+			title: title['rendered'],
+			date: this._formatDate(date),
+			excerpt: excerpt['rendered'],
 		};
 	};
 
 	getPost = async (id) => {
-		const post = await this.getResource(`/posts/${id}`);
+		const post = await this._getResource(`/posts/${id}`);
 		return this._transformPost(post);
 	};
 
-	_transformPost = (post) => {
+	_transformPost = ({id, title, content}) => {
 		return {
-			id: post.id,
-			title: post.title['rendered'],
-			excerpt: post.content['rendered'],
+			id,
+			title: title['rendered'],
+			excerpt: content['rendered'],
 		};
 	};
-	//  +++++++++++++++++++++ POST end +++++++++++++++++++++
 
-	//  +++++++++++++++++++++ PAGE begin +++++++++++++++++++++
 	getPage = async (id) => {
-		const post = await this.getResource(`/pages/${id}`);
-		return this._transformPage(post);
+		const page = await this._getResource(`/pages/${id}`);
+		return this._transformPost(page);
 	};
 
-	_transformPage = (page) => {
-		return {
-			id: page.id,
-			title: page.title['rendered'],
-			excerpt: page.content['rendered'],
-		};
-	};
-	//  +++++++++++++++++++++ PAGE end +++++++++++++++++++++
-
-	// +++++++++++++++++++++ WORKS begin +++++++++++++++++++++
 	getWorks = async (id) => {
-		const works = await this.getResource(`/pages/9662`);
+		const works = await this._getResource(`/pages/${id}`);
 		return works.acf.works.map(this._transformWork);
 	};
-	_transformWork = (work) => {
-		// console.log(work.works_img);
+
+	_transformWork = ({works_name, works_date, works_link, works_img}) => {
 		return {
 			id: uuidv4(),
-			title: work.works_name,
-			date: work.works_date,
-			url: work.works_link,
-			img: work.works_img.url,
+			title: works_name,
+			date: works_date,
+			url: works_link,
+			img: works_img.url,
 		};
 	};
-	// +++++++++++++++++++++ WORKS end +++++++++++++++++++++
 
-	// +++++++++++++++++++++ CATEGORIES begin +++++++++++++++++++++
 	getCats = async () => {
-		const cats = await this.getResource(`/categories?per_page=8&page=1&order=desc&orderby=count&exclude=1`);
+		const cats = await this._getResource(`/categories?${this._catsParameters}`);
 		return await cats.map(this._transformCategory);
 	};
-	_transformCategory = (cat) => {
-		console.log(cat.name, `acf = `, cat.acf.cat_img.url)
+
+	_transformCategory = ({id, name,slug, acf}) => {
 		return {
-			id: cat.id,
-			title: cat.name,
-			slug: cat.slug,
-			img: cat.acf.cat_img.url,
+			id,
+			title: name,
+			slug,
+			img: acf.cat_img.url,
 		};
-	};
-	// +++++++++++++++++++++ CATEGORIES end +++++++++++++++++++++
-
-	// +++++++++++++++++++++ GISTS begin +++++++++++++++++++++
-	getGist = async (id) => {
-		const gist = await this.getResource(`/${id}`, `${this._apiGist}`);
-		return this._transformGist(gist);
-	};
-	_transformGist = (gist) => {
-		const files = Object.keys(gist.files);
-
-		for (let i = 0; i < files.length; i++) {
-			var fileName = files[i];
-			var date_files = gist.files[fileName].content;
-			var date_url = gist.url;
-			const regExp = /\/([0-9a-z]*)$/;
-			const id = date_url.match(regExp)[1];
-			return {
-				id: id,
-				title: gist.description,
-				excerpt: date_files,
-			};
-		}
 	};
 
 	getGists = async () => {
-		const gists = await this.getResource(
-			`?page=1&per_page=4`,
-			`${this._apiGists}`
-		);
+		const gists = await this._getResource(`?${this._gistsParameters}`, this._apiGists);
 
 		return gists.map(this._transformGists);
 	};
 
-	_transformGists = (gist) => {
+	_transformGists = ({id, description}) => {
 		return {
-			id: gist.id,
-			title: gist.description,
+			id,
+			title: description,
 		};
+	};
+
+	getGist = async (id) => {
+		const gist = await this._getResource(`/${id}`, this._apiGist);
+		return this._transformGist(gist);
+	};
+
+	_getGistIdByUrl = (url) => {
+		return url.match(/\/([0-9a-z]*)$/)[1];
+	}
+
+	_transformGist = (gist) => {
+		const files = Object.keys(gist.files);
+
+		for (let i = 0; i < files.length; i++) {
+			const fileName = files[i];
+			return {
+				id: this._getGistIdByUrl(gist.url),
+				title: gist.description,
+				excerpt: gist.files[fileName].content,
+			};
+		}
 	};
 }
 

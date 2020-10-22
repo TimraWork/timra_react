@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Posts from '../posts';
+import ItemList from '../item-list';
 import Post from '../post';
 
 import ErrorBoundry from '../error-boundry';
@@ -16,32 +16,29 @@ export default class BlogPage extends Component {
 	};
 
     render(){
-        const { getPost, getPosts, getCats } = this.swapiService;
+        const {getPosts, getPost, getCats } = this.swapiService;
 
 		const postsList = (
-			<div>
-				<Posts getData={getPosts}  onPostClicked={this.onPostClicked} >
+			<React.Fragment >
+				<ItemList getData={getPosts} >
 					{(item) =>
 						`<img src="${item.img}" style="max-height: 100px;" alt=""/>
 						<div>${item.title}</div>
 						<span class="date">(${item.date})</span>`
 					}
-				</Posts>
-
-			</div>
+				</ItemList>
+			</React.Fragment >
 		);
 
         const postItem = <Post postId={this.state.postId} getData={getPost} />;
 
-
 		const catsList = (
-			<Posts getData={getCats}>
+			<ItemList getData={getCats}>
 				{(item) =>
-					`
-					<img src="${item.img}" style="max-height: 100px;" alt=""/>
+					`<img src="${item.img}" style="max-height: 100px;" alt=""/>
 					<div>${item.title}</div>`
 				}
-			</Posts>
+			</ItemList>
         );
 
         return(
@@ -51,11 +48,6 @@ export default class BlogPage extends Component {
                     <Row left={postsList} right={catsList}></Row>
                     <Row full={postItem}></Row>
                 </ErrorBoundry>
-                <br />
-
-                <br />
-                <br />
-                <br />
             </React.Fragment>
         );
     }

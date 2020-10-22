@@ -15,7 +15,7 @@ export default class AboutPage extends Component {
 	};
 
     render(){
-        const { getPage} = this.swapiService;
+        const { getPage } = this.swapiService;
 
 		const aboutItem = <Post postId={this.state.pageId} getData={getPage} />;
 

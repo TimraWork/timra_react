@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import {Card, CardActionArea, CardContent, Typography } from '@material-ui/core';
 
 import Preloader from '../components/preloader';
 import Error from '../components/error';
@@ -45,7 +41,7 @@ export default class Post extends Component {
 		if (!postId) {
 			return;
 		}
-		getData(postId) // Функция Меняется
+		getData(postId)
 			.then(this.onPostLoaded)
 			.catch(this.onError);
 	}
@@ -81,16 +77,11 @@ export default class Post extends Component {
 
 const PostView = (post) => {
 	const {
-		post: { id, title, date, excerpt },
+		post: { title, date, excerpt },
 	} = post;
 
 	return (
 		<React.Fragment >
-			{/* <CardMedia
-				component="img"
-				height="140"
-				image="https://timra.ru/timra/wp-content/uploads/2020/04/react_component.png"
-			/> */}
 			<CardContent>
 				<Typography
 					gutterBottom

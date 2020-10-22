@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Post from '../post';
-import Posts from '../posts';
+import ItemList from '../item-list';
 import ErrorBoundry from '../error-boundry';
 import SwapiService from '../../swapi-service';
 
@@ -18,13 +18,13 @@ export default class GistsPage extends Component {
         const { getGist, getGists} = this.swapiService;
 
         const gistsList = (
-            <Posts onPostClicked={this.onPostClicked} getData={getGists}>
+            <ItemList onItemListClicked={this.onItemListClicked} getData={getGists}>
                 {(item) => `${item.title}`}
-            </Posts>
+            </ItemList>
         );
 
         const gistItem = <Post postId={this.state.gistId} getData={getGist} />;
-        
+
         return(
             <React.Fragment>
                 <h2>Гисты</h2>
