@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Post from '../post';
+import Page from '../page';
 
 import ErrorBoundry from '../error-boundry';
 import SwapiService from '../../swapi-service';
@@ -17,7 +17,7 @@ export default class AboutPage extends Component {
     render(){
         const { getPage } = this.swapiService;
 
-		const aboutItem = <Post postId={this.state.pageId} getData={getPage} />;
+		const aboutItem = <Page pageId={this.state.pageId} getData={getPage} />;
 
         return(
             <React.Fragment>
