@@ -3,13 +3,10 @@ import React, { Component } from "react";
 import Page from "../page";
 import ItemList from "../item-list";
 import ErrorBoundry from "../error-boundry";
-import SwapiService from "../../swapi-service";
 
 import Row from "../../utils/row";
 
 export default class GistsPage extends Component {
-    swapiService = new SwapiService();
-
     state = {
         gistId: "e65d78cf4a641bfa6b5638d3fe71ef52",
     };
@@ -21,7 +18,8 @@ export default class GistsPage extends Component {
     };
 
     render() {
-        const { getGist, getGists } = this.swapiService;
+        const { getData } = this.props;
+        const [getGist, getGists] = getData;
 
         const gistsList = (
             <ItemList

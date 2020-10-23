@@ -2,15 +2,11 @@ import React, { Component } from "react";
 
 import ItemList from "../item-list";
 import Page from "../page";
-
 import ErrorBoundry from "../error-boundry";
-import SwapiService from "../../swapi-service";
 
 import Row from "../../utils/row";
 
 export default class BlogPage extends Component {
-    swapiService = new SwapiService();
-
     state = {
         postId: 1,
     };
@@ -22,11 +18,12 @@ export default class BlogPage extends Component {
     };
 
     onCatsClicked = (id) => {
-        console.log("cat.id = ", id);
+        console.log("console.log = ", id);
     };
 
     render() {
-        const { getPosts, getPost, getCats } = this.swapiService;
+        const { getData } = this.props;
+        const [getPosts, getPost, getCats] = getData;
 
         const postsList = (
             <React.Fragment>

@@ -11,20 +11,39 @@ import GistsPage from "./pages/gists";
 import BlogPage from "./pages/blog";
 import AboutPage from "./pages/about";
 
+import SwapiService from "../swapi-service";
 export default class App extends Component {
+    swapiService = new SwapiService();
+
     render() {
         const { onItemListClicked } = this.props;
+        const {
+            getPage,
+            getWorks,
+            getPosts,
+            getPost,
+            getCats,
+            getGist,
+            getGists,
+        } = this.swapiService;
+        console.log(getWorks);
+
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Header />
                 <Container maxWidth="xl">
                     <WorksPage
+                        getData={getWorks}
                         onItemListClicked={onItemListClicked}
                     ></WorksPage>
-                    <AboutPage></AboutPage>
-                    <BlogPage onItemListClicked={onItemListClicked}></BlogPage>
+                    <AboutPage getData={getPage}></AboutPage>
+                    <BlogPage
+                        getData={[getPosts, getPost, getCats]}
+                        onItemListClicked={onItemListClicked}
+                    ></BlogPage>
                     <GistsPage
+                        getData={[getGist, getGists]}
                         onItemListClicked={onItemListClicked}
                     ></GistsPage>
                 </Container>
