@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
-import Page from "../page";
 import ItemList from "../item-list";
+
+import Page from "../page";
 import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";

@@ -1,92 +1,92 @@
-@import './colors';
+@import "./colors";
 
 // footer bottom BEGIN
 .main {
-	display: flex !important;
-	flex-direction: column;
-	min-height: 100vh;
-	font-weight: normal;
-	background: #fff;
-	// font-family: 'Jura', sans-serif;
+    display: flex !important;
+    flex-direction: column;
+    min-height: 100vh;
+    font-weight: normal;
+    background: #fff;
+    // font-family: 'Jura', sans-serif;
 }
 
 img {
-	max-width: 100%;
-	max-height: 300px;
+    max-width: 100%;
+    // max-height: 300px;
 }
 
 button {
-	// font-family: 'Jura', sans-serif;
+    // font-family: 'Jura', sans-serif;
 }
 
 .MuiButton-root,
 .copyright {
-	// font-family: 'Jura', sans-serif;
+    // font-family: 'Jura', sans-serif;
 }
 
 header {
-	border-bottom: 1px solid rgba($accent, 0.3);
-	padding: 10px 0;
+    border-bottom: 1px solid rgba($accent, 0.3);
+    padding: 10px 0;
 }
 
 footer {
-	border-top: 1px solid rgba($accent, 0.3);
-	padding: 30px 0;
-	margin-top: auto;
-	color: $accent;
+    border-top: 1px solid rgba($accent, 0.3);
+    padding: 30px 0;
+    margin-top: auto;
+    color: $accent;
 }
 
 .copyright {
-	text-align: center;
-	font-weight: bold;
+    text-align: center;
+    font-weight: bold;
 }
 // footer bottom BEGIN
 
 // LOGO begin
 .logo {
-	display: block;
-	color: rgba($accent, 0.8);
-	text-decoration: none;
-	transition: all 0.3s ease-in-out;
-	&:hover {
-		transform: translateY(1px);
-		color: rgba($accent, 1);
-		.logo__img {
-			opacity: 1;
-		}
-	}
-	&__img {
-		width: 40px;
-		margin-right: 10px;
-		opacity: 0.8;
-		transition: opacity 0.3s ease-in-out;
-	}
-	&__text {
-		display: inline-block;
-		vertical-align: top;
-	}
-	&__title {
-		font-weight: 800;
-		font-size: 25px;
-		line-height: 1;
-		display: block;
-	}
+    display: block;
+    color: rgba($accent, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        transform: translateY(1px);
+        color: rgba($accent, 1);
+        .logo__img {
+            opacity: 1;
+        }
+    }
+    &__img {
+        width: 40px;
+        margin-right: 10px;
+        opacity: 0.8;
+        transition: opacity 0.3s ease-in-out;
+    }
+    &__text {
+        display: inline-block;
+        vertical-align: top;
+    }
+    &__title {
+        font-weight: 800;
+        font-size: 25px;
+        line-height: 1;
+        display: block;
+    }
 }
 
 .nav {
-	display: inline-flex;
+    display: inline-flex;
 }
 
 .searchIcon,
 .MuiButton-label {
-	color: $accent;
+    color: $accent;
 }
 
 .MuiCardActionArea-root {
-	transition: all 0.3s ease-in-out;
-	&:hover {
-		// transform: scale(1.01) translateY(1px);
-	}
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        // transform: scale(1.01) translateY(1px);
+    }
 }
 
 // .Mui-selected {
@@ -99,102 +99,102 @@ footer {
 // }
 
 .searchBox {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background: rgba($accent, 0.2);
-	border-radius: 15px;
-	padding: 0 15px;
-	.searchIcon {
-		margin-right: 10px;
-	}
-	.MuiInputBase-input {
-		width: 70px;
-		transition: all 0.3s ease-in-out;
-		&:focus {
-			width: 140px;
-		}
-	}
-	.MuiSvgIcon-root {
-		vertical-align: bottom;
-	}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba($accent, 0.2);
+    border-radius: 15px;
+    padding: 0 15px;
+    .searchIcon {
+        margin-right: 10px;
+    }
+    .MuiInputBase-input {
+        width: 70px;
+        transition: all 0.3s ease-in-out;
+        &:focus {
+            width: 140px;
+        }
+    }
+    .MuiSvgIcon-root {
+        vertical-align: bottom;
+    }
 }
 
 .error {
-	color: #f48fb1;
+    color: #f48fb1;
 }
 
 .content {
-	padding: 40px 0;
+    // padding: 40px 0;
 }
 
 .MuiPagination-root {
-	text-align: center;
-	margin: 30px auto 30px;
-	color: #fff;
-	.MuiPagination-ul {
-		justify-content: center;
-	}
+    text-align: center;
+    margin: 30px auto 30px;
+    color: #fff;
+    .MuiPagination-ul {
+        justify-content: center;
+    }
 }
 
 // Loader BEGIN
 /* KEYFRAMES */
 
 @keyframes pulse {
-	from {
-		opacity: 1;
-		transform: scale(1);
-	}
-	to {
-		opacity: 0.25;
-		transform: scale(0.75);
-	}
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0.25;
+        transform: scale(0.75);
+    }
 }
 
 /* PULSE BUBBLES */
 
 .pulse-container {
-	margin: 30px auto 30px;
-	width: 50px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+    margin: 30px auto 30px;
+    width: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .pulse-bubble {
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background-color: $accent;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: $accent;
 }
 
 .pulse-bubble-1 {
-	animation: pulse 0.4s ease 0s infinite alternate;
+    animation: pulse 0.4s ease 0s infinite alternate;
 }
 .pulse-bubble-2 {
-	animation: pulse 0.4s ease 0.2s infinite alternate;
+    animation: pulse 0.4s ease 0.2s infinite alternate;
 }
 .pulse-bubble-3 {
-	animation: pulse 0.4s ease 0.4s infinite alternate;
+    animation: pulse 0.4s ease 0.4s infinite alternate;
 }
 
 // Loader END
 
 // Error BEGIN
 .error {
-	text-align: center;
-	margin: 30px 0;
-	font-size: 14px;
+    text-align: center;
+    margin: 30px 0;
+    font-size: 14px;
 }
 // Error END
 
 .date {
-	color: gray;
+    color: gray;
 }
 
 .MuiCard-root {
-	max-height: 435px;
-	overflow-y: scroll !important;
+    max-height: 435px;
+    overflow-y: scroll !important;
 }
 
-@import './media';
+@import "./media";

@@ -6,7 +6,7 @@ import Pager from "../components/pagination";
 
 const Row = ({ left, right, full, filter }) => {
     if (full) {
-        return <Grid container>{full}</Grid>;
+        return <Grid>{full}</Grid>;
     }
     if (filter) {
         return (

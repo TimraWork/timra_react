@@ -12,11 +12,11 @@ export default class AboutPage extends Component {
 
     render() {
         const { getData } = this.props;
+
         const aboutItem = <Page pageId={this.state.pageId} getData={getData} />;
 
         return (
             <React.Fragment>
-                <h2>Обо мне</h2>
                 <ErrorBoundry>
                     <Row full={aboutItem}></Row>
                 </ErrorBoundry>

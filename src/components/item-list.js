@@ -8,7 +8,7 @@ import Item from "./item";
 
 export default class ItemList extends Component {
     state = {
-        items: null,
+        data: null,
         loading: true,
         error: false,
     };
@@ -25,9 +25,9 @@ export default class ItemList extends Component {
         const { getData, pageId } = this.props;
 
         getData(pageId)
-            .then((items) => {
+            .then((data) => {
                 this.setState({
-                    items,
+                    data,
                     loading: false,
                     error: false,
                 });
@@ -35,30 +35,16 @@ export default class ItemList extends Component {
             .catch(this.onError);
     }
 
-    renderItems(items) {
-        return items.map((item) => {
-            const { id } = item;
-            const { onItemListClicked } = this.props;
-            const label = this.props.children(item);
-
-            return (
-                <Grid item xl={6} md={6} key={id}>
-                    <Item
-                        label={label}
-                        id={id}
-                        onItemListClicked={() => onItemListClicked(id)}
-                    />
-                </Grid>
-            );
-        });
-    }
-
     render() {
-        const { items, loading, error } = this.state;
+        const { data, loading, error } = this.state;
 
         const error_bl = error ? <Error /> : null;
-        const preloader = loading ? <Preloader /> : null;
-        const content = !(loading || error) ? this.renderItems(items) : null;
+        const preloader = !data && loading ? <Preloader /> : null;
+
+        const content =
+            !(loading || error) && data ? (
+                <PostView data={data} {...this.props} />
+            ) : null;
 
         return (
             <React.Fragment>
@@ -71,3 +57,27 @@ export default class ItemList extends Component {
         );
     }
 }
+
+const PostView = (props) => {
+    const { data, onItemListClicked, children } = props;
+    return (
+        <Grid container spacing={3}>
+            {data.map((item) => {
+                const { id } = item;
+                const label = children(item);
+
+                return (
+                    <React.Fragment key={id}>
+                        <Grid item xl={6} md={6} key={id}>
+                            <Item
+                                label={label}
+                                id={id}
+                                onItemListClicked={() => onItemListClicked(id)}
+                            />
+                        </Grid>
+                    </React.Fragment>
+                );
+            })}
+        </Grid>
+    );
+};

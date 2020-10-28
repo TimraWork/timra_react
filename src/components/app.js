@@ -8,7 +8,7 @@ import Footer from "../components/footer";
 
 import WorksPage from "./pages/works";
 import GistsPage from "./pages/gists";
-import BlogPage from "./pages/blog";
+import PostsPage from "./pages/posts";
 import AboutPage from "./pages/about";
 
 import SwapiService from "../swapi-service";
@@ -26,22 +26,21 @@ export default class App extends Component {
             getGist,
             getGists,
         } = this.swapiService;
-        console.log(getWorks);
 
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Header />
-                <Container maxWidth="xl">
+                <Container maxWidth="xl" style={{ padding: 40 }}>
+                    <AboutPage getData={getPage}></AboutPage>
                     <WorksPage
                         getData={getWorks}
                         onItemListClicked={onItemListClicked}
                     ></WorksPage>
-                    <AboutPage getData={getPage}></AboutPage>
-                    <BlogPage
+                    <PostsPage
                         getData={[getPosts, getPost, getCats]}
                         onItemListClicked={onItemListClicked}
-                    ></BlogPage>
+                    ></PostsPage>
                     <GistsPage
                         getData={[getGist, getGists]}
                         onItemListClicked={onItemListClicked}
