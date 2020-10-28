@@ -10,6 +10,7 @@ import Row from "../../utils/row";
 export default class BlogPage extends Component {
     state = {
         postId: 1,
+        pageId: 1,
     };
 
     onItemListClicked = (id) => {
@@ -30,6 +31,7 @@ export default class BlogPage extends Component {
             <React.Fragment>
                 <ItemList
                     getData={getPosts}
+                    pageId={this.state.pageId}
                     onItemListClicked={this.onItemListClicked}
                 >
                     {(item) =>
@@ -44,7 +46,11 @@ export default class BlogPage extends Component {
         const postItem = <Page pageId={this.state.postId} getData={getPost} />;
 
         const catsList = (
-            <ItemList getData={getCats} onItemListClicked={this.onCatsClicked}>
+            <ItemList
+                pageId={this.state.pageId}
+                getData={getCats}
+                onItemListClicked={this.onCatsClicked}
+            >
                 {(item) =>
                     `<img src="${item.img}" style="max-height: 100px;" alt=""/>
 					<div>${item.title}</div>`

@@ -1,65 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 
-import Preloader from "./preloader";
-import Error from "./error";
+import withData from "../hoc/with-data";
+
 import Item from "./item";
 
-export default class ItemList extends Component {
-    state = {
-        data: null,
-        loading: true,
-        error: false,
-    };
-
-    onError = (err) => {
-        console.log(`err = `, err);
-        this.setState({
-            error: err,
-            loading: false,
-        });
-    };
-
-    componentDidMount() {
-        const { getData, pageId } = this.props;
-
-        getData(pageId)
-            .then((data) => {
-                this.setState({
-                    data,
-                    loading: false,
-                    error: false,
-                });
-            })
-            .catch(this.onError);
-    }
-
-    render() {
-        const { data, loading, error } = this.state;
-
-        const error_bl = error ? <Error /> : null;
-        const preloader = !data && loading ? <Preloader /> : null;
-
-        const content =
-            !(loading || error) && data ? (
-                <PostView data={data} {...this.props} />
-            ) : null;
-
-        return (
-            <React.Fragment>
-                {error_bl}
-                {preloader}
-                <Grid container spacing={3}>
-                    {content}
-                </Grid>
-            </React.Fragment>
-        );
-    }
-}
-
-const PostView = (props) => {
-    const { data, onItemListClicked, children } = props;
+const PostView = ({ data, onItemListClicked, children }) => {
     return (
         <Grid container spacing={3}>
             {data.map((item) => {
@@ -81,3 +28,5 @@ const PostView = (props) => {
         </Grid>
     );
 };
+
+export default withData(PostView);

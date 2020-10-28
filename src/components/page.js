@@ -59,7 +59,9 @@ export default class Page extends Component {
 
         const error_bl = error ? <Error /> : null;
         const preloader = !data && loading ? <Preloader /> : null;
-        const content = !(loading || error) ? <PageView data={data} /> : null;
+        const content = !(loading || error) ? (
+            <PageView data={data} {...this.props} />
+        ) : null;
 
         return (
             <React.Fragment>

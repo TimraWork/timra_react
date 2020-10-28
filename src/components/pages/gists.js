@@ -10,6 +10,7 @@ import Row from "../../utils/row";
 export default class GistsPage extends Component {
     state = {
         gistId: "e65d78cf4a641bfa6b5638d3fe71ef52",
+        pageId: 1,
     };
 
     onItemListClicked = (id) => {
@@ -24,8 +25,9 @@ export default class GistsPage extends Component {
 
         const gistsList = (
             <ItemList
-                onItemListClicked={this.onItemListClicked}
                 getData={getGists}
+                pageId={this.state.pageId}
+                onItemListClicked={this.onItemListClicked}
             >
                 {(item) => `${item.title}`}
             </ItemList>
