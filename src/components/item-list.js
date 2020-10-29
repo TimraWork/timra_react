@@ -6,7 +6,7 @@ import withData from "../hoc/with-data";
 
 import Item from "./item";
 
-const PostView = ({ data, onItemListClicked, children }) => {
+const ItemListView = ({ data, onItemListClicked, children }) => {
     return (
         <Grid container spacing={3}>
             {data.map((item) => {
@@ -29,4 +29,4 @@ const PostView = ({ data, onItemListClicked, children }) => {
     );
 };
 
-export default withData(PostView);
+export default withData(ItemListView);

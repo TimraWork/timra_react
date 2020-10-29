@@ -6,6 +6,7 @@ import Page from "../page";
 import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
+import { SwapiConsumer } from "../context/swapi-context";
 
 export default class BlogPage extends Component {
     state = {
@@ -24,38 +25,52 @@ export default class BlogPage extends Component {
     };
 
     render() {
-        const { getData } = this.props;
-        const [getPosts, getPost, getCats] = getData;
-
         const postsList = (
-            <React.Fragment>
-                <ItemList
-                    getData={getPosts}
-                    pageId={this.state.pageId}
-                    onItemListClicked={this.onItemListClicked}
-                >
-                    {(item) =>
-                        `<img src="${item.img}" style="max-height: 100px;" alt=""/>
+            <SwapiConsumer>
+                {({ getPosts }) => {
+                    return (
+                        <ItemList
+                            getData={getPosts}
+                            pageId={this.state.pageId}
+                            onItemListClicked={this.onItemListClicked}
+                        >
+                            {(item) =>
+                                `<img src="${item.img}" style="max-height: 100px;" alt=""/>
 						<div>${item.title}</div>
 						<span class="date">(${item.date})</span>`
-                    }
-                </ItemList>
-            </React.Fragment>
+                            }
+                        </ItemList>
+                    );
+                }}
+            </SwapiConsumer>
         );
 
-        const postItem = <Page pageId={this.state.postId} getData={getPost} />;
-
         const catsList = (
-            <ItemList
-                pageId={this.state.pageId}
-                getData={getCats}
-                onItemListClicked={this.onCatsClicked}
-            >
-                {(item) =>
-                    `<img src="${item.img}" style="max-height: 100px;" alt=""/>
-					<div>${item.title}</div>`
-                }
-            </ItemList>
+            <SwapiConsumer>
+                {({ getCats }) => {
+                    return (
+                        <ItemList
+                            pageId={this.state.pageId}
+                            getData={getCats}
+                            onItemListClicked={this.onCatsClicked}
+                        >
+                            {(item) =>
+                                `<img src="${item.img}" style="max-height: 100px;" alt=""/><div>${item.title}</div>`
+                            }
+                        </ItemList>
+                    );
+                }}
+            </SwapiConsumer>
+        );
+
+        const postItem = (
+            <SwapiConsumer>
+                {({ getPost }) => {
+                    return (
+                        <Page pageId={this.state.postId} getData={getPost} />
+                    );
+                }}
+            </SwapiConsumer>
         );
 
         return (

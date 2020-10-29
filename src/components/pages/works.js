@@ -5,29 +5,35 @@ import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
 
+import { SwapiConsumer } from "../context/swapi-context";
+
 export default class WorksPage extends Component {
     state = {
         pageId: `9662`,
     };
 
     onItemListClicked = (id) => {
-        console.log(`id = `, id);
+        // console.log(`id = `, id);
     };
 
     render() {
-        const { getData } = this.props;
-
         const worksList = (
-            <ItemList
-                pageId={this.state.pageId}
-                getData={getData}
-                onItemListClicked={this.onItemListClicked}
-            >
-                {(item) =>
-                    `<img src="${item.img}" style="max-height: 100px;" alt=""/>
+            <SwapiConsumer>
+                {({ getWorks }) => {
+                    return (
+                        <ItemList
+                            pageId={this.state.pageId}
+                            getData={getWorks}
+                            onItemListClicked={this.onItemListClicked}
+                        >
+                            {(item) =>
+                                `<img src="${item.img}" style="max-height: 100px;" alt=""/>
 					<div><a href="${item.url}" target="_blank">${item.title}</a></div>`
-                }
-            </ItemList>
+                            }
+                        </ItemList>
+                    );
+                }}
+            </SwapiConsumer>
         );
 
         return (

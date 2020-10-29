@@ -5,15 +5,23 @@ import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
 
+import { SwapiConsumer } from "../context/swapi-context";
+
 export default class AboutPage extends Component {
     state = {
         pageId: "10618",
     };
 
     render() {
-        const { getData } = this.props;
-
-        const aboutItem = <Page pageId={this.state.pageId} getData={getData} />;
+        const aboutItem = (
+            <SwapiConsumer>
+                {({ getPage }) => {
+                    return (
+                        <Page pageId={this.state.pageId} getData={getPage} />
+                    );
+                }}
+            </SwapiConsumer>
+        );
 
         return (
             <React.Fragment>
