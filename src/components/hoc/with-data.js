@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import Preloader from "../components/preloader";
-import Error from "../components/error";
+import Preloader from "../preloader";
+import Error from "../error";
 
 const withData = (View) => {
     return class withData extends Component {

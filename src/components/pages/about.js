@@ -1,34 +1,23 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Page from "../page";
 import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
 
-import { SwapiConsumer } from "../context/swapi-context";
+import { withSwapiService } from "../hoc/with-swapi";
 
-export default class AboutPage extends Component {
-    state = {
-        pageId: "10618",
-    };
+const AboutPage = ({ swapiService }) => {
+    const { getPage } = swapiService;
+    const aboutItem = <Page pageId="10618" getData={getPage} />;
 
-    render() {
-        const aboutItem = (
-            <SwapiConsumer>
-                {({ getPage }) => {
-                    return (
-                        <Page pageId={this.state.pageId} getData={getPage} />
-                    );
-                }}
-            </SwapiConsumer>
-        );
+    return (
+        <React.Fragment>
+            <ErrorBoundry>
+                <Row full={aboutItem}></Row>
+            </ErrorBoundry>
+        </React.Fragment>
+    );
+};
 
-        return (
-            <React.Fragment>
-                <ErrorBoundry>
-                    <Row full={aboutItem}></Row>
-                </ErrorBoundry>
-            </React.Fragment>
-        );
-    }
-}
+export default withSwapiService(AboutPage);
