@@ -1,6 +1,6 @@
 import React from "react";
 
-const Footer = () => {
+const FooterView = () => {
     return (
         <footer>
             <div className="copyright">Махамеджановна Эльмира</div>
@@ -8,4 +8,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default FooterView;

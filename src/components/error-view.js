@@ -2,7 +2,7 @@ import React from "react";
 
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-const Error = () => {
+const ErrorView = () => {
     return (
         <Alert severity="error">
             <AlertTitle>
@@ -13,4 +13,4 @@ const Error = () => {
     );
 };
 
-export default Error;
+export default ErrorView;

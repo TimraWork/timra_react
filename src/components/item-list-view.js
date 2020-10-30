@@ -2,9 +2,7 @@ import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 
-import withData from "./hoc/with-data";
-
-import Item from "./item";
+import Item from "./item-view";
 
 const ItemListView = ({ data, onItemListClicked, children }) => {
     return (
@@ -29,4 +27,4 @@ const ItemListView = ({ data, onItemListClicked, children }) => {
     );
 };
 
-export default withData(ItemListView);
+export default ItemListView;

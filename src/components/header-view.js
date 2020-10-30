@@ -18,7 +18,7 @@ import {
     IconButton,
 } from "@material-ui/core";
 
-const Header = () => {
+const HeaderView = () => {
     return (
         <header>
             <Container maxWidth="xl">
@@ -82,4 +82,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default HeaderView;

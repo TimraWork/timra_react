@@ -1,6 +1,6 @@
 import React from "react";
 
-const Preloader = () => {
+const PreloaderView = () => {
     return (
         <div className="spinner-box">
             <div className="pulse-container">
@@ -12,4 +12,4 @@ const Preloader = () => {
     );
 };
 
-export default Preloader;
+export default PreloaderView;

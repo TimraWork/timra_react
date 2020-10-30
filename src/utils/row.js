@@ -2,7 +2,7 @@ import React from "react";
 
 import { Grid, Chip } from "@material-ui/core";
 
-import Pager from "../components/pagination";
+import Pager from "../components/pagination-view";
 
 const Row = ({ left, right, full, filter }) => {
     if (full) {

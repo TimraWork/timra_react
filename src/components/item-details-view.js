@@ -3,9 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import { Typography } from "@material-ui/core";
 
-import withData from "./hoc/with-data";
-
-const PageView = (data) => {
+const ItemDetailsView = (data) => {
     const {
         data: { title, date, excerpt },
     } = data;
@@ -31,4 +29,4 @@ const PageView = (data) => {
     );
 };
 
-export default withData(PageView);
+export default ItemDetailsView;

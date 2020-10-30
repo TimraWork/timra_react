@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
-import ItemList from "../item-list";
-
-import Page from "../page";
 import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
 import { SwapiConsumer } from "../context/swapi-context";
+
+import { PostList, CatList } from "../helpers/item-lists";
+import { PostDetails } from "../helpers/item-page";
+
 
 export default class BlogPage extends Component {
     state = {
@@ -29,7 +30,7 @@ export default class BlogPage extends Component {
             <SwapiConsumer>
                 {({ getPosts }) => {
                     return (
-                        <ItemList
+                        <PostList
                             getData={getPosts}
                             pageId={this.state.pageId}
                             onItemListClicked={this.onItemListClicked}
@@ -39,7 +40,7 @@ export default class BlogPage extends Component {
 						<div>${item.title}</div>
 						<span class="date">(${item.date})</span>`
                             }
-                        </ItemList>
+                        </PostList>
                     );
                 }}
             </SwapiConsumer>
@@ -49,7 +50,7 @@ export default class BlogPage extends Component {
             <SwapiConsumer>
                 {({ getCats }) => {
                     return (
-                        <ItemList
+                        <CatList
                             pageId={this.state.pageId}
                             getData={getCats}
                             onItemListClicked={this.onCatsClicked}
@@ -57,7 +58,7 @@ export default class BlogPage extends Component {
                             {(item) =>
                                 `<img src="${item.img}" style="max-height: 100px;" alt=""/><div>${item.title}</div>`
                             }
-                        </ItemList>
+                        </CatList>
                     );
                 }}
             </SwapiConsumer>
@@ -67,7 +68,7 @@ export default class BlogPage extends Component {
             <SwapiConsumer>
                 {({ getPost }) => {
                     return (
-                        <Page pageId={this.state.postId} getData={getPost} />
+                        <PostDetails pageId={this.state.postId} getData={getPost} />
                     );
                 }}
             </SwapiConsumer>

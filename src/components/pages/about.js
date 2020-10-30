@@ -1,6 +1,6 @@
 import React from "react";
 
-import Page from "../page";
+import { AboutDetails } from "../helpers/item-page";
 import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
@@ -10,7 +10,7 @@ import { withSwapiService } from "../hoc/with-swapi";
 const AboutPage = ({ swapiService }) => {
     const { getPage } = swapiService;
 
-    const aboutItem = <Page pageId="10618" getData={getPage} />;
+    const aboutItem = <AboutDetails pageId="10618" getData={getPage} />;
 
     return (
         <ErrorBoundry>

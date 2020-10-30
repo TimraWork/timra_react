@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import {
     Card,
@@ -7,11 +7,8 @@ import {
     Typography,
 } from "@material-ui/core";
 
-export default class PostItem extends Component {
-    render() {
-        const { label, onItemListClicked } = this.props;
-
-        return (
+const ItemView = ({ label, onItemListClicked }) => {
+    return (
             <Card height="100%" onClick={onItemListClicked}>
                 <CardActionArea>
                     <CardContent>
@@ -24,5 +21,6 @@ export default class PostItem extends Component {
                 </CardActionArea>
             </Card>
         );
-    }
 }
+
+export default ItemView;

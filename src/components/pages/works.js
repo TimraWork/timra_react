@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import ItemList from "../item-list";
 import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
 
 import { SwapiConsumer } from "../context/swapi-context";
+import { WorkList } from "../helpers/item-lists";
 
 export default class WorksPage extends Component {
     state = {
@@ -21,7 +21,7 @@ export default class WorksPage extends Component {
             <SwapiConsumer>
                 {({ getWorks }) => {
                     return (
-                        <ItemList
+                        <WorkList
                             pageId={this.state.pageId}
                             getData={getWorks}
                             onItemListClicked={this.onItemListClicked}
@@ -30,7 +30,7 @@ export default class WorksPage extends Component {
                                 `<img src="${item.img}" style="max-height: 100px;" alt=""/>
 					<div><a href="${item.url}" target="_blank">${item.title}</a></div>`
                             }
-                        </ItemList>
+                        </WorkList>
                     );
                 }}
             </SwapiConsumer>

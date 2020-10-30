@@ -3,7 +3,7 @@ import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
 
-const Info = () => {
+const InfoView = () => {
     return (
         <Alert severity="info">
             <AlertTitle>
@@ -14,4 +14,4 @@ const Info = () => {
     );
 };
 
-export default Info;
+export default InfoView;

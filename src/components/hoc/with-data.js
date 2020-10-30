@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import Preloader from "../preloader";
-import Error from "../error";
+import PreloaderView from "../preloader-view";
+import ErrorView from "../error-view";
 
 const withData = (View) => {
     return class withData extends Component {
@@ -50,8 +50,8 @@ const withData = (View) => {
         render() {
             const { data, loading, error } = this.state;
 
-            const error_bl = error ? <Error /> : null;
-            const preloader = !data && loading ? <Preloader /> : null;
+            const error_bl = error ? <ErrorView /> : null;
+            const preloader = !data && loading ? <PreloaderView /> : null;
 
             const content =
                 !(loading || error) && data ? (

@@ -1,8 +1,8 @@
 import React from "react";
 import Pagination from "@material-ui/lab/Pagination";
 
-const Pager = () => {
+const PaginationView = () => {
     return <Pagination count={10} shape="rounded" />;
 };
 
-export default Pager;
+export default PaginationView;

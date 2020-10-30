@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import ItemList from "../item-list";
+import { GistList } from "../helpers/item-lists";
+import { GistDetails } from "../helpers/item-page";
 
-import Page from "../page";
 import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
@@ -26,23 +26,23 @@ export default class GistsPage extends Component {
             <SwapiConsumer>
                 {({ getGists }) => {
                     return (
-                        <ItemList
+                        <GistList
                             getData={getGists}
                             pageId={this.state.pageId}
                             onItemListClicked={this.onItemListClicked}
                         >
                             {(item) => `${item.title}`}
-                        </ItemList>
+                        </GistList>
                     );
                 }}
             </SwapiConsumer>
         );
 
-        const gistItem = (
+        const gistDetails = (
             <SwapiConsumer>
                 {({ getGist }) => {
                     return (
-                        <Page pageId={this.state.gistId} getData={getGist} />
+                        <GistDetails pageId={this.state.gistId} getData={getGist} />
                     );
                 }}
             </SwapiConsumer>
@@ -52,7 +52,7 @@ export default class GistsPage extends Component {
             <React.Fragment>
                 <h2>Гисты</h2>
                 <ErrorBoundry>
-                    <Row left={gistsList} right={gistItem}></Row>
+                    <Row left={gistsList} right={gistDetails}></Row>
                 </ErrorBoundry>
             </React.Fragment>
         );
