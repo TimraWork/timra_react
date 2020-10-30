@@ -2,7 +2,7 @@ import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 
-import withData from "../hoc/with-data";
+import withData from "./hoc/with-data";
 
 import Item from "./item";
 

@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import { Typography } from "@material-ui/core";
 
-import withData from "../hoc/with-data";
+import withData from "./hoc/with-data";
 
 const PageView = (data) => {
     const {
