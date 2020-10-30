@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { GistList } from "../helpers/item-lists";
-import { GistDetails } from "../helpers/item-page";
+import { GistDetails } from "../helpers/item-details";
 
 import ErrorBoundry from "../error-boundry";
 

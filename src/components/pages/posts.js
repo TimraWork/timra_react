@@ -6,7 +6,7 @@ import Row from "../../utils/row";
 import { SwapiConsumer } from "../context/swapi-context";
 
 import { PostList, CatList } from "../helpers/item-lists";
-import { PostDetails } from "../helpers/item-page";
+import { PostDetails } from "../helpers/item-details";
 
 
 export default class BlogPage extends Component {
