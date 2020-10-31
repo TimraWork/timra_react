@@ -25,12 +25,7 @@ export default class WorksPage extends Component {
                             pageId={this.state.pageId}
                             getData={getWorks}
                             onItemListClicked={this.onItemListClicked}
-                        >
-                            {(item) =>
-                                `<img src="${item.img}" style="max-height: 100px;" alt=""/>
-					<div><a href="${item.url}" target="_blank">${item.title}</a></div>`
-                            }
-                        </WorkList>
+                        />
                     );
                 }}
             </SwapiConsumer>

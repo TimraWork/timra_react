@@ -8,7 +8,6 @@ import { SwapiConsumer } from "../context/swapi-context";
 import { PostList, CatList } from "../helpers/item-lists";
 import { PostDetails } from "../helpers/item-details";
 
-
 export default class BlogPage extends Component {
     state = {
         postId: 1,
@@ -34,13 +33,7 @@ export default class BlogPage extends Component {
                             getData={getPosts}
                             pageId={this.state.pageId}
                             onItemListClicked={this.onItemListClicked}
-                        >
-                            {(item) =>
-                                `<img src="${item.img}" style="max-height: 100px;" alt=""/>
-						<div>${item.title}</div>
-						<span class="date">(${item.date})</span>`
-                            }
-                        </PostList>
+                        />
                     );
                 }}
             </SwapiConsumer>
@@ -54,11 +47,7 @@ export default class BlogPage extends Component {
                             pageId={this.state.pageId}
                             getData={getCats}
                             onItemListClicked={this.onCatsClicked}
-                        >
-                            {(item) =>
-                                `<img src="${item.img}" style="max-height: 100px;" alt=""/><div>${item.title}</div>`
-                            }
-                        </CatList>
+                        />
                     );
                 }}
             </SwapiConsumer>
@@ -68,7 +57,10 @@ export default class BlogPage extends Component {
             <SwapiConsumer>
                 {({ getPost }) => {
                     return (
-                        <PostDetails pageId={this.state.postId} getData={getPost} />
+                        <PostDetails
+                            pageId={this.state.postId}
+                            getData={getPost}
+                        />
                     );
                 }}
             </SwapiConsumer>

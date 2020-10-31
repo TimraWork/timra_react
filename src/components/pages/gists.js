@@ -9,6 +9,22 @@ import Row from "../../utils/row";
 
 import { SwapiConsumer } from "../context/swapi-context";
 
+// import { withSwapiService } from "../hoc/with-swapi";
+
+// const AboutPage = ({ swapiService }) => {
+//     const { getPage } = swapiService;
+
+//     const aboutItem = <AboutDetails pageId="10618" getData={getPage} />;
+
+//     return (
+//         <ErrorBoundry>
+//             <Row full={aboutItem}></Row>
+//         </ErrorBoundry>
+//     );
+// };
+
+// export default withSwapiService(AboutPage);
+
 export default class GistsPage extends Component {
     state = {
         gistId: "e65d78cf4a641bfa6b5638d3fe71ef52",
@@ -22,6 +38,7 @@ export default class GistsPage extends Component {
     };
 
     render() {
+        console.log(this.props);
         const gistsList = (
             <SwapiConsumer>
                 {({ getGists }) => {
@@ -30,9 +47,7 @@ export default class GistsPage extends Component {
                             getData={getGists}
                             pageId={this.state.pageId}
                             onItemListClicked={this.onItemListClicked}
-                        >
-                            {(item) => `${item.title}`}
-                        </GistList>
+                        />
                     );
                 }}
             </SwapiConsumer>
@@ -42,7 +57,10 @@ export default class GistsPage extends Component {
             <SwapiConsumer>
                 {({ getGist }) => {
                     return (
-                        <GistDetails pageId={this.state.gistId} getData={getGist} />
+                        <GistDetails
+                            pageId={this.state.gistId}
+                            getData={getGist}
+                        />
                     );
                 }}
             </SwapiConsumer>
