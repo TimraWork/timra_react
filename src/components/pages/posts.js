@@ -3,12 +3,13 @@ import React, { Component } from "react";
 import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
-import { SwapiConsumer } from "../context/swapi-context";
 
 import { PostList, CatList } from "../helpers/item-lists";
 import { PostDetails } from "../helpers/item-details";
 
-export default class BlogPage extends Component {
+import withSwapiService from "../hoc/with-swapi";
+
+class BlogPage extends Component {
     state = {
         postId: 1,
         pageId: 1,
@@ -25,45 +26,28 @@ export default class BlogPage extends Component {
     };
 
     render() {
+        const {
+            swapiService: { getPosts, getCats, getPost },
+        } = this.props;
+
         const postsList = (
-            <SwapiConsumer>
-                {({ getPosts }) => {
-                    return (
-                        <PostList
-                            getData={getPosts}
-                            pageId={this.state.pageId}
-                            onItemListClicked={this.onItemListClicked}
-                        />
-                    );
-                }}
-            </SwapiConsumer>
+            <PostList
+                getData={getPosts}
+                pageId={this.state.pageId}
+                onItemListClicked={this.onItemListClicked}
+            />
         );
 
         const catsList = (
-            <SwapiConsumer>
-                {({ getCats }) => {
-                    return (
-                        <CatList
-                            pageId={this.state.pageId}
-                            getData={getCats}
-                            onItemListClicked={this.onCatsClicked}
-                        />
-                    );
-                }}
-            </SwapiConsumer>
+            <CatList
+                pageId={this.state.pageId}
+                getData={getCats}
+                onItemListClicked={this.onCatsClicked}
+            />
         );
 
         const postItem = (
-            <SwapiConsumer>
-                {({ getPost }) => {
-                    return (
-                        <PostDetails
-                            pageId={this.state.postId}
-                            getData={getPost}
-                        />
-                    );
-                }}
-            </SwapiConsumer>
+            <PostDetails pageId={this.state.postId} getData={getPost} />
         );
 
         return (
@@ -77,3 +61,5 @@ export default class BlogPage extends Component {
         );
     }
 }
+
+export default withSwapiService(BlogPage);

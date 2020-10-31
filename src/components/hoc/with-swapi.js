@@ -13,4 +13,4 @@ const withSwapiService = (Wrapped) => {
     };
 };
 
-export { withSwapiService };
+export default withSwapiService;
