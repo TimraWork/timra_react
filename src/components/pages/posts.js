@@ -7,7 +7,7 @@ import Row from "../../utils/row";
 import { PostList, CatList } from "../helpers/item-lists";
 import { PostDetails } from "../helpers/item-details";
 
-import withSwapiService from "../hoc/with-swapi";
+import withSwapiService from "../hoc/with-swapi-context";
 
 class BlogPage extends Component {
     state = {
