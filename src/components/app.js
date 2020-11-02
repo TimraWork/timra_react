@@ -17,22 +17,16 @@ export default class App extends Component {
     swapiService = new SwapiService();
 
     render() {
-        const { onItemListClicked } = this.props;
-
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Header />
                 <Container maxWidth="xl" style={{ padding: 40 }}>
                     <SwapiProvider value={this.swapiService}>
-                        <PostsPage
-                            onItemListClicked={onItemListClicked}
-                        ></PostsPage>
+                        <PostsPage></PostsPage>
                         <AboutPage></AboutPage>
                         <WorksPage></WorksPage>
-                        <GistsPage
-                            onItemListClicked={onItemListClicked}
-                        ></GistsPage>
+                        <GistsPage></GistsPage>
                     </SwapiProvider>
                 </Container>
                 <Footer />

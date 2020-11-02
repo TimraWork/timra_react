@@ -4,31 +4,28 @@ import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
 
-import { SwapiConsumer } from "../context/swapi-context";
 import { WorkList } from "../helpers/item-lists";
 
-export default class WorksPage extends Component {
+import withSwapiService from "../hoc/with-swapi-context";
+
+class WorksPage extends Component {
     state = {
         pageId: `9662`,
     };
 
-    onItemListClicked = (id) => {
-        // console.log(`id = `, id);
-    };
+    onItemListClicked = (id) => {};
 
     render() {
+        const {
+            swapiService: { getWorks },
+        } = this.props;
+
         const worksList = (
-            <SwapiConsumer>
-                {({ getWorks }) => {
-                    return (
-                        <WorkList
-                            pageId={this.state.pageId}
-                            getData={getWorks}
-                            onItemListClicked={this.onItemListClicked}
-                        />
-                    );
-                }}
-            </SwapiConsumer>
+            <WorkList
+                pageId={this.state.pageId}
+                getData={getWorks}
+                onItemListClicked={this.onItemListClicked}
+            />
         );
 
         return (
@@ -41,3 +38,5 @@ export default class WorksPage extends Component {
         );
     }
 }
+
+export default withSwapiService(WorksPage);
