@@ -13,8 +13,6 @@ class WorksPage extends Component {
         pageId: `9662`,
     };
 
-    onItemListClicked = (id) => {};
-
     render() {
         const {
             swapiService: { getWorks },
@@ -24,7 +22,6 @@ class WorksPage extends Component {
             <WorkList
                 pageId={this.state.pageId}
                 getData={getWorks}
-                onItemListClicked={this.onItemListClicked}
             />
         );
 
