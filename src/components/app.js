@@ -13,7 +13,7 @@ import AboutPage from "./pages/about";
 
 import SwapiService from "../swapi-service";
 import { SwapiProvider } from "../components/context/swapi-context";
-import { PostDetails } from "../components/helpers/item-details";
+import { PostDetails, GistDetails } from "../components/helpers/item-details";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -40,8 +40,14 @@ export default class App extends Component {
                                 path="/blog/:id"
                                 render={({ match }) => {
                                     const { params } = match;
-                                    console.log(`id`);
                                     return <PostDetails pageId={params.id} />;
+                                }}
+                            />
+                            <Route
+                                path="/gists/:id"
+                                render={({ match }) => {
+                                    const { params } = match;
+                                    return <GistDetails pageId={params.id} />;
                                 }}
                             />
                             {/* <Route path="/works" component={WorksPage} /> */}
