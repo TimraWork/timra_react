@@ -7,8 +7,6 @@ import Row from "../../utils/row";
 import { PostList, CatList } from "../helpers/item-lists";
 import { PostDetails } from "../helpers/item-details";
 
-import withSwapiService from "../hoc/with-swapi-context";
-
 class BlogPage extends Component {
     state = {
         postId: 1,
@@ -26,13 +24,8 @@ class BlogPage extends Component {
     };
 
     render() {
-        const {
-            swapiService: { getPosts, getCats, getPost },
-        } = this.props;
-
         const postsList = (
             <PostList
-                getData={getPosts}
                 pageId={this.state.pageId}
                 onItemListClicked={this.onItemListClicked}
             />
@@ -41,13 +34,12 @@ class BlogPage extends Component {
         const catsList = (
             <CatList
                 pageId={this.state.pageId}
-                getData={getCats}
                 onItemListClicked={this.onCatsClicked}
             />
         );
 
         const postItem = (
-            <PostDetails pageId={this.state.postId} getData={getPost} />
+            <PostDetails pageId={this.state.postId} />
         );
 
         return (
@@ -62,4 +54,4 @@ class BlogPage extends Component {
     }
 }
 
-export default withSwapiService(BlogPage);
+export default BlogPage;

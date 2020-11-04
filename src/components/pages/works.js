@@ -5,23 +5,15 @@ import ErrorBoundry from "../error-boundry";
 import Row from "../../utils/row";
 
 import { WorkList } from "../helpers/item-lists";
-
-import withSwapiService from "../hoc/with-swapi-context";
-
 class WorksPage extends Component {
     state = {
         pageId: `9662`,
     };
 
     render() {
-        const {
-            swapiService: { getWorks },
-        } = this.props;
-
         const worksList = (
             <WorkList
                 pageId={this.state.pageId}
-                getData={getWorks}
             />
         );
 
@@ -36,4 +28,4 @@ class WorksPage extends Component {
     }
 }
 
-export default withSwapiService(WorksPage);
+export default WorksPage;

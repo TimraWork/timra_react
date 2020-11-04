@@ -1,6 +1,7 @@
 import ItemListView from "../item-list-view";
 import withData from "../hoc/with-data";
 import withChildFunction from "../hoc/with-child-function";
+import withSwapiService from "../hoc/with-swapi-context";
 
 const renderGistTitle = (item) => `${item.title}`;
 const renderPostExcerpt = (item) =>
@@ -10,9 +11,30 @@ const renderCatExcerpt = (item) =>
 const renderWorkExcerpt = (item) =>
     `<img src="${item.img}" style="max-height: 100px;" alt=""/><div><a href="${item.url}" target="_blank">${item.title}</a></div>`;
 
-const GistList = withData(withChildFunction(ItemListView, renderGistTitle));
-const PostList = withData(withChildFunction(ItemListView, renderPostExcerpt));
-const CatList = withData(withChildFunction(ItemListView, renderCatExcerpt));
-const WorkList = withData(withChildFunction(ItemListView, renderWorkExcerpt));
+const mapGistsMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getGists,
+    };
+};
+const mapWorksMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getWorks,
+    };
+};
+const mapPostsMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getPosts,
+    };
+};
+const mapCatsMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getCats,
+    };
+};
+
+const GistList = withSwapiService(withData(withChildFunction(ItemListView, renderGistTitle)), mapGistsMethodsToProps);
+const WorkList = withSwapiService(withData(withChildFunction(ItemListView, renderWorkExcerpt)), mapWorksMethodsToProps);
+const PostList = withSwapiService(withData(withChildFunction(ItemListView, renderPostExcerpt)), mapPostsMethodsToProps);
+const CatList = withSwapiService(withData(withChildFunction(ItemListView, renderCatExcerpt)), mapCatsMethodsToProps);
 
 export { GistList, PostList, CatList, WorkList };

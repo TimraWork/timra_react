@@ -5,7 +5,6 @@ import { GistDetails } from "../helpers/item-details";
 
 import ErrorBoundry from "../error-boundry";
 import Row from "../../utils/row";
-import withSwapiService from "../hoc/with-swapi-context";
 
 class GistsPage extends Component {
     state = {
@@ -20,20 +19,15 @@ class GistsPage extends Component {
     };
 
     render() {
-        const {
-            swapiService: { getGist, getGists },
-        } = this.props;
-
         const gistsList = (
             <GistList
-                getData={getGists}
                 pageId={this.state.pageId}
                 onItemListClicked={this.onItemListClicked}
             />
         );
 
         const gistDetails = (
-            <GistDetails pageId={this.state.gistId} getData={getGist} />
+            <GistDetails pageId={this.state.gistId}/>
         );
 
         return (
@@ -45,4 +39,4 @@ class GistsPage extends Component {
     }
 }
 
-export default withSwapiService(GistsPage);
+export default GistsPage;

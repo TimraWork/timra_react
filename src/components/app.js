@@ -6,9 +6,9 @@ import { theme } from "../theme";
 import Header from "../components/header-view";
 import Footer from "../components/footer-view";
 
-// import WorksPage from "./pages/works";
-// import GistsPage from "./pages/gists";
-// import PostsPage from "./pages/posts";
+import WorksPage from "./pages/works";
+import GistsPage from "./pages/gists";
+import PostsPage from "./pages/posts";
 import AboutPage from "./pages/about";
 
 import SwapiService from "../swapi-service";
@@ -33,9 +33,9 @@ export default class App extends Component {
                                 exact
                                 render={() => <h2>Welcome!</h2>}
                             /> */}
-                            {/* <Route path="/" exact component={PostsPage} /> */}
+                            <Route path="/" exact component={PostsPage} />
                             <Route path="/about" component={AboutPage} />
-                            {/* <Route path="/blog" exact component={PostsPage} /> */}
+                            <Route path="/blog" exact component={PostsPage} />
                             <Route
                                 path="/blog/:id"
                                 render={({ match }) => {
@@ -50,8 +50,8 @@ export default class App extends Component {
                                     return <GistDetails pageId={params.id} />;
                                 }}
                             />
-                            {/* <Route path="/works" component={WorksPage} /> */}
-                            {/* <Route path="/gists" component={GistsPage} /> */}
+                            <Route path="/works" component={WorksPage} />
+                            <Route path="/gists" exact component={GistsPage} />
                         </SwapiProvider>
                     </Container>
                 </Router>

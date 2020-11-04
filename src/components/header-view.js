@@ -58,7 +58,9 @@ const HeaderView = () => {
                         <Link to="/blog" component={Button}>
                             Блог
                         </Link> */}
-                        <Link to="/about">About </Link>
+                        <Link to="/works">РАБОТЫ</Link>
+                        <Link to="/gists">Гисты</Link>
+                        <Link to="/about">About</Link>
                         <Link to="/blog/1">BLOG/1</Link>
                         <Link to="/gists/e65d78cf4a641bfa6b5638d3fe71ef52">--GIST/1</Link>
                     </nav>
