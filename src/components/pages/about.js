@@ -5,12 +5,8 @@ import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
 
-import withSwapiService from "../hoc/with-swapi-context";
-
-const AboutPage = ({ swapiService }) => {
-    const { getPage } = swapiService;
-
-    const aboutItem = <AboutDetails pageId="10618" getData={getPage} />;
+const AboutPage = (props) => {
+    const aboutItem = <AboutDetails pageId="10618" {...props} />;
 
     return (
         <ErrorBoundry>
@@ -19,4 +15,4 @@ const AboutPage = ({ swapiService }) => {
     );
 };
 
-export default withSwapiService(AboutPage);
+export default AboutPage;

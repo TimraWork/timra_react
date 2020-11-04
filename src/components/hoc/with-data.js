@@ -5,10 +5,9 @@ import ErrorView from "../error-view";
 
 const withData = (View) => {
     return class withData extends Component {
-
         static defaultProps = {
-            onItemListClicked: () => {}
-        }
+            onItemListClicked: () => {},
+        };
 
         state = {
             data: null,

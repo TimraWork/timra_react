@@ -1,6 +1,7 @@
 import React from "react";
 
 import Logo from "../assets/img/logo.png";
+import { Link } from "react-router-dom";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
@@ -29,7 +30,7 @@ const HeaderView = () => {
                     justify="space-between"
                     style={{ minHeight: "5vh" }}
                 >
-                    <a href={"https://timra.ru/"} className="logo">
+                    <a href={"/"} className="logo">
                         <img src={Logo} alt="" className="logo__img" />
                         <span className="logo__text">
                             <span className="logo__title">Timra.ru</span>
@@ -40,13 +41,25 @@ const HeaderView = () => {
                     </a>
 
                     <nav className="nav">
-                        {["Гисты", "Работы", "Блог", "Обо мне", "Контакты"].map(
+                        {/* {["Гисты", "Работы", "Блог", "Обо мне", "Контакты"].map(
                             (anchor) => (
                                 <React.Fragment key={anchor}>
                                     <Button>{anchor}</Button>
                                 </React.Fragment>
                             )
-                        )}
+                        )} */}
+
+                        {/* <Link to="/gists" component={Button}>
+                            Гисты
+                        </Link>
+                        <Link to="/works" component={Button}>
+                            Работы
+                        </Link>
+                        <Link to="/blog" component={Button}>
+                            Блог
+                        </Link> */}
+                        <Link to="/about">About </Link>
+                        <Link to="/blog/1">BLOG/1</Link>
                     </nav>
 
                     <div className="searchBox">
