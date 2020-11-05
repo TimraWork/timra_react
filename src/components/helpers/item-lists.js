@@ -32,9 +32,21 @@ const mapCatsMethodsToProps = (swapiService) => {
     };
 };
 
-const GistList = withSwapiService(withData(withChildFunction(ItemListView, renderGistTitle)), mapGistsMethodsToProps);
-const WorkList = withSwapiService(withData(withChildFunction(ItemListView, renderWorkExcerpt)), mapWorksMethodsToProps);
-const PostList = withSwapiService(withData(withChildFunction(ItemListView, renderPostExcerpt)), mapPostsMethodsToProps);
-const CatList = withSwapiService(withData(withChildFunction(ItemListView, renderCatExcerpt)), mapCatsMethodsToProps);
+const GistList = withSwapiService(
+    withData(withChildFunction(ItemListView, renderGistTitle)),
+    mapGistsMethodsToProps
+);
+const WorkList = withSwapiService(
+    withData(withChildFunction(ItemListView, renderWorkExcerpt)),
+    mapWorksMethodsToProps
+);
+const PostList = withSwapiService(
+    withData(withChildFunction(ItemListView, renderPostExcerpt)),
+    mapPostsMethodsToProps
+);
+const CatList = withSwapiService(
+    withData(withChildFunction(ItemListView, renderCatExcerpt)),
+    mapCatsMethodsToProps
+);
 
 export { GistList, PostList, CatList, WorkList };
