@@ -6,6 +6,7 @@ import { GistDetails } from "../helpers/item-details";
 import ErrorBoundry from "../error-boundry";
 import Row from "../../utils/row";
 
+import { withRouter } from "react-router-dom";
 class GistsPage extends Component {
     state = {
         gistId: "e65d78cf4a641bfa6b5638d3fe71ef52",
@@ -13,9 +14,12 @@ class GistsPage extends Component {
     };
 
     onItemListClicked = (id) => {
-        this.setState({
-            gistId: id,
-        });
+        const { history } = this.props;
+        // this.setState({
+        //     gistId: id,
+        // });
+
+        history.push(`${id}`);
     };
 
     render() {
@@ -26,9 +30,9 @@ class GistsPage extends Component {
             />
         );
 
-        const gistDetails = (
-            <GistDetails pageId={this.state.gistId}/>
-        );
+        const { match } = this.props;
+
+        const gistDetails = <GistDetails pageId={match.params.id} />;
 
         return (
             <ErrorBoundry>
@@ -39,4 +43,4 @@ class GistsPage extends Component {
     }
 }
 
-export default GistsPage;
+export default withRouter(GistsPage);

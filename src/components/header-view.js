@@ -23,19 +23,19 @@ const HeaderView = () => {
     const LINKS = [
         {
             name: "Гисты",
-            path: "/gists",
+            path: "/gists/",
         },
         {
             name: "Работы",
-            path: "/works",
+            path: "/works/",
         },
         {
             name: "Блог",
-            path: "/blog",
+            path: "/blog/",
         },
         {
             name: "Обо мне",
-            path: "/about",
+            path: "/about/",
         },
     ];
 

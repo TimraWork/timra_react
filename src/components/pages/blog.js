@@ -15,7 +15,7 @@ class BlogPage extends Component {
 
     onItemListClicked = (id) => {
         const { history } = this.props;
-        history.push(`blog/${id}`);
+        history.push(`${id}`);
     };
 
     onCatsClicked = (id) => {

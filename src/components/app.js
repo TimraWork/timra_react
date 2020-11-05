@@ -37,14 +37,18 @@ export default class App extends Component {
                                     return <PostDetails pageId={params.id} />;
                                 }}
                             />
-                            <Route
+                            {/* <Route
                                 path="/gists/:id"
                                 render={({ match: { params } }) => {
                                     return <GistDetails pageId={params.id} />;
                                 }}
-                            />
+                            /> */}
                             <Route path="/works" component={WorksPage} />
-                            <Route path="/gists" exact component={GistsPage} />
+                            <Route
+                                path="/gists/:id?"
+                                exact
+                                component={GistsPage}
+                            />
                         </SwapiProvider>
                     </Container>
                 </Router>
