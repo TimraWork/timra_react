@@ -13,9 +13,14 @@ import AboutPage from "./pages/about";
 
 import SwapiService from "../swapi-service";
 import { SwapiProvider } from "../components/context/swapi-context";
-import { PostDetails, GistDetails } from "../components/helpers/item-details";
+import { PostDetails } from "../components/helpers/item-details";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect,
+} from "react-router-dom";
 
 export default class App extends Component {
     swapiService = new SwapiService();
@@ -28,27 +33,31 @@ export default class App extends Component {
                     <Header />
                     <Container maxWidth="xl" style={{ padding: 40 }}>
                         <SwapiProvider value={this.swapiService}>
-                            <Route path="/" exact component={BlogPage} />
-                            <Route path="/about" component={AboutPage} />
-                            <Route path="/blog" exact component={BlogPage} />
-                            <Route
-                                path="/blog/:id"
-                                render={({ match: { params } }) => {
-                                    return <PostDetails pageId={params.id} />;
-                                }}
-                            />
-                            {/* <Route
-                                path="/gists/:id"
-                                render={({ match: { params } }) => {
-                                    return <GistDetails pageId={params.id} />;
-                                }}
-                            /> */}
-                            <Route path="/works" component={WorksPage} />
-                            <Route
-                                path="/gists/:id?"
-                                exact
-                                component={GistsPage}
-                            />
+                            <Switch>
+                                <Route path="/" exact component={BlogPage} />
+                                <Route path="/about" component={AboutPage} />
+                                <Route
+                                    path="/blog"
+                                    exact
+                                    component={BlogPage}
+                                />
+                                <Route
+                                    path="/blog/:id"
+                                    render={({ match: { params } }) => {
+                                        return (
+                                            <PostDetails pageId={params.id} />
+                                        );
+                                    }}
+                                />
+                                <Route path="/works" component={WorksPage} />
+                                <Route
+                                    path="/gists/:id?"
+                                    exact
+                                    component={GistsPage}
+                                />
+                                {/* <Redirect to="/" /> */}
+                                <Route render={() => <h2>404</h2>} />
+                            </Switch>
                         </SwapiProvider>
                     </Container>
                 </Router>
