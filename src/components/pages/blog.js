@@ -5,7 +5,7 @@ import ErrorBoundry from "../error-boundry";
 import Row from "../../utils/row";
 
 import { PostList, CatList } from "../helpers/item-lists";
-import { PostDetails } from "../helpers/item-details";
+import { withRouter } from "react-router-dom";
 
 class BlogPage extends Component {
     state = {
@@ -14,9 +14,8 @@ class BlogPage extends Component {
     };
 
     onItemListClicked = (id) => {
-        this.setState({
-            postId: id,
-        });
+        const { history } = this.props;
+        history.push(`blog/${id}`);
     };
 
     onCatsClicked = (id) => {
@@ -38,20 +37,15 @@ class BlogPage extends Component {
             />
         );
 
-        const postItem = (
-            <PostDetails pageId={this.state.postId} />
-        );
-
         return (
             <React.Fragment>
                 <h2>Блог</h2>
                 <ErrorBoundry>
                     <Row left={postsList} right={catsList}></Row>
-                    <Row full={postItem}></Row>
                 </ErrorBoundry>
             </React.Fragment>
         );
     }
 }
 
-export default BlogPage;
+export default withRouter(BlogPage);

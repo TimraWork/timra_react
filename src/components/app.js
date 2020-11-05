@@ -8,7 +8,7 @@ import Footer from "../components/footer-view";
 
 import WorksPage from "./pages/works";
 import GistsPage from "./pages/gists";
-import PostsPage from "./pages/posts";
+import BlogPage from "./pages/blog";
 import AboutPage from "./pages/about";
 
 import SwapiService from "../swapi-service";
@@ -28,20 +28,18 @@ export default class App extends Component {
                     <Header />
                     <Container maxWidth="xl" style={{ padding: 40 }}>
                         <SwapiProvider value={this.swapiService}>
-                            <Route path="/" exact component={PostsPage} />
+                            <Route path="/" exact component={BlogPage} />
                             <Route path="/about" component={AboutPage} />
-                            <Route path="/blog" exact component={PostsPage} />
+                            <Route path="/blog" exact component={BlogPage} />
                             <Route
                                 path="/blog/:id"
-                                render={({ match }) => {
-                                    const { params } = match;
+                                render={({ match: { params } }) => {
                                     return <PostDetails pageId={params.id} />;
                                 }}
                             />
                             <Route
                                 path="/gists/:id"
-                                render={({ match }) => {
-                                    const { params } = match;
+                                render={({ match: { params } }) => {
                                     return <GistDetails pageId={params.id} />;
                                 }}
                             />
