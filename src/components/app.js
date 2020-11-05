@@ -28,11 +28,6 @@ export default class App extends Component {
                     <Header />
                     <Container maxWidth="xl" style={{ padding: 40 }}>
                         <SwapiProvider value={this.swapiService}>
-                            {/* <Route
-                                path="/"
-                                exact
-                                render={() => <h2>Welcome!</h2>}
-                            /> */}
                             <Route path="/" exact component={PostsPage} />
                             <Route path="/about" component={AboutPage} />
                             <Route path="/blog" exact component={PostsPage} />

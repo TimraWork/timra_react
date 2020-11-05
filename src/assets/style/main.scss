@@ -24,6 +24,9 @@ button {
     // font-family: 'Jura', sans-serif;
 }
 
+nav a.active {
+    background-color: rgba($accent, 0.3) !important;
+}
 header {
     border-bottom: 1px solid rgba($accent, 0.3);
     padding: 10px 0;

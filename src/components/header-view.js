@@ -1,7 +1,7 @@
 import React from "react";
 
 import Logo from "../assets/img/logo.png";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
@@ -20,6 +20,25 @@ import {
 } from "@material-ui/core";
 
 const HeaderView = () => {
+    const LINKS = [
+        {
+            name: "Гисты",
+            path: "/gists",
+        },
+        {
+            name: "Работы",
+            path: "/works",
+        },
+        {
+            name: "Блог",
+            path: "/blog",
+        },
+        {
+            name: "Обо мне",
+            path: "/about",
+        },
+    ];
+
     return (
         <header>
             <Container maxWidth="xl">
@@ -41,28 +60,16 @@ const HeaderView = () => {
                     </a>
 
                     <nav className="nav">
-                        {/* {["Гисты", "Работы", "Блог", "Обо мне", "Контакты"].map(
-                            (anchor) => (
-                                <React.Fragment key={anchor}>
-                                    <Button>{anchor}</Button>
-                                </React.Fragment>
-                            )
-                        )} */}
-
-                        {/* <Link to="/gists" component={Button}>
-                            Гисты
-                        </Link>
-                        <Link to="/works" component={Button}>
-                            Работы
-                        </Link>
-                        <Link to="/blog" component={Button}>
-                            Блог
-                        </Link> */}
-                        <Link to="/works">РАБОТЫ</Link>
-                        <Link to="/gists">Гисты</Link>
-                        <Link to="/about">About</Link>
-                        <Link to="/blog/1">BLOG/1</Link>
-                        <Link to="/gists/e65d78cf4a641bfa6b5638d3fe71ef52">--GIST/1</Link>
+                        {LINKS.map((item, index) => (
+                            <Button
+                                key={index}
+                                component={NavLink}
+                                to={item.path}
+                                exact
+                            >
+                                {item.name}
+                            </Button>
+                        ))}
                     </nav>
 
                     <div className="searchBox">
