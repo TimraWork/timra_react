@@ -5,12 +5,10 @@ import ErrorBoundry from "../error-boundry";
 
 import Row from "../../utils/row";
 
-const AboutPage = (props) => {
-    const aboutItem = <AboutDetails pageId="10618" {...props} />;
-
+const AboutPage = () => {
     return (
         <ErrorBoundry>
-            <Row full={aboutItem}></Row>
+            <Row full={<AboutDetails pageId="10618" />}></Row>
         </ErrorBoundry>
     );
 };

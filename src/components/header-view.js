@@ -1,7 +1,7 @@
 import React from "react";
 
 import Logo from "../assets/img/logo.png";
-import { NavLink } from "react-router-dom";
+import Nav from "./nav";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
@@ -15,30 +15,10 @@ import {
     FormGroup,
     FormControlLabel,
     FormControl,
-    Button,
     IconButton,
 } from "@material-ui/core";
 
 const HeaderView = () => {
-    const LINKS = [
-        {
-            name: "Гисты",
-            path: "/gists/",
-        },
-        {
-            name: "Работы",
-            path: "/works/",
-        },
-        {
-            name: "Блог",
-            path: "/blog/",
-        },
-        {
-            name: "Обо мне",
-            path: "/about/",
-        },
-    ];
-
     return (
         <header>
             <Container maxWidth="xl">
@@ -59,18 +39,7 @@ const HeaderView = () => {
                         </span>
                     </a>
 
-                    <nav className="nav">
-                        {LINKS.map((item, index) => (
-                            <Button
-                                key={index}
-                                component={NavLink}
-                                to={item.path}
-                                exact
-                            >
-                                {item.name}
-                            </Button>
-                        ))}
-                    </nav>
+                    <Nav />
 
                     <div className="searchBox">
                         <div className="searchIcon">
