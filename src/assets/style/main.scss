@@ -24,6 +24,10 @@ button {
     // font-family: 'Jura', sans-serif;
 }
 
+.MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: 2px solid $accent !important;
+}
+
 nav a.active {
     background-color: rgba($accent, 0.3) !important;
 }

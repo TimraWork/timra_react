@@ -1,13 +1,16 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
+const ACCENT_COLOR = "rgb(105, 186, 190)";
+// const ACCENT_LIGHT_COLOR = "rgba(105, 186, 190, 0.2)";
+
 // Create a theme instance.
 export const theme = createMuiTheme({
     palette: {
         primary: {
-            main: "rgba(105, 186, 190, 0.2)",
+            main: ACCENT_COLOR,
         },
         secondary: {
-            main: "rgb(105, 186, 190)",
+            main: ACCENT_COLOR,
         },
     },
     typography: {
@@ -18,53 +21,87 @@ export const theme = createMuiTheme({
         },
     },
     shape: {
-        borderRadius: 15,
+        borderRadius: 20,
     },
-    //   spacing: 8,
+    // spacing: 8,
     overrides: {
-        MuiFilledInput: {
+        MuiChip: {
             root: {
-                backgroundColor: "green",
-            },
-        },
-        MuiInputLabel: {
-            root: {
-                backgroundColor: "yellow",
+                margin: "0 10px 20px 0",
             },
         },
         MuiTextField: {
-            root: {},
+            root: {
+                // backgroundColor: ACCENT_LIGHT_COLOR,
+                borderColor: ACCENT_COLOR,
+                marginBottom: "20px",
+                width: "370px",
+                "& .MuiInput-underline:before": {
+                    borderBottomColor: ACCENT_COLOR,
+                },
+                "&:hover": {
+                    borderBottomColor: ACCENT_COLOR,
+                },
+            },
         },
         MuiButton: {
             root: {
-                // textTransform: "none",
-                // padding: "20px"
+                "&:focus": {
+                    outline: "none",
+                },
             },
             fullWidth: {
                 // maxWidth: "300px"
             },
         },
-    },
-    props: {
-        MuiButton: {
-            //   disableRipple: true,
-            //   variant: "contained",
-            //   color: "primary"
-        },
-        MuiCheckbox: {
-            //   disableRipple: true
-        },
-        MuiTextField: {
-            variant: "filled",
-            InputLabelProps: {
-                shrink: true,
+        MuiInputLabel: {
+            root: {
+                color: ACCENT_COLOR,
             },
         },
-        MuiPaper: {
-            //   elevation: 12
-        },
-        MuiCard: {
-            elevation: 1,
-        },
     },
+    //         fullWidth: {
+    //             width: "600px",
+    //         },
+    //     },
+    //     MuiInputLabel: {
+    //         root: {
+    //             color: ACCENT_COLOR,
+    //         },
+    //     },
+    //     MuiTextField: {
+    //         root: {},
+    //     },
+    //     MuiButton: {
+    //         root: {
+    //             // textTransform: "none",
+    //             // padding: "20px"
+    //         },
+    //         fullWidth: {
+    //             // maxWidth: "300px"
+    //         },
+    //     },
+    // },
+    // props: {
+    //     MuiButton: {
+    //         //   disableRipple: true,
+    //         //   variant: "contained",
+    //         //   color: "primary"
+    //     },
+    //     MuiCheckbox: {
+    //         //   disableRipple: true
+    //     },
+    //     MuiTextField: {
+    //         variant: "filled",
+    //         InputLabelProps: {
+    //             shrink: true,
+    //         },
+    //     },
+    //     MuiPaper: {
+    //         //   elevation: 12
+    //     },
+    //     MuiCard: {
+    //         elevation: 1,
+    //     },
+    // },
 });

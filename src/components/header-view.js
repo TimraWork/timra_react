@@ -16,7 +16,9 @@ import {
     FormControlLabel,
     FormControl,
     IconButton,
+    Button,
 } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
 const HeaderView = () => {
     return (
@@ -50,6 +52,10 @@ const HeaderView = () => {
                             inputProps={{ "aria-label": "search" }}
                         />
                     </div>
+
+                    <Button component={NavLink} to="/login/">
+                        Войти
+                    </Button>
 
                     <FormControl component="fieldset">
                         <FormGroup aria-label="position" row>

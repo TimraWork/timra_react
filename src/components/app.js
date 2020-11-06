@@ -11,6 +11,7 @@ import GistsPage from "./pages/gists";
 import BlogPage from "./pages/blog";
 import AboutPage from "./pages/about";
 import PasswordsPage from "./pages/passwords";
+import LoginPage from "./pages/login";
 
 import SwapiService from "../swapi-service";
 import { SwapiProvider } from "../components/context/swapi-context";
@@ -61,6 +62,7 @@ export default class App extends Component {
                                     exact
                                     component={PasswordsPage}
                                 />
+                                <Route path="/login/" component={LoginPage} />
                                 <Redirect to="/" />
                                 {/* <Route render={() => <h2>404</h2>} /> */}
                             </Switch>
