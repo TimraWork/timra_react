@@ -60,9 +60,19 @@ export default class App extends Component {
                                 <Route
                                     path="/passwords"
                                     exact
-                                    component={PasswordsPage}
+                                    render={() => (
+                                        <PasswordsPage isLoggedIn={false} />
+                                    )}
                                 />
-                                <Route path="/login/" component={LoginPage} />
+                                <Route
+                                    path="/login/"
+                                    render={() => (
+                                        <LoginPage
+                                            isLoggedIn={false}
+                                            onLogin={() => {}}
+                                        />
+                                    )}
+                                />
                                 <Redirect to="/" />
                                 {/* <Route render={() => <h2>404</h2>} /> */}
                             </Switch>

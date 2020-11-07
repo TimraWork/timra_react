@@ -13,17 +13,19 @@ const useStyles = makeStyles((theme) => ({
     // },
 }));
 
-const LoginPage = () => {
+const LoginPage = ({ isLoggedIn, onLogin }) => {
     const classes = useStyles();
     return (
         <Grid container justify="center" className={classes.root}>
             <form>
-                <h2 classList="text-center">Войти</h2>
+                <h2 className="text-center">Войти</h2>
                 <TextField label="Логин" />
                 <br />
                 <TextField type="password" label="Пароль" />
                 <br />
-                <Button fullWidth={true}>Отправить</Button>
+                <Button fullWidth={true} onClick={onLogin}>
+                    Отправить
+                </Button>
             </form>
         </Grid>
     );
