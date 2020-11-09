@@ -26,8 +26,17 @@ import {
 
 export default class App extends Component {
     swapiService = new SwapiService();
+    state = {
+        isLoggedIn: false,
+    };
 
+    onLogin = () => {
+        this.setState({
+            isLoggedIn: true,
+        });
+    };
     render() {
+        const { isLoggedIn } = this.state;
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
@@ -61,15 +70,17 @@ export default class App extends Component {
                                     path="/passwords"
                                     exact
                                     render={() => (
-                                        <PasswordsPage isLoggedIn={false} />
+                                        <PasswordsPage
+                                            isLoggedIn={isLoggedIn}
+                                        />
                                     )}
                                 />
                                 <Route
                                     path="/login/"
                                     render={() => (
                                         <LoginPage
-                                            isLoggedIn={false}
-                                            onLogin={() => {}}
+                                            isLoggedIn={isLoggedIn}
+                                            onLogin={this.onLogin}
                                         />
                                     )}
                                 />

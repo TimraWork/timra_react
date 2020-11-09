@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginPage = ({ isLoggedIn, onLogin }) => {
+    console.log(onLogin);
     const classes = useStyles();
     return (
         <Grid container justify="center" className={classes.root}>

@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default class SwapiService {
     _apiPosts = `https://timra.ru/timra/wp-json/wp/v2`;
+    _apiAuth = `https://example.com/wp-json/jwt-auth/v1/token`;
     _apiGists = `https://api.github.com/users/TimraWork/gists`;
     _apiGist = `https://api.github.com/gists`;
 
@@ -23,6 +24,8 @@ export default class SwapiService {
         );
         return posts.map(this._transformPosts);
     };
+
+    auth = async (login, password) => {};
 
     _formatDate = (date) => {
         return date.slice(0, -9).split("-").reverse().join(".");
