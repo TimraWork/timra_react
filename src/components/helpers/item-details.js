@@ -1,4 +1,5 @@
 import ItemDetailsView from "../item-details-view";
+import LoginDetailsView from "../login-view";
 import withData from "../hoc/with-data";
 import withSwapiService from "../hoc/with-swapi-context";
 
@@ -20,6 +21,12 @@ const mapGistMethodsToProps = (swapiService) => {
     };
 };
 
+const mapLoginToProps = (swapiService) => {
+    return {
+        getData: swapiService.getToken,
+    };
+};
+
 const AboutDetails = withSwapiService(
     withData(ItemDetailsView),
     mapAboutMethodsToProps
@@ -35,4 +42,9 @@ const GistDetails = withSwapiService(
     mapGistMethodsToProps
 );
 
-export { GistDetails, PostDetails, AboutDetails };
+const LoginDetails = withSwapiService(
+    withData(LoginDetailsView),
+    mapLoginToProps
+);
+
+export { GistDetails, PostDetails, AboutDetails, LoginDetails };

@@ -15,10 +15,6 @@ class GistsPage extends Component {
 
     onItemListClicked = (id) => {
         const { history } = this.props;
-        // this.setState({
-        //     gistId: id,
-        // });
-
         history.push(`${id}`);
     };
 

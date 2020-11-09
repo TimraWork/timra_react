@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default class SwapiService {
     _apiPosts = `https://timra.ru/timra/wp-json/wp/v2`;
-    _apiAuth = `https://example.com/wp-json/jwt-auth/v1/token`;
+    _apiAuth = `https://timra.ru/timra/wp-json/jwt-auth/v1/token`;
     _apiGists = `https://api.github.com/users/TimraWork/gists`;
     _apiGist = `https://api.github.com/gists`;
 
@@ -10,11 +10,22 @@ export default class SwapiService {
 
     _postsParameters = `_embed&per_page=4&page=1`;
     _catsParameters = `orderby=count&order=desc&exclude=1&per_page=4&page=1`;
-    _gistsParameters = `page=1&per_page=4`;
+    _gistsParameters = `page=1&per_page=2`;
 
     _getResource = async (url, api) => {
         api = api || this._apiPosts;
         const res = await fetch(`${api}${url}`);
+        return await res.json();
+    };
+
+    _getResource2 = async (url, api) => {
+        api = api || this._apiPosts;
+        const res = await fetch(`${api}${url}`, {
+            headers: new Headers({
+                Authorization: "Bearer " + btoa("timra_elmira:mer389gtr86"),
+                "Content-Type": "application/json",
+            }),
+        });
         return await res.json();
     };
 
@@ -25,7 +36,10 @@ export default class SwapiService {
         return posts.map(this._transformPosts);
     };
 
-    auth = async (login, password) => {};
+    getToken = async () => {
+        const token = await this._getResource2(``, this._apiAuth);
+        console.log(`token = `, token);
+    };
 
     _formatDate = (date) => {
         return date.slice(0, -9).split("-").reverse().join(".");
@@ -34,9 +48,9 @@ export default class SwapiService {
     _transformPosts = ({ id, title, _embedded, date, excerpt }) => {
         return {
             id: id,
-            img:
-                _embedded["wp:featuredmedia"][0]["source_url"] ||
-                this._pushImageUrl,
+            img: _embedded["wp:featuredmedia"]
+                ? _embedded["wp:featuredmedia"][0]["source_url"]
+                : this._pushImageUrl,
             title: title["rendered"],
             date: this._formatDate(date),
             excerpt: excerpt["rendered"],

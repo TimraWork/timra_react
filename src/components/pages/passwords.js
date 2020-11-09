@@ -3,7 +3,7 @@ import { AboutDetails } from "../helpers/item-details";
 import { Redirect } from "react-router-dom";
 
 const PasswordsPage = ({ isLoggedIn }) => {
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
     if (isLoggedIn) {
         return <AboutDetails pageId="2075" />;
     }
