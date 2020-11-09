@@ -20,12 +20,21 @@ export default class SwapiService {
 
     _getResource2 = async (url, api) => {
         api = api || this._apiPosts;
-        const res = await fetch(`${api}${url}`, {
-            headers: new Headers({
-                Authorization: "Bearer " + btoa("timra_elmira:mer389gtr86"),
-                "Content-Type": "application/json",
-            }),
-        });
+        const res = await fetch(
+            `https://timra.ru/timra/wp-json/jwt-auth/v1/token`,
+            {
+                method: "POST",
+                // body: 'username=timra_elmira&password=mer389gtr86'
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: "timra",
+                    password: "123",
+                }),
+            }
+        );
         return await res.json();
     };
 
