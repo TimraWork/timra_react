@@ -19,10 +19,6 @@ const LINKS = [
         name: "Обо мне",
         path: "/about/",
     },
-    {
-        name: "Пароли",
-        path: "/passwords/",
-    },
 ];
 
 const Nav = () => {

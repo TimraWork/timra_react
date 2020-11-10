@@ -3,14 +3,14 @@ import {
     Button,
     Grid,
     IconButton,
-    Input,
     InputAdornment,
     TextField,
 } from "@material-ui/core";
 
-import { AccountCircle, Visibility, VisibilityOff } from "@material-ui/icons";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 import withSwapiContext from "../hoc/with-swapi-context";
+import { Redirect } from "react-router-dom";
 
 const mapLoginToProps = (swapiService) => {
     return {
@@ -19,6 +19,10 @@ const mapLoginToProps = (swapiService) => {
 };
 
 class LoginPage extends Component {
+    // <LoginPage
+    //                                         isLoggedIn={isLoggedIn}
+    //                                         onLogin={this.onLogin}
+    //                                     />
     state = {
         data: null,
         login: "",
@@ -32,40 +36,6 @@ class LoginPage extends Component {
         this.setState({ [evt.target.name]: evt.target.value });
     };
 
-    onDataLoaded = (data) => {
-        console.log(`data.token = `, data.token);
-        this.setState({
-            data,
-            loading: false,
-            error: false,
-        });
-    };
-
-    onError = (err) => {
-        console.log(`err = `, err);
-        this.setState({
-            error: err,
-            loading: false,
-        });
-    };
-
-    handleOnClick = (evt) => {
-        evt.preventDefault();
-        this.setState(
-            {
-                loading: true,
-            },
-            () => {
-                const { login, password } = this.state;
-                console.log("login, password = ", login, password);
-                this.props
-                    .getData(login, password)
-                    .then(this.onDataLoaded)
-                    .catch(this.onError);
-            }
-        );
-    };
-
     handleClickShowPassword = () => {
         this.setState({
             showPassword: !this.state.showPassword,
@@ -73,7 +43,12 @@ class LoginPage extends Component {
     };
 
     render() {
+        // console.log(this.state.data.token);
+        const { onLogin, isLoggedIn } = this.props;
         const { login, password, showPassword } = this.state;
+        if (isLoggedIn || localStorage.getItem("token")) {
+            return <Redirect to="/" />;
+        }
         return (
             <Grid container justify="center">
                 <form>
@@ -110,7 +85,12 @@ class LoginPage extends Component {
                         value={password}
                     />
                     <br />
-                    <Button fullWidth={true} onClick={this.handleOnClick}>
+                    <Button
+                        fullWidth={true}
+                        onClick={() =>
+                            onLogin(this.props.getData(login, password))
+                        }
+                    >
                         Отправить
                     </Button>
                 </form>

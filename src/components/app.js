@@ -30,10 +30,38 @@ export default class App extends Component {
         isLoggedIn: false,
     };
 
-    onLogin = () => {
-        this.setState({
-            isLoggedIn: true,
-        });
+    componentDidMount = () => {
+        if (localStorage.getItem("token")) {
+            this.setState({
+                isLoggedIn: true,
+            });
+        }
+    };
+
+    onLogin = (data) => {
+        console.log("onLoginData = ", data);
+        if (data !== undefined) {
+            data.then((swapiData) => {
+                if (swapiData.token) {
+                    localStorage.setItem("token", swapiData.token);
+                    this.setState({
+                        isLoggedIn: true,
+                    });
+                } else {
+                    localStorage.removeItem("token");
+                    this.setState({
+                        isLoggedIn: false,
+                    });
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        } else {
+            localStorage.removeItem("token");
+            this.setState({
+                isLoggedIn: false,
+            });
+        }
     };
     render() {
         const { isLoggedIn } = this.state;
@@ -41,7 +69,7 @@ export default class App extends Component {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Router>
-                    <Header />
+                    <Header isLoggedIn={isLoggedIn} onLogin={this.onLogin} />
                     <Container maxWidth="xl" style={{ padding: 40 }}>
                         <SwapiProvider value={this.swapiService}>
                             <Switch>

@@ -3,8 +3,7 @@ import React from "react";
 import Logo from "../assets/img/logo.png";
 import Nav from "./nav";
 
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
+import { Menu, Search, AddCircle, VpnKey } from "@material-ui/icons";
 
 import {
     Container,
@@ -20,7 +19,8 @@ import {
 } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 
-const HeaderView = () => {
+const HeaderView = ({ isLoggedIn, onLogin }) => {
+    console.log("Header", isLoggedIn);
     return (
         <header>
             <Container maxWidth="xl">
@@ -45,7 +45,7 @@ const HeaderView = () => {
 
                     <div className="searchBox">
                         <div className="searchIcon">
-                            <SearchIcon />
+                            <Search />
                         </div>
                         <InputBase
                             placeholder="Search…"
@@ -53,9 +53,45 @@ const HeaderView = () => {
                         />
                     </div>
 
-                    <Button component={NavLink} to="/login/">
-                        Войти
-                    </Button>
+                    {isLoggedIn ? (
+                        <React.Fragment>
+                            <IconButton
+                                color="primary"
+                                aria-label="timra.ru/timra"
+                                onClick={() =>
+                                    window.open(
+                                        "https://timra.ru/timra/wp-admin/post-new.php",
+                                        "_blank"
+                                    )
+                                }
+                            >
+                                <AddCircle />
+                            </IconButton>
+                            <IconButton
+                                color="primary"
+                                aria-label="timra.ru/timra"
+                                onClick={() =>
+                                    window.open(
+                                        "https://timra.ru/timra/paroli-pass/",
+                                        "_blank"
+                                    )
+                                }
+                            >
+                                <VpnKey />
+                            </IconButton>
+                            <Button
+                                component={NavLink}
+                                to="/login/"
+                                onClick={() => onLogin()}
+                            >
+                                Выйти
+                            </Button>
+                        </React.Fragment>
+                    ) : (
+                        <Button component={NavLink} to="/login/">
+                            Войти
+                        </Button>
+                    )}
 
                     <FormControl component="fieldset">
                         <FormGroup aria-label="position" row>
@@ -71,7 +107,7 @@ const HeaderView = () => {
 
                     <Hidden mdUp>
                         <IconButton>
-                            <MenuIcon />
+                            <Menu />
                         </IconButton>
                     </Hidden>
                 </Grid>
