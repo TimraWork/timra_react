@@ -12,29 +12,9 @@ export default class SwapiService {
     _catsParameters = `orderby=count&order=desc&exclude=1&per_page=4&page=1`;
     _gistsParameters = `page=1&per_page=2`;
 
-    _getResource = async (url, api) => {
+    _getResource = async (url, api, params = {}) => {
         api = api || this._apiPosts;
-        const res = await fetch(`${api}${url}`);
-        return await res.json();
-    };
-
-    _getResource2 = async (url, api) => {
-        api = api || this._apiPosts;
-        const res = await fetch(
-            `https://timra.ru/timra/wp-json/jwt-auth/v1/token`,
-            {
-                method: "POST",
-                // body: 'username=timra_elmira&password=mer389gtr86'
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: "timra",
-                    password: "123",
-                }),
-            }
-        );
+        const res = await fetch(`${api}${url}`, params);
         return await res.json();
     };
 
@@ -45,9 +25,20 @@ export default class SwapiService {
         return posts.map(this._transformPosts);
     };
 
-    getToken = async () => {
-        const token = await this._getResource2(``, this._apiAuth);
-        console.log(`token = `, token);
+    getToken = async (login, password) => {
+        console.log("getToken = ", login, password);
+        const tokenParams = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: login,
+                password: password,
+            }),
+        };
+        const token = await this._getResource(``, this._apiAuth, tokenParams);
+        return token;
     };
 
     _formatDate = (date) => {
