@@ -24,6 +24,10 @@ button {
     // font-family: 'Jura', sans-serif;
 }
 
+button:focus {
+    outline: none !important;
+}
+
 .MuiInput-underline:hover:not(.Mui-disabled):before {
     border-bottom: 2px solid $accent !important;
 }

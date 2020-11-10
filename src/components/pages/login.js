@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Button, Grid, TextField } from "@material-ui/core";
+import {
+    Button,
+    Grid,
+    IconButton,
+    Input,
+    InputAdornment,
+    TextField,
+} from "@material-ui/core";
+
+import { AccountCircle, Visibility, VisibilityOff } from "@material-ui/icons";
 
 import withSwapiContext from "../hoc/with-swapi-context";
 
@@ -16,6 +25,7 @@ class LoginPage extends Component {
         password: "",
         loading: false,
         error: false,
+        showPassword: false,
     };
 
     handleOnChange = (evt) => {
@@ -56,8 +66,14 @@ class LoginPage extends Component {
         );
     };
 
+    handleClickShowPassword = () => {
+        this.setState({
+            showPassword: !this.state.showPassword,
+        });
+    };
+
     render() {
-        const { login, password } = this.state;
+        const { login, password, showPassword } = this.state;
         return (
             <Grid container justify="center">
                 <form>
@@ -71,7 +87,23 @@ class LoginPage extends Component {
                     />
                     <br />
                     <TextField
-                        type="password"
+                        type={showPassword ? "text" : "password"}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                    >
+                                        {showPassword ? (
+                                            <Visibility />
+                                        ) : (
+                                            <VisibilityOff />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                         label="Пароль"
                         onChange={this.handleOnChange}
                         name="password"
