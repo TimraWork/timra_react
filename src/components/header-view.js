@@ -20,7 +20,6 @@ import {
 import { NavLink } from "react-router-dom";
 
 const HeaderView = ({ isLoggedIn, onLogin }) => {
-    console.log("Header", isLoggedIn);
     return (
         <header>
             <Container maxWidth="xl">

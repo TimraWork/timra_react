@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import ErrorBoundry from "../error-boundry";
-
 import Row from "../../utils/row";
 
 import { PostList, CatList } from "../helpers/item-lists";
@@ -19,7 +17,7 @@ class BlogPage extends Component {
     };
 
     onCatsClicked = (id) => {
-        console.log("console.log = ", id);
+        // console.log("console.log = ", id);
     };
 
     render() {
@@ -40,9 +38,7 @@ class BlogPage extends Component {
         return (
             <React.Fragment>
                 <h2>Блог</h2>
-                <ErrorBoundry>
-                    <Row left={postsList} right={catsList}></Row>
-                </ErrorBoundry>
+                <Row left={postsList} right={catsList}></Row>
             </React.Fragment>
         );
     }

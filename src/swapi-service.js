@@ -1,14 +1,19 @@
 import { v4 as uuidv4 } from "uuid";
 
 export default class SwapiService {
-    _apiPosts = `https://timra.ru/timra/wp-json/wp/v2`;
-    _apiAuth = `https://timra.ru/timra/wp-json/jwt-auth/v1/token`;
+    _siteUrl = "https://timra.ru/timra";
+
+    _apiPosts = `${this._siteUrl}/wp-json/wp/v2`;
+    _postEditUrl = `${this._siteUrl}/wp-admin/post.php?post=`;
+
+    _apiAuth = `${this._siteUrl}/wp-json/jwt-auth/v1/token`;
+    _pushImageUrl = `${this._siteUrl}/wp-content/uploads/2020/05/727.png`;
+
     _apiGists = `https://api.github.com/users/TimraWork/gists`;
     _apiGist = `https://api.github.com/gists`;
 
-    _pushImageUrl = `http://timra.ru/timra/wp-content/uploads/2020/05/727.png`;
-
     _postsParameters = `_embed&per_page=4&page=1`;
+    _postEditParameters = `&action=edit`;
     _catsParameters = `orderby=count&order=desc&exclude=1&per_page=4&page=1`;
     _gistsParameters = `page=1&per_page=2`;
 
@@ -67,6 +72,7 @@ export default class SwapiService {
             id,
             title: title["rendered"],
             excerpt: content["rendered"],
+            edit: this._postEditUrl + id + this._postEditParameters,
         };
     };
 
@@ -81,8 +87,9 @@ export default class SwapiService {
     };
 
     _transformWork = ({ works_name, works_date, works_link, works_img }) => {
+        const id = uuidv4();
         return {
-            id: uuidv4(),
+            id,
             title: works_name,
             date: works_date,
             url: works_link,

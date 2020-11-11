@@ -10,11 +10,11 @@ import WorksPage from "./pages/works";
 import GistsPage from "./pages/gists";
 import BlogPage from "./pages/blog";
 import AboutPage from "./pages/about";
-import PasswordsPage from "./pages/passwords";
 import LoginPage from "./pages/login";
 
 import SwapiService from "../swapi-service";
 import { SwapiProvider } from "../components/context/swapi-context";
+import { LoginProvider } from "../components/context/login-context";
 import { PostDetails } from "../components/helpers/item-details";
 
 import {
@@ -68,56 +68,64 @@ export default class App extends Component {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Router>
-                    <Header isLoggedIn={isLoggedIn} onLogin={this.onLogin} />
-                    <Container maxWidth="xl" style={{ padding: 40 }}>
-                        <SwapiProvider value={this.swapiService}>
-                            <Switch>
-                                <Route path="/" exact component={BlogPage} />
-                                <Route path="/about" component={AboutPage} />
-                                <Route
-                                    path="/blog"
-                                    exact
-                                    component={BlogPage}
-                                />
-                                <Route
-                                    path="/blog/:id"
-                                    render={({ match: { params } }) => {
-                                        return (
-                                            <PostDetails pageId={params.id} />
-                                        );
-                                    }}
-                                />
-                                <Route path="/works" component={WorksPage} />
-                                <Route
-                                    path="/gists/:id?"
-                                    exact
-                                    component={GistsPage}
-                                />
-                                <Route
-                                    path="/passwords"
-                                    exact
-                                    render={() => (
-                                        <PasswordsPage
-                                            isLoggedIn={isLoggedIn}
-                                        />
-                                    )}
-                                />
-                                <Route
-                                    path="/login/"
-                                    render={() => (
-                                        <LoginPage
-                                            isLoggedIn={isLoggedIn}
-                                            onLogin={this.onLogin}
-                                        />
-                                    )}
-                                />
-                                <Redirect to="/" />
-                                {/* <Route render={() => <h2>404</h2>} /> */}
-                            </Switch>
-                        </SwapiProvider>
-                    </Container>
-                </Router>
+                <LoginProvider value={isLoggedIn}>
+                    <Router>
+                        <Header
+                            isLoggedIn={isLoggedIn}
+                            onLogin={this.onLogin}
+                        />
+                        <Container maxWidth="xl" style={{ padding: 40 }}>
+                            <SwapiProvider value={this.swapiService}>
+                                <Switch>
+                                    <Route
+                                        path="/"
+                                        exact
+                                        component={BlogPage}
+                                    />
+                                    <Route
+                                        path="/about"
+                                        component={AboutPage}
+                                    />
+                                    <Route
+                                        path="/blog"
+                                        exact
+                                        component={BlogPage}
+                                    />
+                                    <Route
+                                        path="/blog/:id"
+                                        render={({ match: { params } }) => {
+                                            return (
+                                                <PostDetails
+                                                    pageId={params.id}
+                                                />
+                                            );
+                                        }}
+                                    />
+                                    <Route
+                                        path="/works"
+                                        component={WorksPage}
+                                    />
+                                    <Route
+                                        path="/gists/:id?"
+                                        exact
+                                        component={GistsPage}
+                                    />
+                                    <Route
+                                        path="/login/"
+                                        render={() => (
+                                            <LoginPage
+                                                isLoggedIn={isLoggedIn}
+                                                onLogin={this.onLogin}
+                                            />
+                                        )}
+                                    />
+                                    <Redirect to="/" />
+                                    {/* <Route render={() => <h2>404</h2>} /> */}
+                                </Switch>
+                            </SwapiProvider>
+                        </Container>
+                    </Router>
+                </LoginProvider>
                 <Footer />
             </ThemeProvider>
         );

@@ -1,7 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 import PreloaderView from "../preloader-view";
 import ErrorView from "../error-view";
+
+import { LoginConsumer } from "../context/login-context";
+import { IconButton } from "@material-ui/core";
+import { Edit } from "@material-ui/icons";
 
 const withData = (View) => {
     return class withData extends Component {
@@ -59,7 +63,30 @@ const withData = (View) => {
 
             const content =
                 !(loading || error) && data ? (
-                    <View data={data} {...this.props} />
+                    <LoginConsumer>
+                        {(value) => {
+                            const contentView =
+                                value && data.edit ? (
+                                    <Fragment>
+                                        <IconButton
+                                            color="primary"
+                                            onClick={() =>
+                                                window.open(
+                                                    `${data.edit}`,
+                                                    "_blank"
+                                                )
+                                            }
+                                        >
+                                            <Edit />
+                                        </IconButton>
+                                        <View data={data} {...this.props} />
+                                    </Fragment>
+                                ) : (
+                                    <View data={data} {...this.props} />
+                                );
+                            return contentView;
+                        }}
+                    </LoginConsumer>
                 ) : null;
             return (
                 <React.Fragment>
