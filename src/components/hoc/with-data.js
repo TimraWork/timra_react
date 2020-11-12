@@ -50,6 +50,8 @@ const withData = (View) => {
         }
 
         componentDidUpdate(prevProps) {
+            console.log(`With Data Props`, this.props);
+
             if (this.props.pageId !== prevProps.pageId) {
                 this.updateData();
             }

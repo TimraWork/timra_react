@@ -1,28 +1,39 @@
 import React, { Component } from "react";
 
-import ErrorBoundry from "../error-boundry";
-
-import Row from "../../utils/row";
-
 import { WorkList } from "../helpers/item-lists";
+import { Chip, Grid } from "@material-ui/core";
 class WorksPage extends Component {
     state = {
-        pageId: `9662`,
+        currentCat: `All`,
+    };
+
+    handleOnClick = (evt) => {
+        this.setState({
+            currentCat: evt.target.textContent,
+        });
     };
 
     render() {
-        const worksList = (
-            <WorkList
-                pageId={this.state.pageId}
-            />
-        );
-
         return (
             <React.Fragment>
                 <h2>Работы</h2>
-                <ErrorBoundry>
-                    <Row left={worksList} filter="true"></Row>
-                </ErrorBoundry>
+                <Grid container justify="center" style={{ minHeight: "6vh" }}>
+                    {["All", "Wordpress", "Frontend"].map((el) => {
+                        return (
+                            <Chip
+                                key={el}
+                                color={
+                                    this.state.currentCat === el
+                                        ? "primary"
+                                        : "default"
+                                }
+                                label={el}
+                                onClick={this.handleOnClick}
+                            />
+                        );
+                    })}
+                </Grid>
+                <WorkList pageId="9662" category={this.state.currentCat} />
             </React.Fragment>
         );
     }

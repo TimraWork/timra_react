@@ -4,10 +4,13 @@ import withChildFunction from "../hoc/with-child-function";
 import withSwapiService from "../hoc/with-swapi-context";
 
 const renderGistTitle = (item) => `${item.title}`;
+
 const renderPostExcerpt = (item) =>
     `<img src="${item.img}" style="max-height: 100px;" alt=""/><div>${item.title}</div><div class="date">(${item.date})</div>`;
+
 const renderCatExcerpt = (item) =>
     `<img src="${item.img}" style="max-height: 100px;" alt=""/><div>${item.title}</div>`;
+
 const renderWorkExcerpt = (item) =>
     `<img src="${item.img}" style="max-height: 100px;" alt=""/><div><a href="${item.url}" target="_blank">${item.title}</a></div>`;
 

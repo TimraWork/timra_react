@@ -47,11 +47,6 @@ export default class App extends Component {
                     this.setState({
                         isLoggedIn: true,
                     });
-                } else {
-                    localStorage.removeItem("token");
-                    this.setState({
-                        isLoggedIn: false,
-                    });
                 }
             }).catch((err) => {
                 console.log(err);

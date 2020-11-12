@@ -14,7 +14,7 @@ export default class SwapiService {
 
     _postsParameters = `_embed&per_page=4&page=1`;
     _postEditParameters = `&action=edit`;
-    _catsParameters = `orderby=count&order=desc&exclude=1&per_page=4&page=1`;
+    _catsParameters = `orderby=count&order=desc&exclude=1&per_page=6&page=1`;
     _gistsParameters = `page=1&per_page=2`;
 
     _getResource = async (url, api, params = {}) => {
@@ -31,7 +31,6 @@ export default class SwapiService {
     };
 
     getToken = async (login, password) => {
-        console.log("getToken = ", login, password);
         const tokenParams = {
             method: "POST",
             headers: {
@@ -83,7 +82,7 @@ export default class SwapiService {
 
     getWorks = async (id) => {
         const works = await this._getResource(`/pages/${id}`);
-        return works.acf.works.map(this._transformWork).slice(0, 4);
+        return works.acf.works.map(this._transformWork);
     };
 
     _transformWork = ({ works_name, works_date, works_link, works_img }) => {
