@@ -9,18 +9,18 @@ import {
 
 const ItemView = ({ label, onItemListClicked }) => {
     return (
-            <Card height="100%" onClick={onItemListClicked}>
-                <CardActionArea>
-                    <CardContent>
-                        <Typography
-                            variant="body2"
-                            color="textPrimary"
-                            dangerouslySetInnerHTML={{ __html: label }}
-                        ></Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        );
-}
+        <Card height="100%" onClick={onItemListClicked}>
+            <CardActionArea>
+                <CardContent>
+                    <Typography
+                        variant="body2"
+                        color="textPrimary"
+                        dangerouslySetInnerHTML={{ __html: label }}
+                    ></Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    );
+};
 
 export default ItemView;

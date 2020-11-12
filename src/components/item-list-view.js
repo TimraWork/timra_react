@@ -1,29 +1,33 @@
 import React from "react";
 
-import Grid from "@material-ui/core/Grid";
+import { Fade, Grid, Grow } from "@material-ui/core";
 
 import Item from "./item-view";
+import { TransitionGroup } from "react-transition-group";
 
 const ItemListView = ({ data, onItemListClicked, children }) => {
     return (
-        <Grid container spacing={3}>
-            {data.map((item) => {
-                const { id } = item;
-                const label = children(item);
-
-                return (
-                    <React.Fragment key={id}>
-                        <Grid item xl={6} md={6} key={id}>
-                            <Item
-                                label={label}
-                                id={id}
-                                onItemListClicked={() => onItemListClicked(id)}
-                            />
-                        </Grid>
-                    </React.Fragment>
-                );
-            })}
-        </Grid>
+        <Fade in="true" timeout={1200}>
+            <TransitionGroup component={Grid} container spacing={3}>
+                {data.map((item, index) => {
+                    const { id } = item;
+                    const label = children(item);
+                    return (
+                        <Grow in="true" timeout={800}>
+                            <Grid item xl={4} md={4}>
+                                <Item
+                                    label={label}
+                                    id={id}
+                                    onItemListClicked={() =>
+                                        onItemListClicked(id)
+                                    }
+                                />
+                            </Grid>
+                        </Grow>
+                    );
+                })}
+            </TransitionGroup>
+        </Fade>
     );
 };
 

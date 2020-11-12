@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { WorkList } from "../helpers/item-lists";
 import { Chip, Grid } from "@material-ui/core";
+
 class WorksPage extends Component {
     state = {
         currentCat: `All`,

@@ -82,9 +82,9 @@ const withData = (View) => {
             const content =
                 !(loading || error) && data ? (
                     <LoginConsumer>
-                        {(value) => {
+                        {(loggedIn) => {
                             const contentView =
-                                value && data.edit ? (
+                                loggedIn && data.edit ? (
                                     <Fragment>
                                         <IconButton
                                             color="primary"
