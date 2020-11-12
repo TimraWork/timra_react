@@ -85,7 +85,14 @@ export default class SwapiService {
         return works.acf.works.map(this._transformWork);
     };
 
-    _transformWork = ({ works_name, works_date, works_link, works_img }) => {
+    _transformWork = ({
+        works_name,
+        works_date,
+        works_link,
+        works_img,
+        works_category,
+        tegi,
+    }) => {
         const id = uuidv4();
         return {
             id,
@@ -93,6 +100,8 @@ export default class SwapiService {
             date: works_date,
             url: works_link,
             img: works_img.url,
+            category: works_category,
+            tags: tegi,
         };
     };
 

@@ -12,7 +12,11 @@ const renderCatExcerpt = (item) =>
     `<img src="${item.img}" style="max-height: 100px;" alt=""/><div>${item.title}</div>`;
 
 const renderWorkExcerpt = (item) =>
-    `<img src="${item.img}" style="max-height: 100px;" alt=""/><div><a href="${item.url}" target="_blank">${item.title}</a></div>`;
+    `<img src="${item.img}" style="max-height: 100px;" alt=""/><div>
+    <a href="${item.url}" target="_blank">${item.title}</a>
+    <div>Категория - ${item.category}</div>
+    <div>Теги - ${item.tags.map((el) => el)}</div>
+    </div>`;
 
 const mapGistsMethodsToProps = (swapiService) => {
     return {

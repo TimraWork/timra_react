@@ -18,20 +18,22 @@ class WorksPage extends Component {
             <React.Fragment>
                 <h2>Работы</h2>
                 <Grid container justify="center" style={{ minHeight: "6vh" }}>
-                    {["All", "Wordpress", "Frontend"].map((el) => {
-                        return (
-                            <Chip
-                                key={el}
-                                color={
-                                    this.state.currentCat === el
-                                        ? "primary"
-                                        : "default"
-                                }
-                                label={el}
-                                onClick={this.handleOnClick}
-                            />
-                        );
-                    })}
+                    {["All", "WordPress", "Jquery", "Vue", "React"].map(
+                        (el) => {
+                            return (
+                                <Chip
+                                    key={el}
+                                    color={
+                                        this.state.currentCat === el
+                                            ? "primary"
+                                            : "default"
+                                    }
+                                    label={el}
+                                    onClick={this.handleOnClick}
+                                />
+                            );
+                        }
+                    )}
                 </Grid>
                 <WorkList pageId="9662" category={this.state.currentCat} />
             </React.Fragment>

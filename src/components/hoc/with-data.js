@@ -32,6 +32,7 @@ const withData = (View) => {
         }
 
         onDataLoaded = (data) => {
+            this.data = data;
             this.setState({
                 data,
                 loading: false,
@@ -49,11 +50,26 @@ const withData = (View) => {
             getData(pageId).then(this.onDataLoaded).catch(this.onError);
         }
 
-        componentDidUpdate(prevProps) {
-            console.log(`With Data Props`, this.props);
+        filterData() {
+            const { category } = this.props;
 
+            const filteredData =
+                category === "All"
+                    ? this.data
+                    : this.data.filter((work) => work.category === category);
+
+            this.setState({
+                data: filteredData,
+            });
+        }
+
+        componentDidUpdate(prevProps) {
             if (this.props.pageId !== prevProps.pageId) {
                 this.updateData();
+            }
+
+            if (this.props.category !== prevProps.category) {
+                this.filterData();
             }
         }
 
