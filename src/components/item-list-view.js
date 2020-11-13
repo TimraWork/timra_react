@@ -13,7 +13,7 @@ const ItemListView = ({ data, onItemListClicked, children }) => {
                     const { id } = item;
                     const label = children(item);
                     return (
-                        <Grow in={true} timeout={800} key={index}>
+                        <Grow in={true} timeout={800} key={id}>
                             <Grid item xl={4} md={4}>
                                 <Item
                                     label={label}
