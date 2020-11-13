@@ -38,19 +38,20 @@ export default class App extends Component {
         }
     };
 
-    onLogin = (data) => {
-        console.log("onLoginData = ", data);
-        if (data !== undefined) {
-            data.then((swapiData) => {
-                if (swapiData.token) {
-                    localStorage.setItem("token", swapiData.token);
-                    this.setState({
-                        isLoggedIn: true,
-                    });
-                }
-            }).catch((err) => {
-                console.log(err);
-            });
+    onLogin = (loginToken) => {
+        if (loginToken !== undefined) {
+            loginToken
+                .then((swapiData) => {
+                    if (swapiData.token) {
+                        localStorage.setItem("token", swapiData.token);
+                        this.setState({
+                            isLoggedIn: true,
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         } else {
             localStorage.removeItem("token");
             this.setState({
@@ -63,64 +64,61 @@ export default class App extends Component {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <LoginProvider value={isLoggedIn}>
-                    <Router>
-                        <Header
-                            isLoggedIn={isLoggedIn}
-                            onLogin={this.onLogin}
-                        />
-                        <Container maxWidth="xl" style={{ padding: 40 }}>
-                            <SwapiProvider value={this.swapiService}>
-                                <Switch>
-                                    <Route
-                                        path="/"
-                                        exact
-                                        component={BlogPage}
-                                    />
-                                    <Route
-                                        path="/about"
-                                        component={AboutPage}
-                                    />
-                                    <Route
-                                        path="/blog"
-                                        exact
-                                        component={BlogPage}
-                                    />
-                                    <Route
-                                        path="/blog/:id"
-                                        render={({ match: { params } }) => {
-                                            return (
-                                                <PostDetails
-                                                    pageId={params.id}
+                <div className="content">
+                    <LoginProvider value={isLoggedIn}>
+                        <Router>
+                            <Header
+                                isLoggedIn={isLoggedIn}
+                                onLogin={this.onLogin}
+                            />
+                            <Container maxWidth="xl" style={{ padding: 40 }}>
+                                <SwapiProvider value={this.swapiService}>
+                                    <Switch>
+                                        <Route
+                                            path="/about"
+                                            component={AboutPage}
+                                        />
+                                        <Route
+                                            path="/blog"
+                                            exact
+                                            component={BlogPage}
+                                        />
+                                        <Route
+                                            path="/blog/:id"
+                                            render={({ match: { params } }) => {
+                                                return (
+                                                    <PostDetails
+                                                        pageId={params.id}
+                                                    />
+                                                );
+                                            }}
+                                        />
+                                        <Route
+                                            path="/works"
+                                            component={WorksPage}
+                                        />
+                                        <Route
+                                            path="/gists/:id?"
+                                            exact
+                                            component={GistsPage}
+                                        />
+                                        <Route
+                                            path="/login/"
+                                            render={() => (
+                                                <LoginPage
+                                                    isLoggedIn={isLoggedIn}
+                                                    onLogin={this.onLogin}
                                                 />
-                                            );
-                                        }}
-                                    />
-                                    <Route
-                                        path="/works"
-                                        component={WorksPage}
-                                    />
-                                    <Route
-                                        path="/gists/:id?"
-                                        exact
-                                        component={GistsPage}
-                                    />
-                                    <Route
-                                        path="/login/"
-                                        render={() => (
-                                            <LoginPage
-                                                isLoggedIn={isLoggedIn}
-                                                onLogin={this.onLogin}
-                                            />
-                                        )}
-                                    />
-                                    <Redirect to="/" />
-                                    {/* <Route render={() => <h2>404</h2>} /> */}
-                                </Switch>
-                            </SwapiProvider>
-                        </Container>
-                    </Router>
-                </LoginProvider>
+                                            )}
+                                        />
+                                        <Redirect to="/blog" />
+                                        {/* <Route render={() => <h2>404</h2>} /> */}
+                                    </Switch>
+                                </SwapiProvider>
+                            </Container>
+                        </Router>
+                    </LoginProvider>
+                </div>
                 <Footer />
             </ThemeProvider>
         );

@@ -1,11 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 import PreloaderView from "../preloader-view";
 import ErrorView from "../error-view";
 
-import { LoginConsumer } from "../context/login-context";
-import { IconButton } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import IconEditView from "../icon-edit-view";
 
 const withData = (View) => {
     return class withData extends Component {
@@ -75,37 +73,17 @@ const withData = (View) => {
 
         render() {
             const { data, loading, error } = this.state;
-
             const error_bl = error ? <ErrorView /> : null;
             const preloader = !data && loading ? <PreloaderView /> : null;
 
             const content =
                 !(loading || error) && data ? (
-                    <LoginConsumer>
-                        {(loggedIn) => {
-                            const contentView =
-                                loggedIn && data.edit ? (
-                                    <Fragment>
-                                        <IconButton
-                                            color="primary"
-                                            onClick={() =>
-                                                window.open(
-                                                    `${data.edit}`,
-                                                    "_blank"
-                                                )
-                                            }
-                                        >
-                                            <Edit />
-                                        </IconButton>
-                                        <View data={data} {...this.props} />
-                                    </Fragment>
-                                ) : (
-                                    <View data={data} {...this.props} />
-                                );
-                            return contentView;
-                        }}
-                    </LoginConsumer>
+                    <React.Fragment>
+                        {data.edit && <IconEditView link={data.edit} />}
+                        <View data={data} {...this.props} />
+                    </React.Fragment>
                 ) : null;
+
             return (
                 <React.Fragment>
                     {error_bl}

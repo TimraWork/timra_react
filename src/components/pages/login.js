@@ -19,10 +19,6 @@ const mapLoginToProps = (swapiService) => {
 };
 
 class LoginPage extends Component {
-    // <LoginPage
-    //                                         isLoggedIn={isLoggedIn}
-    //                                         onLogin={this.onLogin}
-    //                                     />
     state = {
         data: null,
         login: "",
@@ -43,7 +39,6 @@ class LoginPage extends Component {
     };
 
     render() {
-        // console.log(this.state.data.token);
         const { onLogin, isLoggedIn } = this.props;
         const { login, password, showPassword } = this.state;
         if (isLoggedIn || localStorage.getItem("token")) {

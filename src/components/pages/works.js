@@ -18,6 +18,9 @@ class WorksPage extends Component {
         return (
             <React.Fragment>
                 <h2>Работы</h2>
+
+                {/* {data.edit && <IconEditView link={data.edit} />} */}
+
                 <Grid container justify="center" style={{ minHeight: "6vh" }}>
                     {["All", "WordPress", "Jquery", "Vue", "React"].map(
                         (el) => {
@@ -36,6 +39,7 @@ class WorksPage extends Component {
                         }
                     )}
                 </Grid>
+
                 <WorkList pageId="9662" category={this.state.currentCat} />
             </React.Fragment>
         );
