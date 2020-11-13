@@ -7,6 +7,7 @@ import ErrorBoundry from "../error-boundry";
 import Row from "../../utils/row";
 
 import { withRouter } from "react-router-dom";
+import IconEditView from "../icon-edit-view";
 
 class GistsPage extends Component {
     state = {
@@ -33,6 +34,7 @@ class GistsPage extends Component {
 
         return (
             <ErrorBoundry>
+                <IconEditView link={`https://gist.github.com/`} />
                 <h2>Гисты</h2>
                 <Row left={gistsList} right={gistDetails}></Row>
             </ErrorBoundry>
