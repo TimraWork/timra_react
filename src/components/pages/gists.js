@@ -11,7 +11,7 @@ import IconEditView from "../icon-edit-view";
 
 class GistsPage extends Component {
     state = {
-        gistId: "e65d78cf4a641bfa6b5638d3fe71ef52",
+        gistId: "caf5c68c163ccd9c089b437d3a507d15",
         pageId: 1,
     };
 
@@ -21,16 +21,22 @@ class GistsPage extends Component {
     };
 
     render() {
+        const {
+            match: { params },
+        } = this.props;
+
+        const { gistId } = this.state;
+
         const gistsList = (
             <GistList
-                pageId={this.state.pageId}
+                pageId={gistId}
                 onItemListClicked={this.onItemListClicked}
             />
         );
 
-        const { match } = this.props;
-
-        const gistDetails = <GistDetails pageId={match.params.id} />;
+        const gistDetails = (
+            <GistDetails pageId={params.id ? params.id : gistId} />
+        );
 
         return (
             <ErrorBoundry>

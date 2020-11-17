@@ -41,6 +41,8 @@ const withData = (View) => {
         updateData() {
             const { pageId, getData } = this.props;
 
+            console.log(`this.props = `, this.props);
+
             if (!pageId) {
                 return;
             }

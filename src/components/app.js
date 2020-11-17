@@ -59,6 +59,7 @@ export default class App extends Component {
             });
         }
     };
+
     render() {
         const { isLoggedIn } = this.state;
         return (
@@ -78,11 +79,13 @@ export default class App extends Component {
                                             path="/about"
                                             component={AboutPage}
                                         />
+
                                         <Route
                                             path="/blog"
                                             exact
                                             component={BlogPage}
                                         />
+
                                         <Route
                                             path="/blog/:id"
                                             render={({ match: { params } }) => {
@@ -93,15 +96,18 @@ export default class App extends Component {
                                                 );
                                             }}
                                         />
+
                                         <Route
                                             path="/works"
                                             component={WorksPage}
                                         />
+
                                         <Route
                                             path="/gists/:id?"
                                             exact
                                             component={GistsPage}
                                         />
+
                                         <Route
                                             path="/login/"
                                             render={() => (
@@ -111,7 +117,9 @@ export default class App extends Component {
                                                 />
                                             )}
                                         />
+
                                         <Redirect to="/blog" />
+
                                         {/* <Route render={() => <h2>404</h2>} /> */}
                                     </Switch>
                                 </SwapiProvider>
